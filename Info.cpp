@@ -1,6 +1,7 @@
 #include "ETSIDI.h"
 #include "freeglut.h"
 
+//Prueba cambios
 
 //los callback, funciones que seran llamadas automaticamente por la glut
 //cuando sucedan eventos
