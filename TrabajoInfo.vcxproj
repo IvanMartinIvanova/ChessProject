@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -131,6 +131,28 @@
   <ItemGroup>
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
+    <ClCompile Include="src\cara.cpp" />
+    <ClCompile Include="src\circulos.cpp" />
+    <ClCompile Include="src\Color.cpp" />
+    <ClCompile Include="src\estela.cpp" />
+    <ClCompile Include="src\mundo.cpp" />
+    <ClCompile Include="src\particulas.cpp" />
+    <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\sprite.cpp" />
+    <ClCompile Include="src\Vector3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cara.h" />
+    <ClInclude Include="src\circulos.h" />
+    <ClInclude Include="src\Color.h" />
+    <ClInclude Include="src\estela.h" />
+    <ClInclude Include="src\mundo.h" />
+    <ClInclude Include="src\particulas.h" />
+    <ClInclude Include="src\plataforma.h" />
+    <ClInclude Include="src\Vector3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\sky_medow.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
