@@ -131,6 +131,14 @@
   <ItemGroup>
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
+    <ClCompile Include="src\peon.cpp" />
+    <ClCompile Include="src\pieza.cpp" />
+    <ClCompile Include="src\tablero.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\peon.h" />
+    <ClInclude Include="src\pieza.h" />
+    <ClInclude Include="src\tablero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
