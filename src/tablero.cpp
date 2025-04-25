@@ -16,8 +16,8 @@ Tablero::~Tablero() {
 void Tablero::inicializar() {
     // Solo algunos peones para empezar
     for (int x = 0; x < 8; x++) {
-        casillas[1][x] = new Peon(Color::NEGRO);//crea los peones blancos sin mas
-        casillas[6][x] = new Peon(Color::BLANCO);//crea los peones negros sin mas
+        casillas[1][x] = new Peon(Colorpieza::NEGRO);//crea los peones blancos sin mas
+        casillas[6][x] = new Peon(Colorpieza::BLANCO);//crea los peones negros sin mas
     }
 }
 
@@ -27,7 +27,7 @@ void Tablero::mostrar() {
             if (casillas[y][x] == nullptr)
                 std::cout << ". ";
             else
-                std::cout << (casillas[y][x]->getColor() == Color::BLANCO ? "B " : "N ");//comparador, lo unico que hace es ver si es blanco, si es blanco devuelbe B si no devuelve N
+                std::cout << (casillas[y][x]->getColor() == Colorpieza::BLANCO ? "B " : "N ");//comparador, lo unico que hace es ver si es blanco, si es blanco devuelbe B si no devuelve N
         }
         std::cout << std::endl;
     }

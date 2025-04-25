@@ -1,8 +1,11 @@
 #include "lib/freeglut.h"
 #include "lib/ETSIDI.h"
 #include "math.h"
+#include "mundo.h"
 #include "tablero.h"
 #include <iostream>
+
+
 
 int main() {
     Tablero tablero;
