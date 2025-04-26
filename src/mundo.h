@@ -5,7 +5,7 @@
 //#include "disparo.h"
 #include "plataforma.h"
 #include "estela.h"
-//#include "ETSIDI.h"
+#include "ETSIDI.h"
 
 using uchar = unsigned char;
 
@@ -19,9 +19,12 @@ private:
 	//Hombre hombre;
 	//Caja caja;
 	//Bonus bonus;
-	Plataforma plataforma{ {5,5,5},{3,3,3},{(uchar)238,(uchar)100,(uchar)238} };
+	Plataforma tablero{ { -10,10,0},{10,-10,-1},{180,0,200} };
+	Plataforma piezas1{ {-20,0,0},{-18,-1,-5},{180,0,240} };
+	Plataforma piezas2{ {18,0,0},{20,-1,-5},{180,0,240} };
+
 	//Cara fondo{ -100.f, 100.f, 100.f, 100.f, -100.f, -100.f, {180,60,200} };
-	/*ETSIDI::Sprite* fondo;*/
+	//ETSIDI::Sprite* fondo;
 	//Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);
 
 

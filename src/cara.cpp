@@ -18,11 +18,22 @@ Cara::Cara(float in1x, float in1y, float in1z, float in2x, float in2y, float in2
 Cara::Cara()
 {}
 
+
+
+void Cara::setpos(const Vector3D& in1, const Vector3D& in2, const Color& cin)
+{
+	esq1 = in1;
+	esq2 = in2;
+	color = cin;
+}
+
+
 void Cara::dibujaxy() //dibuja en plano x y en plano y
 {
+	glDisable(GL_CULL_FACE);
 //	glDisable(GL_LIGHTING); //desactiva los efectos sobre lo q se dibuja
 	glColor3ub(color.r, color.g, color.b);
-	glBegin(GL_QUADS);
+	glBegin(GL_POLYGON);
 	glVertex3d(esq1.x, esq1.y, esq1.z);
 	glVertex3d(esq1.x, esq2.y, esq1.z);
 	glVertex3d(esq2.x, esq2.y, esq2.z);
@@ -40,8 +51,9 @@ void Cara::dibujaxy() //dibuja en plano x y en plano y
 
 void Cara::dibujaz()  //dibuja en plano z
 {
+	glDisable(GL_CULL_FACE);
 	glColor3ub(color.r, color.g, color.b);
-	glBegin(GL_QUADS);
+	glBegin(GL_POLYGON);
 
 	glVertex3d(esq1.x, esq1.y, esq1.z);
 	glVertex3d(esq1.x, esq2.y, esq2.z);
@@ -69,12 +81,4 @@ void Cara::dibuja()
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
-
-void Cara::setpos(const Vector3D& in1, const Vector3D& in2, const Color& cin)
-{
-	esq1 = in1;
-	esq2 = in2;
-	color = cin;
-}
-
 //cara2 = { limite1.x, limite2.y, limite1.z, limite2.x, limite2.y, limite2.z, {0,200,0} };

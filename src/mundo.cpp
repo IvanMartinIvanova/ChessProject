@@ -1,6 +1,7 @@
 ﻿#include "Mundo.h"
 #include "freeglut.h"
 #include <iostream>
+#include "ETSIDI.h"
 #include <cmath>
 
 #define xorg 0
@@ -10,17 +11,17 @@
 
 Mundo::Mundo()
 {
-	x_ojo = 40;
-	y_ojo = 3;
+	x_ojo = 0;
+	y_ojo = 30;
 	z_ojo = 40;
 	xmira = 0.0;
 	ymira = 0;
 	zmira = 0.0;
 
-	//sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
-	//Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);
+	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
+	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
 
-	//fondo = new ETSIDI::Sprite("rc/sky_medow.jpg", 50, 50);
+	//fondo = new ETSIDI::Sprite("../rc/skymedow.png", 50, 50);
 }
 
 void Mundo::rotarOjo()
@@ -40,9 +41,14 @@ void Mundo::dibuja()
 	//aqui es donde hay que poner el codigo de dibujo
 	//dibujo del suelo
 	//glDisable(GL_LIGHTING);
-	plataforma.dibuja();
+	tablero.dibuja();
+	piezas1.dibuja();
+	piezas2.dibuja();
 
-	plataforma.counter += 0.1;
+	glTranslated(0, 0, 0);
+	glutSolidSphere(1, 10, 10);
+	//fondo.dibuja();
+	tablero.counter += 0.1;
 
 	//fondo.dibujaxy();
 	glEnd();
