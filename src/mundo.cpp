@@ -12,7 +12,7 @@
 Mundo::Mundo()
 {
 	x_ojo = 0;
-	y_ojo = 30;
+	y_ojo = 15;
 	z_ojo = 40;
 	xmira = 0.0;
 	ymira = 0;
@@ -48,7 +48,7 @@ void Mundo::dibuja()
 	glTranslated(0, 0, 0);
 	glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
-	tablero.counter += 0.1;
+	tablero.counter += 0.05;
 
 	//fondo.dibujaxy();
 	glEnd();
