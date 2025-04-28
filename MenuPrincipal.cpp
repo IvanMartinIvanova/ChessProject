@@ -1,5 +1,5 @@
-#include "lib/freeglut.h"
-#include "lib/ETSIDI.h"
+#include "freeglut.h"
+#include "ETSIDI.h"
 #include "math.h"
 #include "mundo.h"
 #include "tablero.h"
