@@ -55,7 +55,7 @@ void Cara::dibujaxy() //dibuja en plano x y en plano y
 	{
 		glEnable(GL_TEXTURE_2D);
 		//glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(text.c_str()).id);
-		//glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("../rc/skymedow").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("../rc/skymedow").id);
 		
 
 		//	glDisable(GL_LIGHTING); //desactiva los efectos sobre lo q se dibuja
