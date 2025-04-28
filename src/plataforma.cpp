@@ -25,7 +25,6 @@ void Plataforma::dibuja()
 {
 	Plataforma::calcidle();
 
-	glColor3ub(color.r, color.g, color.b);
 	cara1.dibujaz();
 	cara2.dibujaz();
 	cara3.dibujaxy();

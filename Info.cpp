@@ -9,12 +9,13 @@ void OnKeyboardDown(unsigned char key, int x, int y);
 
 Tablero tablero;
 Mundo mundo;
+char texto[] = "pitilingo";
 
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 600);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_ALPHA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE);
 	glutCreateWindow("Esfera 3D");
 
 	// Habilitar luces y perspectiva
@@ -42,6 +43,7 @@ void OnDraw(void)
 
 	//Para definir el punto de vista
 	glMatrixMode(GL_MODELVIEW);
+	glEnable(GLUT_MULTISAMPLE);
 	glLoadIdentity();
 
 	mundo.dibuja();

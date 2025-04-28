@@ -1,7 +1,6 @@
 ﻿#include "Mundo.h"
 #include "freeglut.h"
 #include <iostream>
-#include "ETSIDI.h"
 #include <cmath>
 
 #define xorg 0
@@ -12,8 +11,13 @@
 Mundo::Mundo()
 {
 	x_ojo = 0;
-	y_ojo = 15;
-	z_ojo = 40;
+
+	y_ojo = 5;
+	z_ojo = 50;
+
+	//y_ojo = 20;
+	//z_ojo = 40;
+
 	xmira = 0.0;
 	ymira = 0;
 	zmira = 0.0;
@@ -21,7 +25,7 @@ Mundo::Mundo()
 	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
 	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
 
-	//fondo = new ETSIDI::Sprite("../rc/skymedow.png", 50, 50);
+	/*fondo = new ETSIDI::Sprite("../rc/skymedow.png", 50, 50, 100, 100);*/
 }
 
 void Mundo::rotarOjo()
@@ -44,9 +48,14 @@ void Mundo::dibuja()
 	tablero.dibuja();
 	piezas1.dibuja();
 	piezas2.dibuja();
+	fondo.dibujaxy();
 
-	glTranslated(0, 0, 0);
-	glutSolidSphere(1, 10, 10);
+	//fondo->setSize(60, 60);
+	//fondo->setPos(0, 0);
+	//fondo->setCenter
+	//fondo->draw();
+	//glTranslated(0, 0, 0);
+	//glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
 	tablero.counter += 0.05;
 

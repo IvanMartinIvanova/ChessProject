@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <cstdbool>
 #include <iostream>
 
 class Vector3D
