@@ -132,7 +132,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Info.cpp" />
-    <ClCompile Include="MenuPrincipal.cpp" />
     <ClCompile Include="src\cara.cpp" />
     <ClCompile Include="src\circulos.cpp" />
     <ClCompile Include="src\Color.cpp" />

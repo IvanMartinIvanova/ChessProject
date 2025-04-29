@@ -1,20 +1,21 @@
 #pragma once
+class tablero;
 
-enum class TipoPieza { VACIA, PEON, TORRE, CABALLO, ALFIL, REY }; // vacia en caso de contrario a las categorias
-enum class Colorpieza { NINGUNO, BLANCO, NEGRO }; //ninguno, igual para evitar 
+enum class TipoPieza { VACIA, PEON, TORRE, CABALLO, ALFIL, REY, REINA };
+enum class Colorpieza { NINGUNO, BLANCO, NEGRO };
 
-class Pieza {
+class pieza {
 protected:
-    TipoPieza tipo; //atributos
+    TipoPieza tipo;
     Colorpieza color;
 
 public:
-    Pieza(TipoPieza tipo, Colorpieza color) : tipo(tipo), color(color) {} //constructor de las piezas
-    virtual ~Pieza() = default; // destructor de las piezas hijas
+    pieza(TipoPieza tipo, Colorpieza color) : tipo(tipo), color(color) {}
+    virtual ~pieza() = default;
 
-    TipoPieza getTipo() const { return tipo; } //como los gets de los labs
+    TipoPieza getTipo() const { return tipo; }
     Colorpieza getColor() const { return color; }
 
-    virtual bool movimientoValido(int xIni, int yIni, int xFin, int yFin) = 0; // obliga a las clases hijas a definir cómo se mueven.
+    virtual bool movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) = 0;
+    friend class tablero;
 };
-

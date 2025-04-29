@@ -36,9 +36,6 @@
     <ClCompile Include="Info.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="MenuPrincipal.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\cara.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
