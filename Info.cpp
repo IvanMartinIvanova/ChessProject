@@ -7,7 +7,7 @@ void OnDraw(void);
 void OnTimer(int value);
 void OnKeyboardDown(unsigned char key, int x, int y);
 
-Tablero tablero;
+tablero tab;
 Mundo mundo;
 char texto[] = "pitilingo";
 
