@@ -142,6 +142,7 @@
     <ClCompile Include="src\peon.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\Registro.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
     <ClCompile Include="src\Vector3D.cpp" />
@@ -157,12 +158,16 @@
     <ClInclude Include="src\peon.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\plataforma.h" />
+    <ClInclude Include="src\Registro.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\Vector2D.h" />
     <ClInclude Include="src\Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\OneDrive\Escritorio\skymedow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Registros.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
