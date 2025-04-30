@@ -12,18 +12,18 @@
 
 
 
-class tablero {
+class Tablero {
 private:
-    pieza* casillas[8][8]; //tablero 8x8
+    Pieza* casillas[8][8]; //tablero 8x8
 
 public:
-    tablero(); //constructor
-    ~tablero();//destructor
+    Tablero(); //constructor
+    ~Tablero();//destructor
     void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
     bool mover(int xIni, int yIni, int xFin, int yFin);// para mover las piezas
     void aplicarGravedad(int columna); //primer intento de gravedad
-    pieza* getCasilla(int x, int y) const {
+    Pieza* getCasilla(int x, int y) const {
         return casillas[y][x];
     }
     friend class pieza;

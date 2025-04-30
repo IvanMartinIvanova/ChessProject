@@ -2,10 +2,10 @@
 #include "pieza.h"
 #include "tablero.h"
 
-class caballo : public pieza {
+class Caballo : public Pieza {
 public:
-    caballo(Colorpieza color) : pieza(TipoPieza::CABALLO, color) {}
+    Caballo(Colorpieza color) : Pieza(TipoPieza::CABALLO, color) {}
 
-    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) override;
+    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) override;
 };
 // El caballo se mueve en forma de "L": dos casillas en una dirección y una en la otra.

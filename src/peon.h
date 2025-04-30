@@ -2,10 +2,10 @@
 #include "pieza.h"
 #include "tablero.h"
 
-class peon : public pieza {
+class Peon : public Pieza {
 public:
-    peon(Colorpieza color) : pieza(TipoPieza::PEON, color) {}
+    Peon(Colorpieza color) : Pieza(TipoPieza::PEON, color) {}
 
-    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) override;
+    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) override;
 };
 //el override lo que hace es que el método está sobrescribiendo un método virtual que fue definido en una clase base siendo la clase base pieza.

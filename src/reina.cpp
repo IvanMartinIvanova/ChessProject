@@ -5,7 +5,7 @@
 
 
 // Implementación de movimientoValido, con Tablero
-bool reina::movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) {
+bool Reina::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     // La reina puede moverse en línea recta o diagonal
     int dx = abs(xFin - xIni);
     int dy = abs(yFin - yIni);

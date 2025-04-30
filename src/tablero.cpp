@@ -1,7 +1,7 @@
 #include "tablero.h"
 #include <iostream>
 
-tablero::tablero() {
+Tablero::Tablero() {
     // Inicializa todas las casillas a nullptr
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
@@ -10,7 +10,7 @@ tablero::tablero() {
     }
 }
 
-tablero::~tablero() {
+Tablero::~Tablero() {
     // Elimina todas las piezas en el tablero
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
@@ -19,37 +19,37 @@ tablero::~tablero() {
     }
 }
 
-void tablero::inicializar() {
+void Tablero::inicializar() {
     // Inicializar las piezas negras (fila 0 y 1)
-    casillas[0][0] = new torre(Colorpieza::NEGRO);
-    casillas[0][1] = new caballo(Colorpieza::NEGRO);
-    casillas[0][2] = new alfil(Colorpieza::NEGRO);
-    casillas[0][3] = new reina(Colorpieza::NEGRO);
-    casillas[0][4] = new rey(Colorpieza::NEGRO);
-    casillas[0][5] = new alfil(Colorpieza::NEGRO);
-    casillas[0][6] = new caballo(Colorpieza::NEGRO);
-    casillas[0][7] = new torre(Colorpieza::NEGRO);
+    casillas[0][0] = new Torre(Colorpieza::NEGRO);
+    casillas[0][1] = new Caballo(Colorpieza::NEGRO);
+    casillas[0][2] = new Alfil(Colorpieza::NEGRO);
+    casillas[0][3] = new Reina(Colorpieza::NEGRO);
+    casillas[0][4] = new Rey(Colorpieza::NEGRO);
+    casillas[0][5] = new Alfil(Colorpieza::NEGRO);
+    casillas[0][6] = new Caballo(Colorpieza::NEGRO);
+    casillas[0][7] = new Torre(Colorpieza::NEGRO);
 
     for (int i = 0; i < 8; i++) {
-        casillas[1][i] = new peon(Colorpieza::NEGRO);  // Peones negros
+        casillas[1][i] = new Peon(Colorpieza::NEGRO);  // Peones negros
     }
 
     // Inicializar las piezas blancas (fila 6 y 7)
-    casillas[7][0] = new torre(Colorpieza::BLANCO);
-    casillas[7][1] = new caballo(Colorpieza::BLANCO);
-    casillas[7][2] = new alfil(Colorpieza::BLANCO);
-    casillas[7][3] = new reina(Colorpieza::BLANCO);
-    casillas[7][4] = new rey(Colorpieza::BLANCO);
-    casillas[7][5] = new alfil(Colorpieza::BLANCO);
-    casillas[7][6] = new caballo(Colorpieza::BLANCO);
-    casillas[7][7] = new torre(Colorpieza::BLANCO);
+    casillas[7][0] = new Torre(Colorpieza::BLANCO);
+    casillas[7][1] = new Caballo(Colorpieza::BLANCO);
+    casillas[7][2] = new Alfil(Colorpieza::BLANCO);
+    casillas[7][3] = new Reina(Colorpieza::BLANCO);
+    casillas[7][4] = new Rey(Colorpieza::BLANCO);
+    casillas[7][5] = new Alfil(Colorpieza::BLANCO);
+    casillas[7][6] = new Caballo(Colorpieza::BLANCO);
+    casillas[7][7] = new Torre(Colorpieza::BLANCO);
 
     for (int i = 0; i < 8; i++) {
-        casillas[6][i] = new peon(Colorpieza::BLANCO);  // Peones blancos
+        casillas[6][i] = new Peon(Colorpieza::BLANCO);  // Peones blancos
     }
 }
 
-void tablero::mostrar() {
+void Tablero::mostrar() {
     for (int y = 7; y >= 0; y--) {
         std::cout << y + 1 << " ";
         for (int x = 0; x < 8; x++) {
@@ -75,11 +75,11 @@ void tablero::mostrar() {
     std::cout << "  a b c d e f g h\n";
 }
 
-bool tablero::mover(int xIni, int yIni, int xFin, int yFin) {
+bool Tablero::mover(int xIni, int yIni, int xFin, int yFin) {
     // Verifica si la casilla de inicio está ocupada por una pieza
     if (!casillas[yIni][xIni]) return false;
 
-    pieza* pieza = casillas[yIni][xIni];
+    Pieza* pieza = casillas[yIni][xIni];
 
     // Verifica si el movimiento es válido para esa pieza
     if (pieza->movimientoValido(xIni, yIni, xFin, yFin, *this)) {
@@ -95,7 +95,7 @@ bool tablero::mover(int xIni, int yIni, int xFin, int yFin) {
     return false;
 }
 
-void tablero::aplicarGravedad(int columna) {
+void Tablero::aplicarGravedad(int columna) {
     // Aplica la gravedad en la columna especificada
     for (int fila = 6; fila >= 0; fila--) {
         if (casillas[fila][columna] != nullptr) {

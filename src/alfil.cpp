@@ -3,7 +3,7 @@
 
 
 
-bool alfil::movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) {
+bool Alfil::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     int dx = abs(xFin - xIni);
     int dy = abs(yFin - yIni);
 

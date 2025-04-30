@@ -2,7 +2,7 @@
 #include <cmath> // Para usar abs()
 
 
-bool torre::movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) {
+bool Torre::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     if (xIni != xFin && yIni != yFin) return false;
 
     int dx = (xFin > xIni) ? 1 : (xFin < xIni) ? -1 : 0;

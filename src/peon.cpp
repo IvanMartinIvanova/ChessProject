@@ -2,7 +2,7 @@
 #include <cmath> // Para usar abs()
 
 
-bool peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) {
+bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     // Verifica si el peón está moviéndose hacia adelante
     if (color == Colorpieza::BLANCO) {
         if (xIni == xFin && yFin == yIni + 1 && tablero.getCasilla(xFin, yFin) == nullptr) {

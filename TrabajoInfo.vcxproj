@@ -173,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\OneDrive\Escritorio\skymedow.png" />
+    <Image Include="bin\rc\board.png" />
+    <Image Include="bin\rc\indicators.png" />
+    <Image Include="bin\rc\pieces.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

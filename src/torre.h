@@ -2,9 +2,9 @@
 #include "pieza.h"
 #include "tablero.h"
 
-class torre : public pieza {
+class Torre : public Pieza {
 public:
-    torre(Colorpieza color) : pieza(TipoPieza::TORRE, color) {}
+    Torre(Colorpieza color) : Pieza(TipoPieza::TORRE, color) {}
 
-    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, tablero& tablero) override;
+    bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) override;
 };
