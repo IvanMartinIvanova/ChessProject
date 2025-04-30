@@ -90,6 +90,9 @@
     <ClCompile Include="src\torre.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
+    <ClCompile Include="src\sprite3D.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cara.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="src\torre.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sprite3D.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

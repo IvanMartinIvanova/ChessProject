@@ -146,6 +146,7 @@
     <ClCompile Include="src\plataforma.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
+    <ClCompile Include="src\sprite3D.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\torre.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\plataforma.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
+    <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\torre.h" />
     <ClInclude Include="src\Vector2D.h" />

@@ -25,7 +25,8 @@ Mundo::Mundo()
 	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
 	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
 
-	fondo = new ETSIDI::Sprite("rc/fondo.png", 50, 50, 100, 100);
+	fondo = new ETSIDI::Sprite("rc/skymedow.png", 50, 50, 100, 100);
+	board = new ETSIDI::Sprite("rc/board.png", 50, 50, 100, 100);
 }
 
 void Mundo::rotarOjo()

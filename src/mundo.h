@@ -23,6 +23,7 @@ private:
 	Plataforma piezas1{ {-20,-2,0},{-18,-3,-5},{180,0,240} };
 	Plataforma piezas2{ {18,-2,0},{20,-3,-5},{180,0,240} };
 	ETSIDI::Sprite* fondo;
+	ETSIDI::Sprite* board;
 	
 
 	//Cara fondo{ -100.f, 100.f, 100.f, 100.f, -100.f, -100.f, {180,60,200} };
