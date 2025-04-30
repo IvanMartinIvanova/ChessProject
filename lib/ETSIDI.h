@@ -118,6 +118,14 @@ using namespace std;
 		void setAngle(double angle);
 		double getAngle() const; 
 		ETSIDI_API bool collides(const Sprite &s) const;
+
+		inline void dibuja(float x, float y, float z)
+		{
+			glPushMatrix();
+			glTranslated(x, y, z);
+			Sprite::draw();
+			glPopMatrix();
+		}
 	
 	protected:
 		ETSIDI_API double tick();

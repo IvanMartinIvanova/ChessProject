@@ -45,7 +45,6 @@ void OnKeyboardDown(unsigned char key, int x, int y);
 
 Tablero tablero;
 Mundo mundo;
-char texto[] = "pitilingo";
 
 int main(int argc, char* argv[])
 {
