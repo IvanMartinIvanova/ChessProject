@@ -75,6 +75,21 @@
     <ClCompile Include="src\Color.cpp">
       <Filter>Archivos de origen\Globales</Filter>
     </ClCompile>
+    <ClCompile Include="src\alfil.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\caballo.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reina.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rey.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\torre.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cara.h">
@@ -115,6 +130,21 @@
     </ClInclude>
     <ClInclude Include="src\Color.h">
       <Filter>Archivos de encabezado\Globales</Filter>
+    </ClInclude>
+    <ClInclude Include="src\alfil.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\caballo.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reina.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\torre.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rey.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -132,6 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Info.cpp" />
+    <ClCompile Include="src\alfil.cpp" />
+    <ClCompile Include="src\caballo.cpp" />
     <ClCompile Include="src\cara.cpp" />
     <ClCompile Include="src\circulos.cpp" />
     <ClCompile Include="src\Color.cpp" />
@@ -142,11 +144,16 @@
     <ClCompile Include="src\peon.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\reina.cpp" />
+    <ClCompile Include="src\rey.cpp" />
     <ClCompile Include="src\tablero.cpp" />
+    <ClCompile Include="src\torre.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
     <ClCompile Include="src\Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\alfil.h" />
+    <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\cara.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
@@ -157,7 +164,10 @@
     <ClInclude Include="src\peon.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\plataforma.h" />
+    <ClInclude Include="src\reina.h" />
+    <ClInclude Include="src\rey.h" />
     <ClInclude Include="src\tablero.h" />
+    <ClInclude Include="src\torre.h" />
     <ClInclude Include="src\Vector2D.h" />
     <ClInclude Include="src\Vector3D.h" />
   </ItemGroup>
