@@ -1,4 +1,5 @@
 #include "tablero.h"
+#include "cstdio"
 #include <iostream>
 
 Tablero::Tablero() {
@@ -113,3 +114,52 @@ void Tablero::aplicarGravedad(int columna) {
     }
 }
 
+bool Tablero::com_dentro_tablero(int xFin, int yFin)
+{
+    if (xFin > 7 || yFin > 7)
+    {
+        return false;
+    }
+    else 
+    {
+        return true;
+    } 
+}
+
+void Tablero::comp_coronacion(int xFin, int yFin)
+{
+    int aux;//Para controlar que pieza quiere
+    TipoPieza p;
+    p = casillas[yFin][xFin]->getTipo();
+    
+    if (int(p) == 1 && yFin == 7)
+    {
+        Colorpieza color = casillas[yFin][xFin]->getColor();
+
+        std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+        std::cin >> aux;
+
+        switch (aux) {
+        case 2:
+          delete casillas[yFin][xFin];
+          casillas[yFin][xFin] = new Torre(color);
+          break;
+        case 3:
+           delete casillas[yFin][xFin];
+           casillas[yFin][xFin] = new Caballo(color);
+           break;
+        case 4:
+           delete casillas[yFin][xFin];
+           casillas[yFin][xFin] = new Alfil(color);
+           break;
+        case 6:
+           delete casillas[yFin][xFin];
+           casillas[yFin][xFin] = new Reina(color);
+           break;
+        default:
+           delete casillas[yFin][xFin];
+           casillas[yFin][xFin] = new Reina(color);
+           break;
+        }
+    }
+}

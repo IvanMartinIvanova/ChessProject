@@ -3,7 +3,7 @@
 #include "tablero.h"
 
 int main() {
-	tablero t;
+	Tablero t;
 	t.inicializar();  // Coloca las piezas iniciales
 	std::cout << "=== Ajedrez Gravitacional ===\n";
 	t.mostrar();  // Dibuja el tablero
@@ -21,6 +21,20 @@ int main() {
 		if (!t.mover(x1, y1, x2, y2)) {
 			std::cout << "Movimiento inválido. Intenta de nuevo.\n";
 		}
+		
+		bool comp = t.com_dentro_tablero(x2, y2); //Variable auxiliar
+		while (comp == false) //Siempre que quede fuera entrará en el bucle y le seguirá pidiendo movimientos
+		{
+			std::cout << "fuera de tablero. Introduzca un movimiento valido\n";
+			std::cin >> x1 >> y1 >> x2 >> y2;
+			t.mover(x1, y1, x2, y2);
+			if (!t.mover(x1, y1, x2, y2)) {
+				std::cout << "Movimiento inválido. Intenta de nuevo.\n";
+			}
+			comp = t.com_dentro_tablero(x2, y2);
+		}
+
+		t.comp_coronacion(x2, y2);
 
 		t.mostrar();
 	}

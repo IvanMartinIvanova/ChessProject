@@ -27,5 +27,8 @@ public:
         return casillas[y][x];
     }
     friend class pieza;
+
+    bool com_dentro_tablero(int xFin, int yFin);
+    void comp_coronacion(int, int);
 };
 
