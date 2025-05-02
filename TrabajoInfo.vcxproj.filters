@@ -75,6 +75,9 @@
     <ClCompile Include="src\Color.cpp">
       <Filter>Archivos de origen\Globales</Filter>
     </ClCompile>
+    <ClCompile Include="src\Registro.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cara.h">
@@ -116,10 +119,22 @@
     <ClInclude Include="src\Color.h">
       <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
+    <ClInclude Include="src\Registro.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\alfil.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\caballo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\OneDrive\Escritorio\skymedow.png">
       <Filter>Archivos de recursos</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bin\Registros.txt" />
   </ItemGroup>
 </Project>

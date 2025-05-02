@@ -1,65 +1,60 @@
-#include "ETSIDI.h"
-#include "freeglut.h"
-#include "mundo.h"
+#include <iostream>
 #include "tablero.h"
+#include "Registro.h"
+#include <vector>
 
-void OnDraw(void);
-void OnTimer(int value);
-void OnKeyboardDown(unsigned char key, int x, int y);
+constexpr int RMAX = 20;
+int main() {
+	
+	int oca=0; //Variable para almacenar tras cada registro el valor del número de registros
+	Registro* lista = new Registro[RMAX]; //Lista de registros para TMAX registros
 
-tablero tab;
-Mundo mundo;
-char texto[] = "pitilingo";
+	//Prueba Registros
+	
+	//Registro1
+	const char name[50] = "JERONIMO";
+	Puntos point{ 5000 };
+	Tiempo tp{ 1,0 };
+	Registro nuevo;
+	lista = nuevo.LeeRegistros(lista, oca);
+	oca = lista[0].getNumReg();
+	nuevo.setNumReg(oca);
+	oca = nuevo.CreaRegistro(nuevo.getNumReg(), name, point, tp);
 
-int main(int argc, char* argv[])
-{
-	glutInit(&argc, argv);
-	glutInitWindowSize(800, 600);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE);
-	glutCreateWindow("Esfera 3D");
+	//Registro2
+	const char name2[50] = "Benavides";
+	Puntos point2{ 2000 };
+	Tiempo tp2{ 2,30 };
+	Registro nuevo2;
+	lista = nuevo2.LeeRegistros(lista, oca);
+	nuevo2.setNumReg(oca);
+	oca = nuevo2.CreaRegistro(nuevo2.getNumReg(), name2, point2, tp2);
 
-	// Habilitar luces y perspectiva
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_COLOR_MATERIAL);
+	//Registro3
+	const char name3[50] = "Crisantemo";
+	Puntos point3{ 7000 };
+	Tiempo tp3{ 1,40 };
+	Registro nuevo3;
+	lista = nuevo3.LeeRegistros(lista, oca);
+	nuevo3.setNumReg(oca);
+	oca = nuevo3.CreaRegistro(nuevo3.getNumReg(), name3, point3, tp3);
 
-	// Configurar perspectiva
-	glMatrixMode(GL_PROJECTION);
-	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
+	//Prueba eliminar registros
+	int opcion = 0;
+	std::cout << "\nQuiere eliminar los registros (1-SI / 2-NO): ";
+	std::cin >> opcion;
+	if (opcion == 1)
+	{
+		Registro eliminar;
+		lista = eliminar.LeeRegistros(lista, oca);
+		eliminar.BorraRegistros(oca, lista);
+	}
 
-	// Callbacks
-	glutDisplayFunc(OnDraw);
-	glutTimerFunc(25, OnTimer, 0);
-	glutKeyboardFunc(OnKeyboardDown);
+	//Prueba imprimir registros
+	Registro imprimir;
+	lista = imprimir.LeeRegistros(lista, oca);
+	imprimir.ImprimeRegistro(lista, oca);
 
-	glutMainLoop();
+
 	return 0;
-}
-
-void OnDraw(void)
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//Para definir el punto de vista
-	glMatrixMode(GL_MODELVIEW);
-	glEnable(GLUT_MULTISAMPLE);
-	glLoadIdentity();
-
-	mundo.dibuja();
-
-	//no borrar esta linea ni poner nada despues
-	glutSwapBuffers();
-}
-
-void OnKeyboardDown(unsigned char key, int x, int y)
-{
-	if (key == 27) // ESC para salir
-		exit(0);
-}
-
-void OnTimer(int value)
-{
-	glutTimerFunc(25, OnTimer, 0);
-	glutPostRedisplay(); // Redibujar la pantalla
 }

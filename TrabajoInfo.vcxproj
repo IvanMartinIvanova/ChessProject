@@ -148,6 +148,8 @@
     <ClCompile Include="src\Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\alfil.h" />
+    <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\cara.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
@@ -167,7 +169,7 @@
     <Image Include="..\..\..\OneDrive\Escritorio\skymedow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Registros.txt" />
+    <Text Include="bin\Registros.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
