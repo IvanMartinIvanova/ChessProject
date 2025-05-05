@@ -2,39 +2,39 @@
 #include <iostream>
 #include "tablero.h"
 
-int main() {
-	tablero t;
-	t.inicializar();  // Coloca las piezas iniciales
-	std::cout << "=== Ajedrez Gravitacional ===\n";
-	t.mostrar();  // Dibuja el tablero
-
-	int x1, y1, x2, y2;
-
-	while (true) {
-		std::cout << "\nIntroduce movimiento (x1 y1 x2 y2) o -1 para salir: ";
-		std::cin >> x1;
-
-		if (x1 == -1) break;
-
-		std::cin >> y1 >> x2 >> y2;
-
-		if (!t.mover(x1, y1, x2, y2)) {
-			std::cout << "Movimiento inválido. Intenta de nuevo.\n";
-		}
-
-		t.mostrar();
-	}
-
-	std::cout << "Juego terminado.\n";
-	return 0;
-}
-
-
+//int main() {
+//	Tablero t;
+//	t.inicializar();  // Coloca las piezas iniciales
+//	std::cout << "=== Ajedrez Gravitacional ===\n";
+//	t.mostrar();  // Dibuja el tablero
+//
+//	int x1, y1, x2, y2;
+//
+//	while (true) {
+//		std::cout << "\nIntroduce movimiento (x1 y1 x2 y2) o -1 para salir: ";
+//		std::cin >> x1;
+//
+//		if (x1 == -1) break;
+//
+//		std::cin >> y1 >> x2 >> y2;
+//
+//		if (!t.mover(x1, y1, x2, y2)) {
+//			std::cout << "Movimiento inválido. Intenta de nuevo.\n";
+//		}
+//
+//		t.mostrar();
+//	}
+//
+//	std::cout << "Juego terminado.\n";
+//	return 0;
+//}
 
 
 
 
-/*#include "ETSIDI.h"
+
+
+#include "ETSIDI.h"
 #include "freeglut.h"
 #include "mundo.h"
 #include "tablero.h"
@@ -98,6 +98,3 @@ void OnTimer(int value)
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay(); // Redibujar la pantalla
 }
-
-
-*/
