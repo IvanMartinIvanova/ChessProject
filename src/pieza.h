@@ -2,7 +2,7 @@
 class Tablero;
 
 enum class TipoPieza { VACIA, PEON, TORRE, CABALLO, ALFIL, REY, REINA };
-enum class Colorpieza { NINGUNO, BLANCO, NEGRO };
+enum class Colorpieza { NINGUNO, NEGRO, BLANCO };
 
 class Pieza {
 protected:

@@ -26,6 +26,7 @@ public:
     Pieza* getCasilla(int x, int y) const {
         return casillas[y][x];
     }
+    void jugabilidad();
     friend class pieza;
 };
 

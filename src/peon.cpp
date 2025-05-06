@@ -4,7 +4,7 @@
 
 bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     // Verifica si el peón está moviéndose hacia adelante
-    if (color == Colorpieza::BLANCO) {
+    if (color == Colorpieza::NEGRO) {
         if (xIni == xFin && yFin == yIni + 1 && tablero.getCasilla(xFin, yFin) == nullptr) {
             return true;  // Avance de una casilla hacia adelante
         }
@@ -15,7 +15,7 @@ bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tab
             return true;  // Captura en diagonal
         }
     }
-    else if (color == Colorpieza::NEGRO) {
+    else if (color == Colorpieza::BLANCO) {
         if (xIni == xFin && yFin == yIni - 1 && tablero.getCasilla(xFin, yFin) == nullptr) {
             return true;  // Avance de una casilla hacia adelante
         }
