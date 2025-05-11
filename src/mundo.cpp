@@ -48,7 +48,21 @@ void Mundo::dibuja()
 	//tablero.dibuja();
 	piezas1.dibuja();
 	piezas2.dibuja();
-	fondo.draw();
+	//fondo->dibuja(0);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D,
+		ETSIDI::getTexture("rc/board.png").id);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(0, 1); glVertex2d(-25, -25);
+	glTexCoord2d(1, 1); glVertex2d(-25, 25);
+	glTexCoord2d(1, 0); glVertex2d(25, 25);
+	glTexCoord2d(0, 0); glVertex2d(25, -25);
+	glEnd();
+	glEnable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
 
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);
@@ -66,6 +80,7 @@ void Mundo::mueve()
 
 void Mundo::inicializa()
 {
+	/*fondo->setCenter()*/
 }
 
 void Mundo::tecla(char key)

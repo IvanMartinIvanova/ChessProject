@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 
+	mundo.inicializa();
 	// Callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);

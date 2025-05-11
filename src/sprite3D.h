@@ -5,7 +5,8 @@
 
 class Sprite3D
 {
-	ETSIDI::Sprite* dir;
+	char dir[255];
+	char dirc;
 	Vector3D pos;
 
 public:

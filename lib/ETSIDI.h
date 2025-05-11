@@ -103,6 +103,7 @@ using namespace std;
 	//un rectangulo con textura que facilita el dibujo y animación en pantalla
 	class Sprite
 	{
+		friend class Sprite3D;
 	public:
 		ETSIDI_API Sprite(const char *texturePath, float x=0, float y=0, float width=-1, float height=-1);
 		ETSIDI_API virtual ~Sprite();
@@ -119,16 +120,23 @@ using namespace std;
 		double getAngle() const; 
 		ETSIDI_API bool collides(const Sprite &s) const;
 
-		inline void dibuja(float x, float y, float z)
+		inline void dibuja(float z)
 		{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 			glPushMatrix();
-			glTranslated(x, y, z);
+			glTranslated(0, 0, z);
 			Sprite::draw();
 			glPopMatrix();
 		}
 	
 	protected:
 		ETSIDI_API double tick();
+		std::map <std::string, std::string> spritepieza = {
+			{"peon","rc/peon.png"},{"caballo","rc/caballo.png"}, {"alfil","rc/alfil.png"},
+			{"torre","rc/torre.png"},{"reina","rc/reina.png"},{"rey","rc/rey.png"}, };
+
 		long int last_update;
 		GLTexture _texture;
 		double _angle; //sprite rotation
