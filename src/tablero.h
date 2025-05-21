@@ -30,5 +30,6 @@ public:
 
     bool com_dentro_tablero(int xFin, int yFin);
     void comp_coronacion(int, int);
+    int generador_de_movimientos(Tablero& t);
 };
 

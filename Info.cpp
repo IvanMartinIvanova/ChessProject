@@ -37,6 +37,10 @@ int main() {
 		t.comp_coronacion(x2, y2);
 
 		t.mostrar();
+
+		int retorno = t.generador_de_movimientos(t);
+
+		t.mostrar();
 	}
 
 	std::cout << "Juego terminado.\n";

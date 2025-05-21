@@ -1,5 +1,6 @@
 #include "tablero.h"
 #include "cstdio"
+#include <ctime>
 #include <iostream>
 
 Tablero::Tablero() {
@@ -160,6 +161,46 @@ void Tablero::comp_coronacion(int xFin, int yFin)
            delete casillas[yFin][xFin];
            casillas[yFin][xFin] = new Reina(color);
            break;
+        }
+    }
+}
+
+int Tablero::generador_de_movimientos(Tablero& t)
+{
+    int numero = std::rand() % 10 + 1;
+    bool aux;
+    
+    
+    for (int i = 0; i <= 7; i++)
+    {
+        for (int j = 0; j <= 7; j++)
+        {
+            TipoPieza p = casillas[i][j]->getTipo();
+            Colorpieza color = casillas[i][j]->getColor();
+            //xFin = i;
+            //yFin = j;
+
+            if ((int(p)==1 || int(p) == 2|| int(p) == 3|| int(p) == 4|| int(p) == 5|| int(p) == 6) && color == Colorpieza::NEGRO)
+            {
+                for (int c = 0; c <= 7; c++)
+                {
+                    for (int d = 0; d <= 7; d++)
+                    {
+                        aux = casillas[i][j]->movimientoValido(i, j, c, d, t);
+                        if (aux == false)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            casillas[c][d] = casillas[i][j];
+                            delete casillas[i][j];
+                            casillas[i][j] = nullptr;
+                            return 0;
+                        }
+                    }
+                }  
+            }
         }
     }
 }
