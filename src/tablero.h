@@ -22,9 +22,10 @@ public:
     void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
     bool mover(int xIni, int yIni, int xFin, int yFin);// para mover las piezas
-    void aplicarGravedad(int columna); //primer intento de gravedad
+    void aplicarGravedad(); //primer intento de gravedad
+    void jugabilidad();
     Pieza* getCasilla(int x, int y) const {
-        return casillas[y][x];
+        return casillas[x][y];
     }
     friend class pieza;
 };
