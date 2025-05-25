@@ -16,7 +16,9 @@ public:
 
     TipoPieza getTipo() const { return tipo; }
     Colorpieza getColor() const { return color; }
+    void dibuja();
     
     virtual bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) = 0;
-    friend class tablero;
+    friend class Tablero;
+    friend class Jugador;
 };

@@ -98,10 +98,13 @@
 //	glutTimerFunc(25, OnTimer, 0);
 //	glutPostRedisplay(); // Redibujar la pantalla
 //}
-#include "tablero.h"
+#include "Partida.h"
 
 int main() {
-    Tablero tablero;
-    tablero.jugabilidad();
-    return 0;
+    Partida p;
+    p.escoger_player();
+    if (p.Progress_Partida()) //Si devuelve True - se ha acabado la partida / Si devuelve FALSE - todavía no ha acabado la partida
+    {
+        return 0;
+    }
 }

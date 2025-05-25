@@ -29,9 +29,14 @@ void Tablero::inicializar() {
     casillas[5][7] = new Alfil(Colorpieza::NEGRO);
     casillas[6][7] = new Caballo(Colorpieza::NEGRO);
     casillas[7][7] = new Torre(Colorpieza::NEGRO);
-
     for (int i = 0; i < 8; i++)
         casillas[i][6] = new Peon(Colorpieza::NEGRO);
+
+    for (int i = 7; i >= 6; i--) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
+    {
+        for (int j = 0; j < 8; j++)
+            player2.lista_piezas_actuales.agregar(casillas[j][i]);
+    }
 
     // Blancas izquierda (columna 0 y 1)
     for (int i = 0; i < 8; i++)
@@ -45,6 +50,12 @@ void Tablero::inicializar() {
     casillas[5][0] = new Alfil(Colorpieza::BLANCO);
     casillas[6][0] = new Caballo(Colorpieza::BLANCO);
     casillas[7][0] = new Torre(Colorpieza::BLANCO);
+
+    for (int i = 0; i <= 1; i++) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
+    {
+        for (int j = 0; j < 8; j++)
+            player1.lista_piezas_actuales.agregar(casillas[j][i]);
+    }
 }
 
 void Tablero::mostrar() {
@@ -76,23 +87,23 @@ void Tablero::mostrar() {
     }
 }
 
-bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin) {
-    if (!casillas[FilIni][ColIni]) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
-        cout << "No hay pieza en la casilla de origen.\n";
-        return false;
-    }
-
-    Pieza* pieza = casillas[FilIni][ColIni];
-    if (pieza->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) {
-        delete casillas[FilFin][ColFin];
-        casillas[FilFin][ColFin] = pieza;
-        //Hay que llamar a una función para que guarde qué pieza se ha comido
-        casillas[FilIni][ColIni] = nullptr;
-        aplicarGravedad();
-        return true;
-    }
-    return false;
-}
+//bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin) {
+//    if (!casillas[FilIni][ColIni]) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
+//        cout << "No hay pieza en la casilla de origen.\n";
+//        return false;
+//    }
+//
+//    Pieza* pieza = casillas[FilIni][ColIni];
+//    if (pieza->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) {
+//        delete casillas[FilFin][ColFin];
+//        casillas[FilFin][ColFin] = pieza;
+//        //Hay que llamar a una función para que guarde qué pieza se ha comido
+//        casillas[FilIni][ColIni] = nullptr;
+//        aplicarGravedad();
+//        return true;
+//    }
+//    return false;
+//}
 
 void Tablero::aplicarGravedad() {
     for (int columna = 0; columna <= 7; columna++)
@@ -114,38 +125,34 @@ void Tablero::aplicarGravedad() {
     }
 }
 
-void Tablero::jugabilidad() {
-    inicializar();
-    mostrar();
+void Tablero::gestion_turnos() {
     string entrada;
 
-    while (true) {
-        cout << "Introduce el movimiento (Por ejemplo: b2 b3) o 'salir': ";
-        getline(cin, entrada);
-
-        if (entrada == "salir") break;
-
-        if (entrada.length() != 5 || entrada[2] != ' ') {
-            cout << "Formato inválido. Usa: b2 b4\n";
-            continue;
+    while(true)
+    {
+        if (player1.Turno)
+        {
+            cout << "Turno de Jugador 1:" << endl;
+            if (player1.seleccion_casilla(*this)) //TRUE si el movimiento se ha realizado correctamente
+            {
+                aplicarGravedad(); //Aplicamos la gravedad al movimiento
+                mostrar();
+                player1.Turno = false;
+                player2.Turno = true;
+            }
+               
+        }
+        else
+        {
+            cout << "Turno de Jugador 2:" << endl;
+            if (player2.seleccion_casilla(*this))
+            {
+                aplicarGravedad();
+                mostrar();
+                player2.Turno = false;
+                player1.Turno = true;
+            } 
         }
 
-        int ColumnaIni = entrada[1] - '1'; //Quitamos 1 al numero que introducimos ya que el jugador ve filas/columnas del (1-8) pero el vector de filas/columnas es de (0-7)
-        int FilaIni = entrada[0] - 'a';
-        int ColumnaFin = entrada[4] - '1';
-        int FilaFin = entrada[3] - 'a';
-
-        if (FilaIni < 0 || FilaIni >= 8 || ColumnaIni < 0 || ColumnaIni >= 8 ||
-            FilaFin < 0 || FilaFin >= 8 || ColumnaFin < 0 || ColumnaFin >= 8) {
-            cout << "Coordenadas fuera de rango.\n";
-            continue;
-        }
-
-        if (mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin)) {
-            mostrar();
-        }
-        else {
-            cout << "Movimiento inválido.\n";
-        }
     }
 }
