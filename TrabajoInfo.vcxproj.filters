@@ -43,6 +43,9 @@
     <Filter Include="Archivos de origen\Graficos\Sprites">
       <UniqueIdentifier>{40be6f10-18b4-43ba-bfae-8d4ce2be34c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de recursos\Placeholders">
+      <UniqueIdentifier>{26d4ccfd-4cd2-4761-b6b5-ae4eae5d29c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Info.cpp">
@@ -105,13 +108,16 @@
     <ClCompile Include="src\plataforma.cpp">
       <Filter>Archivos de origen\Graficos\Objetos</Filter>
     </ClCompile>
-    <ClCompile Include="src\listapiezas.cpp">
+    <ClCompile Include="src\listacasillas.cpp">
       <Filter>Archivos de origen\Graficos\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="src\piezagraf.cpp">
+    <ClCompile Include="src\casilla.cpp">
       <Filter>Archivos de origen\Graficos\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="src\vectabl.cpp">
+    <ClCompile Include="src\piezagr.cpp">
+      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tablerogr.cpp">
       <Filter>Archivos de origen\Graficos\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,13 +179,16 @@
     <ClInclude Include="src\sprite3D.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="src\listapiezas.h">
+    <ClInclude Include="src\listacasillas.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="src\piezagraf.h">
+    <ClInclude Include="src\casilla.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="src\vectabl.h">
+    <ClInclude Include="src\piezagr.h">
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tablerogr.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
@@ -192,6 +201,27 @@
     </Image>
     <Image Include="bin\rc\pieces.png">
       <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\bizop.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\horsey.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\king.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\pwaun.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\qween.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\tower.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
+    </Image>
+    <Image Include="bin\rc\sprite_prueba.png">
+      <Filter>Archivos de recursos\Placeholders</Filter>
     </Image>
   </ItemGroup>
 </Project>

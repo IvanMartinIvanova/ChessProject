@@ -8,7 +8,7 @@ class Estela
 {
 	static int counter;
 	Vector3D org;
-	Circulos circulitos[max];
+	Circulos circulitos[7];
 
 public:
 	Estela();

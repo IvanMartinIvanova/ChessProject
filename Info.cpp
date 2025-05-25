@@ -50,8 +50,10 @@ int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 600);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE);
-	glutCreateWindow("Esfera 3D");
+	glutCreateWindow("UwU");
 
 	// Habilitar luces y perspectiva
 	glEnable(GL_LIGHT0);
