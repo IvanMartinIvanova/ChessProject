@@ -31,5 +31,16 @@ public:
     bool com_dentro_tablero(int xFin, int yFin);
     void comp_coronacion(int, int);
     int generador_de_movimientos(Tablero& t);
+    bool comp_jaque(int xFin, int yFin, Tablero& t);
+    bool comp_jaque_mate(int xFin, int yFin, Tablero& t);
+
+    //Funciones auxiliares para jaque mate
+    Pieza* buscar_rey(int xFin, int yFin, int& pos_rey_x, int& pos_rey_y);
+    // 1 - ATACADA  /  0 - SIN ATACAR / 2 - LA CASILLA ESTÁ OCUPADA O NO PERTENECE AL TABLERO / 3 - PIEZA DEL MISMO COLOR QUE EL REY
+    int conocer_casilla_atacada(Colorpieza color, Tablero& t, int& cas_atacada_x, int& cas_atacada_y);
+    bool pieza_mismo_color_cerca_rey(Colorpieza color, Tablero& t, int& cas_atacada_x, int& cas_atacada_y);
+    int numero_atacantes(Colorpieza c, int xFin, int yFin, Tablero& t); 
+    int posicion_atacante(int& pos_atac_x, int& pos_atac_y, Colorpieza c, int xFin, int yFin, Tablero& t);
+    Pieza* crearPieza(TipoPieza tipo, Colorpieza color);
 };
 
