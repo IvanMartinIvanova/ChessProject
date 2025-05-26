@@ -240,6 +240,7 @@ int Tablero::generador_de_movimientos(Tablero& t, int xFin, int yFin, Colorpieza
         casillas[pos_caso_extremo_x][pos_caso_extremo_y] = casillas[pos_inicial_x][pos_inicial_y];
         delete casillas[pos_inicial_x][pos_inicial_y];
         casillas[pos_inicial_x][pos_inicial_y] = nullptr;
+        return 0;
     }
     
     
