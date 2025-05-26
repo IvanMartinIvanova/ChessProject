@@ -30,9 +30,12 @@ public:
 
     bool com_dentro_tablero(int xFin, int yFin);
     void comp_coronacion(int, int);
-    int generador_de_movimientos(Tablero& t);
+    int generador_de_movimientos(Tablero& t, int xFin, int yFin, Colorpieza color_p_anterior); //1-seria mate / 0-NO seria mate
     bool comp_jaque(int xFin, int yFin, Tablero& t);
     bool comp_jaque_mate(int xFin, int yFin, Tablero& t);
+
+    //Funcion auxiliar para IA
+    bool come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA);
 
     //Funciones auxiliares para jaque mate
     Pieza* buscar_rey(int xFin, int yFin, int& pos_rey_x, int& pos_rey_y);

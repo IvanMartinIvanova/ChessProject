@@ -165,41 +165,118 @@ void Tablero::comp_coronacion(int xFin, int yFin)
     }
 }
 
-int Tablero::generador_de_movimientos(Tablero& t)
+
+//Le paso los datos de la casilla a la que se ha movido la última pieza, antes de que juegue la IA, es decir, la última jugada del jugador
+int Tablero::generador_de_movimientos(Tablero& t, int xFin, int yFin, Colorpieza color_p_anterior)
 {
-    int numero = std::rand() % 10 + 1;
     bool aux;
+    bool provoca_jaque_mate;
+    int pos_caso_extremo_x, pos_caso_extremo_y; //Dos varibles auxiliares en caso de que sea inevitableque el jugador coma a la IA
+    int pos_inicial_x, pos_inicial_y; //Para guardar la casilla a copiar
+
+    provoca_jaque_mate = t.comp_jaque_mate(xFin, yFin, t);
+
+    if (provoca_jaque_mate == true)
+    {
+        return 1; //No hay movimiento posible para la IA
+    }
+    else
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            for (int j = 0; j <= 7; j++)
+            {
+                TipoPieza p = casillas[i][j]->getTipo();
+                Colorpieza color = casillas[i][j]->getColor();
+
+                if ((int(p) == 1 || int(p) == 2 || int(p) == 3 || int(p) == 4 || int(p) == 5 || int(p) == 6) && color != color_p_anterior)
+                {
+                    
+                    for (int c = 0; c <= 7; c++)
+                    {
+                        for (int d = 0; d <= 7; d++)
+                        {
+                            aux = casillas[i][j]->movimientoValido(i, j, c, d, t);
+
+                            bool provoca_jaque;
+
+                            if (aux == true)
+                            {
+                                casillas[c][d] = casillas[i][j];
+                                delete casillas[i][j];
+                                casillas[i][j] = nullptr;
+
+                                provoca_jaque = t.comp_jaque(c, d, t);
+                                bool comp_pieza_comida = t.come_pieza_a_IA(color, t, c, d);
+
+                                if (provoca_jaque == true)
+                                {
+                                    delete casillas[c][d];
+                                    casillas[c][d] = nullptr;
+                                    casillas[i][j] = crearPieza(p, color);
+                                }
+
+                                if (provoca_jaque == false && comp_pieza_comida == true) 
+                                {
+                                    pos_caso_extremo_x = c;
+                                    pos_caso_extremo_y = d;
+
+                                    pos_inicial_x = i;
+                                    pos_inicial_y = j;
+                                }
+
+                                if (provoca_jaque == false && comp_pieza_comida == false)
+                                    return 0;
+
+
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        casillas[pos_caso_extremo_x][pos_caso_extremo_y] = casillas[pos_inicial_x][pos_inicial_y];
+        delete casillas[pos_inicial_x][pos_inicial_y];
+        casillas[pos_inicial_x][pos_inicial_y] = nullptr;
+    }
     
     
+}
+
+bool Tablero::come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA)
+{
     for (int i = 0; i <= 7; i++)
     {
         for (int j = 0; j <= 7; j++)
         {
+
             TipoPieza p = casillas[i][j]->getTipo();
             Colorpieza color = casillas[i][j]->getColor();
-            //xFin = i;
-            //yFin = j;
 
-            if ((int(p)==1 || int(p) == 2|| int(p) == 3|| int(p) == 4|| int(p) == 5|| int(p) == 6) && color == Colorpieza::NEGRO)
+            if ((int(p) == 1 || int(p) == 2 || int(p) == 3 || int(p) == 4 || int(p) == 5 || int(p) == 6) && color != color_IA)
             {
-                for (int c = 0; c <= 7; c++)
-                {
-                    for (int d = 0; d <= 7; d++)
-                    {
-                        aux = casillas[i][j]->movimientoValido(i, j, c, d, t);
+                for (int c = 0; c <= 7; c++) {
+                    for (int d = 0; d <= 7; d++) {
+
+                        bool aux = casillas[i][j]->movimientoValido(i, j, x_fin_p_IA, y_fin_p_IA, t);
+
                         if (aux == true)
-                        {
-                            casillas[c][d] = casillas[i][j];
-                            delete casillas[i][j];
-                            casillas[i][j] = nullptr;
-                            return 0;
-                        }
+                            return true;
+
+
                     }
-                }  
+                }
             }
+
         }
     }
+
+    return false;
 }
+
+
 
 bool Tablero::comp_jaque(int xFin, int yFin, Tablero& t)
 {
