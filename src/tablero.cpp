@@ -473,7 +473,7 @@ Pieza* Tablero::buscar_rey(int xFin, int yFin, int& pos_rey_x, int& pos_rey_y)
 }
 
 
-int Tablero::conocer_casilla_atacada(Colorpieza color, Tablero& t, int& cas_atacada_x, int& cas_atacada_y)
+bool Tablero::conocer_casilla_atacada(Colorpieza color, Tablero& t, int& cas_atacada_x, int& cas_atacada_y)
 {
     
     for (int i = 0; i <= 7; i++) {
@@ -575,7 +575,7 @@ int Tablero::posicion_atacante(int& pos_atac_x, int& pos_atac_y, Colorpieza c, i
     return 0;
 }
 
-Pieza* crearPieza(TipoPieza tipo, Colorpieza color) {
+Pieza* Tablero::crearPieza(TipoPieza tipo, Colorpieza color) {
     switch (tipo) {
     case TipoPieza::REY: return new Rey(color);
     case TipoPieza::REINA: return new Reina(color);
