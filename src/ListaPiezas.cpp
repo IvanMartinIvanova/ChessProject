@@ -17,16 +17,16 @@ void ListaPiezas::agregar(Pieza* p)
 	}
 
 }
-
+using namespace std;
 void ListaPiezas::eliminar(vector<Pieza*> lista, Pieza* p)
 {
 	int count = 0;
-	for (Pieza* p2 : lista)
+	for (int i = 0; i < lista.size(); i++)
 	{
 		count++;
-		if (p2 = p)
+		if (lista[i] == p)
 		{
-			delete p2;
+			delete lista[i];
 			for (int i = count - 1; i < lista.size(); i++)
 			{
 				lista[i] = lista[i + 1]; //Ordenamos el vector para dejar como elemento libre (por haber eliminado la pieza) el último de la lista
@@ -45,5 +45,6 @@ void ListaPiezas::limpiar()
 
 ListaPiezas::~ListaPiezas()
 {
+	//std::cout << "Destruyendo lista de piezas en: " << this << std::endl;
 	limpiar();
 }

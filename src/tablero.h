@@ -8,6 +8,7 @@
 #include "reina.h"
 #include "Jugador.h"
 #include "Casilla.h"
+#include "DATOS_DIBUJO.h"
 #include <iostream>
 #include <cstdlib> // Para std::abs
 #include <cmath>   // Para std::abs
@@ -27,8 +28,8 @@ public:
     ~Tablero();//destructor
     void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
-    bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player);
-    bool aplicarGravedad(Tablero& tab); //primer intento de gravedad
+    bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player, DATOS_DIBUJO& dat);
+    bool aplicarGravedad(Tablero& tab, Pieza* posPieza_final_conGrav); //primer intento de gravedad
     Pieza* getCasilla(int x, int y) const { //Getter
         return casillas[x][y];
     }
@@ -39,7 +40,7 @@ public:
     {
         casillas[x][y] = nullptr;
     }
-    bool gestion_turnos(bool& estado_JAQUE);
+    bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat);
     bool gestion_jaque(Jugador defensor, Jugador atacante);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
     Casilla buscar_pieza(Pieza* p);

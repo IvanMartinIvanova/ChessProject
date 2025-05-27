@@ -3,6 +3,7 @@
 class Tablero; //Declaración anticipada para poder usar el puntero a la clase  Tablero llamada tab en los métodos de Jugador
 #include "ListaPiezas.h"
 #include "Puntuacion.h"
+#include "DATOS_DIBUJO.h"
 #include "Tiempo.h"
 #include <string>
 
@@ -20,7 +21,7 @@ protected:
 public:
 	Jugador();
 	Jugador& operator=(const Jugador& player);
-	bool seleccion_casilla(Tablero& tab);
+	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat);
 	//bool comp_jaque_mate(int xFin, int yFin, Tablero& tab);
 	~Jugador() = default;
 	friend class Tablero;

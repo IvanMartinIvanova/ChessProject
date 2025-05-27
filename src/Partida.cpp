@@ -25,10 +25,11 @@ void Partida::escoger_player()
 	getline(cin, tablero.player2.Nombre);
 }
 
-bool Partida::Progress_Partida()
+bool Partida::Progress_Partida(DATOS_DIBUJO& dat)
 {
+	DATOS_DIBUJO datos;
 	tablero.mostrar();
-	return tablero.gestion_turnos(this->estado_JAQUE);
+	return tablero.gestion_turnos(this->estado_JAQUE, datos);
 	
 }
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
@@ -38,7 +39,7 @@ void Partida::mostrarTablero() {
 	tablero.mostrar();
 }
 
-Tablero Partida::getTablero()
+Tablero& Partida::getTablero()
 {
 	return this->tablero;
 }

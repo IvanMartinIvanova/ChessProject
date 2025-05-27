@@ -21,7 +21,7 @@ Jugador& Jugador::operator=(const Jugador& player) {
     }
     return *this;
 }
-bool Jugador::seleccion_casilla(Tablero& tab)
+bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 {
     string entrada;
     while (true)
@@ -81,7 +81,7 @@ bool Jugador::seleccion_casilla(Tablero& tab)
                     {
                         if (lista_piezas_actuales.lista_piezas[i] == tab.getCasilla(FilaIni, ColumnaIni)) //Comprobamos si la casilla que ha seleccionado el jugador para mover hay una pieza suya
                         {
-                            if (tab.mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin,*this)) //Si se ha realizado correctamente el movimiento, entonces la función mover devuelve true
+                            if (tab.mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin,*this,dat)) //Si se ha realizado correctamente el movimiento, entonces la función mover devuelve true
                             {
                                 return true;
                             }

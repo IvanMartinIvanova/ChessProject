@@ -163,6 +163,7 @@
     <ClInclude Include="src\Casilla.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
+    <ClInclude Include="src\DATOS_DIBUJO.h" />
     <ClInclude Include="src\estela.h" />
     <ClInclude Include="src\Jugador.h" />
     <ClInclude Include="src\ListaPiezas.h" />

@@ -111,15 +111,90 @@
 
 // main.cpp
 #include <iostream>
+#include <string>
 #include "Menu.h"
 #include "Partida.h"
+#include "DATOS_DIBUJO.h"
 
-using namespace std;
+
+
+std::string Conversor(TipoPieza tipo)
+{
+    switch (tipo)
+    {
+    case TipoPieza::ALFIL:
+    {
+        return "alfil";
+        break;
+    }
+    case TipoPieza::CABALLO:
+    {
+        return "caballo";
+        break;
+    }
+    case TipoPieza::REINA:
+    {
+        return "reina";
+        break;
+    }
+    case TipoPieza::REY:
+    {
+        return "rey";
+        break;
+    }
+    case TipoPieza::PEON:
+    {
+        return "peon";
+        break;
+    }
+    case TipoPieza::TORRE:
+    {
+        return "torre";
+        break;
+    }
+    default:
+    {
+        return "vacia";
+        break;
+    }
+    }
+}
+
+std::string Conversor2(Colorpieza& color)
+{
+    switch (color)
+    {
+    case Colorpieza::BLANCO:
+    {
+        return "blanco";
+        break;
+    }
+
+    case Colorpieza::NEGRO:
+    {
+        return "negro";
+        break;
+    }
+    default:
+    {
+        return "ninguno";
+        break;
+    }
+
+    }
+}
+
+
 
 int main() {
     Menu menu;
     bool salir = false;
-
+    DATOS_DIBUJO datos;
+    Casilla pieza_ini, pieza_fin_sG, pieza_fin_cG;
+    string tipo_pieza_ini, color_pieza_ini, tipo_pieza_fin_sG, color_pieza_fin_sG, tipo_pieza_fin_cG, color_pieza_fin_cG;
+    Partida partida;
+    Tablero& tablero = partida.getTablero();
+    using namespace std;
 
     while (!salir) {
         menu.mostrarPrincipal();
@@ -128,12 +203,36 @@ int main() {
 
         switch (opcion) {
         case 1: {
-            Partida partida;
             partida.inicializar();       //Solo nueva partida lo usa
             partida.escoger_player();
-            while (partida.Progress_Partida())
+            while (partida.Progress_Partida(datos))
             {
+               
+                pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
+                pieza_fin_sG = tablero.buscar_pieza(datos.pieza_fin_sinGrav);
+                pieza_fin_cG = tablero.buscar_pieza(datos.pieza_fin_conGrav);
 
+                if (datos.pieza_origen != nullptr)
+                {
+                    tipo_pieza_ini = Conversor(datos.pieza_origen->getTipo());
+                    color_pieza_ini = Conversor2(datos.pieza_origen->getColor());
+                }
+                if (datos.pieza_fin_sinGrav != nullptr)
+                {
+                    tipo_pieza_fin_sG = Conversor(datos.pieza_fin_sinGrav->getTipo());
+                    color_pieza_fin_sG = Conversor2(datos.pieza_fin_sinGrav->getColor());
+                }
+                if (datos.pieza_fin_conGrav != nullptr)
+                {
+                    tipo_pieza_fin_cG = Conversor(datos.pieza_fin_conGrav->getTipo());
+                    color_pieza_fin_cG = Conversor2(datos.pieza_fin_conGrav->getColor());
+
+                }
+
+                cout << "\n Pieza de origen seleccionada " << tipo_pieza_ini << " " << color_pieza_ini << endl;
+                cout << "\n Pieza de destino seleccionada antes de aplicar gravedad " << tipo_pieza_fin_sG << " " << color_pieza_fin_sG << endl;
+               // cout << "\n Pieza de destino seleccionada despues de aplicar gravedad" << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
+                
             }
 
             cout << "¿Deseas guardar la partida? (s/n): ";
@@ -151,8 +250,11 @@ int main() {
             Partida partida;
             if (partida.cargarDesdeArchivo("partida_guardada.txt")) {
                 cout << "Partida cargada exitosamente.\n";
-                partida.mostrarTablero();  //  NUEVO: mostrar tablero cargado
-                partida.Progress_Partida();
+                while (partida.Progress_Partida(datos))
+                {
+                    //Aqui se pondria lo de los datos de dibujo
+                }
+
             }
             else {
                 cout << "No se pudo cargar la partida.\n";
