@@ -157,10 +157,10 @@
     <ClCompile Include="src\Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matriz.h" />
     <ClInclude Include="src\alfil.h" />
     <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\cara.h" />
+    <ClInclude Include="src\Casilla.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\estela.h" />

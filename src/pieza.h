@@ -12,8 +12,9 @@ protected:
    
 public:
     Pieza(TipoPieza tipo, Colorpieza color) : tipo(tipo), color(color) {}
+    Pieza(const Pieza& otra) : tipo(otra.tipo), color(otra.color){} //Constructor Copia
     virtual ~Pieza() = default;
-
+    virtual Pieza* clonar() const = 0; //Para clonar piezas
     TipoPieza getTipo() const { return tipo; }
     Colorpieza getColor() const { return color; }
     void dibuja();

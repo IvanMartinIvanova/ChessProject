@@ -131,7 +131,20 @@ int main() {
             Partida partida;
             partida.inicializar();       //Solo nueva partida lo usa
             partida.escoger_player();
-            partida.Progress_Partida();
+            while (partida.Progress_Partida())
+            {
+
+            }
+
+            cout << "¿Deseas guardar la partida? (s/n): ";
+            char resp; cin >> resp;
+            if (resp == 's' || resp == 'S') {
+                if (partida.getTablero().guardarPartida("partida_guardada.txt"))
+                    cout << "Partida guardada exitosamente.\n";
+                else
+                    cout << "Error al guardar la partida.\n";
+            }
+
             break;
         }
         case 2: {

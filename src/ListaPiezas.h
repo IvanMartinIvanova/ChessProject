@@ -14,7 +14,8 @@ public:
 	void agregar(Pieza* p);
 	void eliminar(vector<Pieza*> lista, Pieza* p);
 	int size() { return static_cast<int>(lista_piezas.size()); } //Me devuelve el número de piezas de un jugador que hay en una lista (de piezas actuales o eliminadas, por ejemplo)
-	~ListaPiezas() = default; //Destructor predefinido
+	void limpiar();
+	~ListaPiezas(); 
 	friend class Jugador;
 	friend class Tablero;
 };

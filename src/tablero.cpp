@@ -4,16 +4,64 @@
 #include <fstream>
 using namespace std;
 
-Tablero::Tablero() {
+Tablero::Tablero(): player1(), player2(){
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col< 8; col++)
             casillas[fila][col] = nullptr;
 }
 
+Tablero& Tablero::operator=(const Tablero & tab)
+{
+    
+    if (this != &tab)
+    {
+        // Primero limpia piezas antiguas
+        player1.lista_piezas_actuales.limpiar();
+        player1.lista_piezas_comidas.limpiar();
+        player2.lista_piezas_actuales.limpiar();
+        player2.lista_piezas_comidas.limpiar();
+
+
+        for (int fila = 0; fila < 8; ++fila)
+        {
+            for (int col = 0; col < 8; ++col)
+            {
+                delete casillas[fila][col];
+                casillas[fila][col] = nullptr;
+
+                if (tab.casillas[fila][col])
+                {
+                    casillas[fila][col] = tab.casillas[fila][col]->clonar();
+
+                    if (casillas[fila][col]->getColor() == Colorpieza::BLANCO)
+                        player1.lista_piezas_actuales.agregar(casillas[fila][col]);
+                    else
+                        player2.lista_piezas_actuales.agregar(casillas[fila][col]);
+                }
+            }
+        }
+        // Copia nombres y turnos
+        player1.Nombre = tab.player1.Nombre;
+        player2.Nombre = tab.player2.Nombre;
+        player1.Turno = tab.player1.Turno;
+        player2.Turno = tab.player2.Turno;
+        player1.temp = tab.player1.temp;
+        player2.temp = tab.player2.temp;
+        player1.points = tab.player1.points;
+        player2.points = tab.player2.points;
+    }
+        return *this;
+}
+
+
 Tablero::~Tablero() {
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
-            delete casillas[fila][col];
+            if (casillas[fila][col] != nullptr)
+            {
+                delete casillas[fila][col];
+                casillas[fila][col] = nullptr;
+            }
 }
 
 void Tablero::inicializar() {
@@ -77,7 +125,8 @@ void Tablero::mostrar() {
                 case TipoPieza::ALFIL: simbolo = 'A'; break;
                 case TipoPieza::REINA: simbolo = 'Q'; break;
                 case TipoPieza::REY: simbolo = 'K'; break;
-                default: simbolo = '?'; break;
+                default:
+                    simbolo = '?'; break;
                 }
                 if (pieza->getColor() == Colorpieza::BLANCO)
                     simbolo = tolower(simbolo);
@@ -88,25 +137,49 @@ void Tablero::mostrar() {
     }
 }
 
-//bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin) {
-//    if (!casillas[FilIni][ColIni]) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
-//        cout << "No hay pieza en la casilla de origen.\n";
-//        return false;
-//    }
-//
-//    Pieza* pieza = casillas[FilIni][ColIni];
-//    if (pieza->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) {
-//        delete casillas[FilFin][ColFin];
-//        casillas[FilFin][ColFin] = pieza;
-//        //Hay que llamar a una función para que guarde qué pieza se ha comido
-//        casillas[FilIni][ColIni] = nullptr;
-//        aplicarGravedad();
-//        return true;
-//    }
-//    return false;
-//}
+bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& player) {
 
-void Tablero::aplicarGravedad() {
+    Pieza* casilla_origen = this->getCasilla(FilIni, ColIni);
+    Pieza* casilla_destino = this->getCasilla(FilFin, ColFin);
+    
+
+    if (casilla_origen->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) //Comprobamos si el movimiento de la pieza seleccionado es correcto
+    {
+       
+        if (casilla_destino != nullptr)
+        {
+            if (casilla_destino->getTipo() == TipoPieza::REY)
+            {
+                if (casilla_origen->getColor() == casilla_destino->getColor()) //Para evitar que una pieza se coma a su propio rey (de su mismo color)
+                {
+                    cout << "La pieza no puede comerse a su propio rey" << endl;
+                    return false;
+                }
+
+            }
+        }
+        
+        this->resetCasilla(FilFin, ColFin); //Liberamos la casilla de destino
+        this->setCasilla(FilFin, ColFin, casilla_origen); //Aplicamos el movimiento
+        this->resetCasilla(FilIni, ColIni); //Liberamos la casilla de origen
+       
+        if (aplicarGravedad(*this))
+        {
+            
+            if (casilla_destino != nullptr)
+                player.lista_piezas_comidas.agregar(casilla_destino); //Agregamos la pieza que el jugador se come a su lista de piezas comidas
+
+            return true;
+        }
+       
+        
+    }
+    return false;
+}
+
+
+bool Tablero::aplicarGravedad(Tablero& tab) {
+ 
     for (int columna = 0; columna <= 7; columna++)
     {
         for (int fila = 7; fila >= 0; fila--) {
@@ -120,43 +193,261 @@ void Tablero::aplicarGravedad() {
 
                     casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
                     casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
+
                 }
             }
         }
     }
+    return true;
+        
+
 }
 
-void Tablero::gestion_turnos() {
-    string entrada;
-
-    while(true)
+Casilla Tablero::buscar_pieza(Pieza* p)
+{
+    for (int fila = 0; fila <= 7; fila++)
     {
-        if (player1.Turno)
+        for (int columna = 0; columna <= 7; columna++)
         {
-            cout << "Turno de Jugador 1:" << endl;
+            if (casillas[fila][columna] == p)
+            {
+                Casilla encontrado = { fila, columna };
+                return encontrado;
+            }
+                
+        }
+    }
+    return { -1,-1 };
+}
+
+bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE - Si hay forma d escapar del JAQUE y FALSE si es JAQUE MATE
+{
+    int pos_listaRey = 0;
+    Casilla casillaRey;
+    Casilla piezas_atacantes;
+    Casilla piezas_atacantes2;
+    Casilla piezas_defensoras;
+    int escape_rey = 0;
+
+    //Detectamos la posicion del rey en la lista de piezas sobre el tablero del jugador defensor
+    for (int i = 0; i < defensor.lista_piezas_actuales.size(); i++)
+        if (defensor.lista_piezas_actuales.lista_piezas[i]->getTipo() == TipoPieza::REY)
+            pos_listaRey = i;
+
+    //Primero comprobamos si el rey puede hacer algún movimiento que evite el Jaque
+    casillaRey = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[pos_listaRey]);
+    Pieza* rey = getCasilla(casillaRey.fila, casillaRey.columna);
+    for (int fila = 0; fila <= 7; fila++)
+    {
+        for (int columna = 0; columna <= 7; columna++)
+        {
+            if (rey->movimientoValido(casillaRey.fila, casillaRey.columna, fila, columna, *this))
+            {
+                for (int j = 0; j < atacante.lista_piezas_actuales.size(); j++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
+                {
+                    piezas_atacantes = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[j]);
+                    Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
+                    if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey está amenazada
+                    {
+                        //El rey no se puede mover a esa posición -> Hay que comprobar si podemos cubrir al rey con una pieza
+                        for (int m = 0; m < defensor.lista_piezas_actuales.size(); m++)
+                        {
+                            if (defensor.lista_piezas_actuales.lista_piezas[m]->getTipo() != TipoPieza::REY)
+                            {
+                                piezas_defensoras = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[m]);
+                                Pieza* defensor = getCasilla(piezas_defensoras.fila, piezas_defensoras.columna);
+                                for (int f = 0; f <= 7; f++)
+                                {
+                                    for (int c = 0; c <= 7; c++)
+                                    {
+                                        if (defensor->movimientoValido(piezas_defensoras.fila, piezas_defensoras.columna, f, c, *this))
+                                        {
+                                            setCasilla(f, c, defensor);
+                                            for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
+                                            {
+                                                piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
+                                                Pieza* atacante2 = getCasilla(piezas_atacantes2.fila, piezas_atacantes2.columna);
+                                                if (atacante2->movimientoValido(piezas_atacantes2.fila, piezas_atacantes2.columna, casillaRey.fila,casillaRey.columna, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey
+                                                {
+                                                    resetCasilla(f, c); //El defensor no ha podido proteger al rey
+                                                    escape_rey = 0;
+                                                }
+                                                else
+                                                {
+                                                    resetCasilla(f, c);
+                                                    return true; //El defensor puede proteger al rey
+                                                }
+
+                                            }
+                                        }
+
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                        escape_rey = 1; //No está amenazada y se puede mover a ella
+                }
+                if (escape_rey == 1) //El rey ha podido moverse a una casilla donde no está amenazado
+                    return true;
+                else
+                    return false; //El rey no ha podido salir del JAQUE, por tanto, JAQUE MATE
+            }
+        }
+    }
+}
+
+bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
+{
+    int pos_listaRey = 0;
+    Casilla casillaRey;
+    Casilla piezas_atacantes;
+    Casilla piezas_defensoras;
+    int escape_rey = 0;
+
+    //Detectamos la posicion del rey sobre el tablero del jugador defensor
+    for (int i = 0; i < turno_inactivo.lista_piezas_actuales.size(); i++)
+        if (turno_inactivo.lista_piezas_actuales.lista_piezas[i]->getTipo() == TipoPieza::REY)
+            pos_listaRey = i;
+
+    casillaRey = buscar_pieza(turno_inactivo.lista_piezas_actuales.lista_piezas[pos_listaRey]);
+    Pieza* rey = getCasilla(casillaRey.fila, casillaRey.columna);
+
+    for (int i = 0; i < turno_activo.lista_piezas_actuales.size(); i++)
+    {
+        piezas_atacantes = buscar_pieza(turno_activo.lista_piezas_actuales.lista_piezas[i]);
+        if (piezas_atacantes.fila == -1)
+            cout << "ERROR PIEZA NO ENCONTRADA EN EL PROCESO" << endl;
+        Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
+        if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, casillaRey.fila, casillaRey.columna, *this)) //Comprobamos si alguna pieza del jugador con el turno activo hace jaque al rey del oponente
+        {
+            cout << "JAQUE AL REY" << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Tablero::gestion_turnos(bool& estado_JAQUE)
+{
+    string entrada;
+    bool jaque = estado_JAQUE;
+
+    Tablero backup;
+    backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atrás
+
+    if (player1.Turno) //TURNO PLAYER 1
+    {
+        cout << "Turno de Jugador 1:" << endl;
+
+        if (!jaque)
+        {
             if (player1.seleccion_casilla(*this)) //TRUE si el movimiento se ha realizado correctamente
             {
-                aplicarGravedad(); //Aplicamos la gravedad al movimiento
-                mostrar();
-                player1.Turno = false;
-                player2.Turno = true;
+                if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
+                {
+                    player1.Turno = false;
+                    player2.Turno = true;
+
+                }
+                else //Hay JAQUE al rey
+                {
+                    jaque = true;
+                    player1.Turno = false;
+                    player2.Turno = true;
+                }
             }
-               
         }
-        else
+
+        else //Player 1 está en JAQUE
         {
-            cout << "Turno de Jugador 2:" << endl;
-            if (player2.seleccion_casilla(*this))
+            if (gestion_jaque(player1, player2)) //Comprueba si el rey tiene opciones de salvarse
             {
-                aplicarGravedad();
-                mostrar();
-                player2.Turno = false;
-                player1.Turno = true;
-            } 
+                if (player1.seleccion_casilla(*this))
+                {
+                    if (!comprobacion_jaque(player2, player1)) //Comprobamos si ha salido del JAQUE
+                    {
+                        player1.Turno = false;
+                        player2.Turno = true;
+                        jaque = false; //Ha salido del JAQUE
+
+                    }
+                    else
+                    {
+                        cout << "EL REY SIGUE ESTANDO EN JAQUE, HAZ OTRO MOVIMIENTO" << endl;
+                        *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
+                        player1.Turno = true; //Repetimos su turno
+                        player2.Turno = false;
+                    }
+                }
+
+
+            }
+            else
+                return false; //JAQUE MATE - TERMINA LA PARTIDA
+
+
         }
 
     }
+    else //TURNO PLAYER 2
+    {
+        cout << "Turno de Jugador 2:" << endl;
+        if (!jaque)
+        {
+            if (player2.seleccion_casilla(*this))
+            {
+                if (!comprobacion_jaque(player2, player1))
+                {
+                    player2.Turno = false;
+                    player1.Turno = true;
+                }
+                else
+                {
+                    jaque = true; //Hay JAQUE del player 2 al player 1
+                    player1.Turno = true;
+                    player2.Turno = false;
+                }
+            }
+        }
+        else
+        {
+            if (gestion_jaque(player2, player1))
+            {
+
+                if (player2.seleccion_casilla(*this))
+                {
+                    if (!comprobacion_jaque(player1, player2))
+                    {
+                        player1.Turno = true;
+                        player2.Turno = false;
+                        jaque = false;
+                    }
+                    else
+                    {
+                        cout << "EL REY SIGUE ESTANDO EN JAQUE, HAZ OTRO MOVIMIENTO" << endl;
+                        *this = backup;
+                        player1.Turno = false;
+                        player2.Turno = true;
+                    }
+
+                }
+
+
+            }
+            else
+                return false; //JAQUE MATE - TERMINA LA PARTIDA
+
+        }
+    }
+
+    estado_JAQUE = jaque;
+    return true; //Termina el turno
+
 }
+
 
 bool Tablero::guardarPartida(const string& nombreArchivo) {
     ofstream archivo(nombreArchivo);

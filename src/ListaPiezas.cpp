@@ -37,3 +37,13 @@ void ListaPiezas::eliminar(vector<Pieza*> lista, Pieza* p)
 
 	}
 }
+
+void ListaPiezas::limpiar()
+{
+	lista_piezas.clear();
+}
+
+ListaPiezas::~ListaPiezas()
+{
+	limpiar();
+}
