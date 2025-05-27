@@ -33,8 +33,6 @@ void Plataforma::dibuja()
 	cara6.dibujaxy();
 
 	estela.dibuja();
-//	std::cout << counter <<" ";
-	//std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
 }
 
 
@@ -46,11 +44,11 @@ void Plataforma::set_color(Color& col)
 void Plataforma::calcidle()
 {
 	limite1.x = limest1.x;
-	limite1.y = limest1.y + 0.3*sin(counter);
+	limite1.y = limest1.y + osci*sin(counter);
 	limite1.z = limest1.z;
 
 	limite2.x = limest2.x;
-	limite2.y = limest2.y + 0.3*sin(counter);
+	limite2.y = limest2.y + osci*sin(counter);
 	limite2.z = limest2.z;
 
 	estela.setorg({ (limite1.x + limite2.x) / 2,limite2.y,(limite1.z + limite2.z) / 2 });

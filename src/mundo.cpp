@@ -13,7 +13,7 @@ Mundo::Mundo()
 	x_ojo = 0;
 
 	y_ojo = 0;
-	z_ojo = 50;
+	z_ojo = 40;
 
 	//y_ojo = 20;
 	//z_ojo = 40;
@@ -45,10 +45,10 @@ void Mundo::dibuja()
 	//glDisable(GL_LIGHTING);
 
 
-	//tablero.dibuja();
+	tablero.dibuja();
 	piezas1.dibuja();
 	piezas2.dibuja();
-	fondo->dibuja(0);
+	//fondo->dibuja(0);
 	tablerogr.dibuja(); 
 
 	//glTranslated(0, 0, 0);
@@ -76,5 +76,6 @@ void Mundo::tecla(char key)
 	if (key == 'c')
 	{
 	}
+	tablerogr.mueve(key);
 }
 

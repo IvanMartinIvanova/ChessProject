@@ -94,6 +94,7 @@ void OnKeyboardDown(unsigned char key, int x, int y)
 {
 	if (key == 27) // ESC para salir
 		exit(0);
+	mundo.tecla(key);
 }
 
 void OnTimer(int value)

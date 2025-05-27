@@ -35,15 +35,30 @@ void Casilla::setpieza(PiezaGr* piezain)
 
 void Casilla::draw()
 {
-	pieza->dibuja();
+	if (pieza != nullptr)
+	{
+		pieza->dibuja();
+	}
+	else
+		std::cout << "error casilla->draw null ptr" << std::endl;
 }
 
-int Casilla::getfile()
+float Casilla::getfile()
 {
 	return file;
 }
 
-int Casilla::getrow()
+float Casilla::getrow()
 {
 	return row;
+}
+
+PiezaGr* Casilla::getpieza()
+{
+	return pieza;
+}
+
+string Casilla::gettipo()
+{
+	return pieza->gettipo();
 }

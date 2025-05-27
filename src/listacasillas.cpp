@@ -4,6 +4,7 @@
 ListaCasillas::ListaCasillas()
 {
     listacasillas.resize(64);
+    selec.getlista(&listacasillas);
     int index = 0;
     for (int i = 1; i < 9; ++i) {
         for (int j = 1; j < 9; ++j) {
@@ -12,43 +13,61 @@ ListaCasillas::ListaCasillas()
         }
     }
 
-    for (auto e : listacasillas)
+    for (auto i = 0; listacasillas.size()>i;i++)
     {
         bool color;
-        if (e.getfile() < 3)
+        if (listacasillas[i].getfile() < 3)
             color = 1;
         else
             color = 0;
 
-        if (e.getfile() == (2 || 7))
+        listacasillas[i].setpieza(new VacioGr(color));
+
+        if (listacasillas[i].getfile() == 2 || listacasillas[i].getfile() == 7)
         {
-            e.setpieza(new PeonGr(color));
+            listacasillas[i].setpieza(new PeonGr(color));
         }
        
-
-        if (e.getfile() == (1 || 8))
+        if (listacasillas[i].getfile() == 1 || listacasillas[i].getfile() == 8)
         {
-            if(e.getrow()==(1||8))
-                e.setpieza(new TorreGr(color));
-            if(e.getrow()==(2||7))
-                e.setpieza(new CaballoGr(color));
-            if(e.getrow()==(3||6))
-                e.setpieza(new AlfilGr(color));
-            if(e.getrow()==4)
-                e.setpieza(new ReyGr(color));
-            if(e.getrow()==5)
-                e.setpieza(new ReinaGr(color));
+            if (listacasillas[i].getrow() == (1) || listacasillas[i].getrow() == 8)
+                listacasillas[i].setpieza(new TorreGr(color));
+            if(listacasillas[i].getrow() == (2) || listacasillas[i].getrow() == 7)
+                listacasillas[i].setpieza(new CaballoGr(color));
+            if(listacasillas[i].getrow() == 3 || listacasillas[i].getrow() == 6)
+                listacasillas[i].setpieza(new AlfilGr(color));
+            if (listacasillas[i].getrow() == 4)
+                listacasillas[i].setpieza(new ReyGr(color));
+            if (listacasillas[i].getrow() == 5)
+                listacasillas[i].setpieza(new ReinaGr(color));
         }
     }
 }
 
 void ListaCasillas::dibuja(Vector3D org, float side)
 {
-    for (auto e : listacasillas)
+    for (auto i = 0; listacasillas.size() > i; i++)
     {       
-        glPopMatrix();
-        glTranslated(e.getfile()/1 * side + org.x, e.getrow()/8 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
-        e.draw();
         glPushMatrix();
+        glTranslated(listacasillas[i].getfile()/9 * side + org.x, listacasillas[i].getrow()/9 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
+        listacasillas[i].draw();
+        glPopMatrix();
     }
+    selec.draw(side, org);
+}
+
+PiezaGr* ListaCasillas::getpieza(int rowin, int filein)
+{
+    Casilla casilla = listacasillas[(rowin - 1) * 8 + (filein - 1)];
+    return casilla.getpieza();
+}
+
+void ListaCasillas::move(unsigned char tecla)
+{
+    selec.move(tecla);
+}
+
+void ListaCasillas::setpieza(int rowin, int filein, PiezaGr* piezain)
+{
+    listacasillas[(rowin - 1) * 8 + (filein - 1)].setpieza(piezain);
 }

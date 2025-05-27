@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <iostream>
 #include "piezagr.h"
 
 using namespace std;
@@ -10,6 +11,8 @@ class Casilla
 {
 	int file; //columna
 	int row; //fila
+
+protected:
 	PiezaGr* pieza;
 
 public:
@@ -18,10 +21,12 @@ public:
 
 	void setpos(int rowin, int filein);
 	void setpieza(PiezaGr* piezain);
-	int getrow();
-	int getfile();
+	float getrow();
+	float getfile();
+	PiezaGr* getpieza();
+	string gettipo();
 
 
-	void draw();
+	virtual void draw();
 };
 

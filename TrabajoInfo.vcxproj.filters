@@ -120,6 +120,9 @@
     <ClCompile Include="src\tablerogr.cpp">
       <Filter>Archivos de origen\Graficos\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="src\casillaselec.cpp">
+      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\mundo.h">
@@ -189,6 +192,9 @@
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="src\tablerogr.h">
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\casillaselec.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
   </ItemGroup>

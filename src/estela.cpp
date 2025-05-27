@@ -32,12 +32,11 @@ void Estela::setorg(const Vector3D& orgin)
 void Estela::dibuja()
 {
     int i;
-    glPushMatrix();
 
     for (i = 0; max - 1 > i; i++)
     {
+        glPushMatrix();
         circulitos[i].drawcirc(org);
+        glPopMatrix();
     }
-   glPopMatrix();
-   // std::cout << std::endl;
 }

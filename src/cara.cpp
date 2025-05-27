@@ -42,12 +42,6 @@ void Cara::dibujaxy() //dibuja en plano x y en plano y
 	glVertex3d(esq2.x, esq2.y, esq2.z);
 	glVertex3d(esq2.x, esq1.y, esq2.z);
 
-	esq1.print();
-	esq2.print();
-	//std::cout << esq1.x << " " << esq1.y << " " << esq1.z << std::endl;
-	//std::cout << esq2.x << " " << esq2.y << " " << esq2.z << std::endl;
-	//std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-	std::cout << "xy" << std::endl;
 
 	glEnd();
 	//glEnable(GL_LIGHTING);
@@ -63,11 +57,6 @@ void Cara::dibujaz()  //dibuja en plano z
 	glVertex3d(esq1.x, esq2.y, esq2.z);
 	glVertex3d(esq2.x, esq2.y, esq2.z);
 	glVertex3d(esq2.x, esq1.y, esq1.z);
-
-	esq1.print();
-	esq2.print();
-
-	std::cout << "z" << std::endl;
 
 	glEnd();
 }
