@@ -340,7 +340,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE)
 
     if (player1.Turno) //TURNO PLAYER 1
     {
-        cout << "Turno de Jugador 1:" << endl;
+        cout << "Turno de " << player1.Nombre << ":" << endl;
 
         if (!jaque)
         {
@@ -394,7 +394,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE)
     }
     else //TURNO PLAYER 2
     {
-        cout << "Turno de Jugador 2:" << endl;
+        cout << "Turno de " << player2.Nombre <<":" << endl;
         if (!jaque)
         {
             if (player2.seleccion_casilla(*this))
