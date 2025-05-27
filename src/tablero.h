@@ -29,7 +29,7 @@ public:
     void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
     bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player, DATOS_DIBUJO& dat);
-    bool aplicarGravedad(Tablero& tab, Pieza* posPieza_final_conGrav); //primer intento de gravedad
+    bool aplicarGravedad(Tablero& tab,Casilla destin0_sinGravedad, Pieza*& posPieza_final_conGrav); //primer intento de gravedad
     Pieza* getCasilla(int x, int y) const { //Getter
         return casillas[x][y];
     }

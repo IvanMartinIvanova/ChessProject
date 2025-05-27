@@ -216,23 +216,22 @@ int main() {
                 {
                     tipo_pieza_ini = Conversor(datos.pieza_origen->getTipo());
                     color_pieza_ini = Conversor2(datos.pieza_origen->getColor());
+                    cout << "\n Pieza de origen seleccionada " << tipo_pieza_ini << " " << color_pieza_ini << endl;
                 }
                 if (datos.pieza_fin_sinGrav != nullptr)
                 {
                     tipo_pieza_fin_sG = Conversor(datos.pieza_fin_sinGrav->getTipo());
                     color_pieza_fin_sG = Conversor2(datos.pieza_fin_sinGrav->getColor());
+                    cout << "\n Pieza de destino seleccionada antes de aplicar gravedad " << tipo_pieza_fin_sG << " " << color_pieza_fin_sG << endl;
                 }
                 if (datos.pieza_fin_conGrav != nullptr)
                 {
                     tipo_pieza_fin_cG = Conversor(datos.pieza_fin_conGrav->getTipo());
                     color_pieza_fin_cG = Conversor2(datos.pieza_fin_conGrav->getColor());
-
+                    cout << "\n Pieza de destino seleccionada despues de aplicar gravedad " << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
                 }
 
-                cout << "\n Pieza de origen seleccionada " << tipo_pieza_ini << " " << color_pieza_ini << endl;
-                cout << "\n Pieza de destino seleccionada antes de aplicar gravedad " << tipo_pieza_fin_sG << " " << color_pieza_fin_sG << endl;
-               // cout << "\n Pieza de destino seleccionada despues de aplicar gravedad" << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
-                
+               
             }
 
             cout << "¿Deseas guardar la partida? (s/n): ";

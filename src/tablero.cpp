@@ -166,7 +166,7 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& play
         this->setCasilla(FilFin, ColFin, casilla_origen); //Aplicamos el movimiento
         this->resetCasilla(FilIni, ColIni); //Liberamos la casilla de origen
        
-        if (aplicarGravedad(*this, dat.pieza_fin_conGrav))
+        if (aplicarGravedad(*this, {FilFin, ColFin}, dat.pieza_fin_conGrav))
         {
            
             if (casilla_destino != nullptr)
@@ -181,7 +181,7 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& play
 }
 
 
-bool Tablero::aplicarGravedad(Tablero& tab, Pieza* Pieza_final_conGrav) {
+bool Tablero::aplicarGravedad(Tablero& tab,Casilla destino_sinGravedad,Pieza*& Pieza_final_conGrav) {
  
     for (int columna = 0; columna <= 7; columna++)
     {
@@ -196,6 +196,7 @@ bool Tablero::aplicarGravedad(Tablero& tab, Pieza* Pieza_final_conGrav) {
 
                     casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
                     casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
+                    if (columna == destino_sinGravedad.columna)
                     Pieza_final_conGrav = getCasilla(destino, columna);
 
                 }

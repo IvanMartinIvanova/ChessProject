@@ -27,10 +27,8 @@ void Partida::escoger_player()
 
 bool Partida::Progress_Partida(DATOS_DIBUJO& dat)
 {
-	DATOS_DIBUJO datos;
 	tablero.mostrar();
-	return tablero.gestion_turnos(this->estado_JAQUE, datos);
-	
+	return tablero.gestion_turnos(this->estado_JAQUE, dat);
 }
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);
