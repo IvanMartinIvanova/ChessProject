@@ -13,6 +13,26 @@ bool Jugador::seleccion_casilla(Tablero& tab)
     {
         cout << "Introduce el movimiento (Por ejemplo: b2 b3): ";
         getline(cin, entrada);
+        // NUEVO BLOQUE: permitir guardar
+        if (entrada == "guardar") {
+            if (tab.guardarPartida("partida_guardada.txt")) {
+                cout << "Partida guardada exitosamente.\n";
+            }
+            else {
+                cout << "Error al guardar la partida.\n";
+            }
+            continue; // vuelve a pedir un movimiento
+        }
+        if (entrada == "guardar y salir") {
+            if (tab.guardarPartida("partida_guardada.txt")) {
+                cout << "Partida guardada exitosamente. Cerrando el juego...\n";
+            }
+            else {
+                cout << "Error al guardar la partida. Cerrando de todos modos.\n";
+            }
+            exit(0); // termina el programa
+        }
+
 
         if (entrada.length() != 5 || entrada[2] != ' ')
         {

@@ -98,13 +98,63 @@
 //	glutTimerFunc(25, OnTimer, 0);
 //	glutPostRedisplay(); // Redibujar la pantalla
 //}
+//#include "Partida.h"
+//
+//int main() {
+//    Partida p;
+//    p.escoger_player();
+//    if (p.Progress_Partida()) //Si devuelve True - se ha acabado la partida / Si devuelve FALSE - todavía no ha acabado la partida
+//    {
+//        return 0;
+//    }
+//}
+
+// main.cpp
+#include <iostream>
+#include "Menu.h"
 #include "Partida.h"
 
+using namespace std;
+
 int main() {
-    Partida p;
-    p.escoger_player();
-    if (p.Progress_Partida()) //Si devuelve True - se ha acabado la partida / Si devuelve FALSE - todavía no ha acabado la partida
-    {
-        return 0;
+    Menu menu;
+    bool salir = false;
+
+
+    while (!salir) {
+        menu.mostrarPrincipal();
+        int opcion = menu.obtenerOpcion();
+		menu.limpiarPantalla();
+
+        switch (opcion) {
+        case 1: {
+            Partida partida;
+            partida.inicializar();       //Solo nueva partida lo usa
+            partida.escoger_player();
+            partida.Progress_Partida();
+            break;
+        }
+        case 2: {
+            Partida partida;
+            if (partida.cargarDesdeArchivo("partida_guardada.txt")) {
+                cout << "Partida cargada exitosamente.\n";
+                partida.mostrarTablero();  //  NUEVO: mostrar tablero cargado
+                partida.Progress_Partida();
+            }
+            else {
+                cout << "No se pudo cargar la partida.\n";
+            }
+            break;
+        }
+        case 3:
+            cout << "Gracias por jugar.\n";
+            salir = true;
+            break;
+        default:
+            cout << "Opción invalida. Intenta otra vez.\n";
+            break;
+        }
     }
+
+    return 0;
 }

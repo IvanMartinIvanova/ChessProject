@@ -1,6 +1,7 @@
 #include "tablero.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 Tablero::Tablero() {
@@ -155,4 +156,77 @@ void Tablero::gestion_turnos() {
         }
 
     }
+}
+
+bool Tablero::guardarPartida(const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo);
+    if (!archivo.is_open()) return false;
+
+    archivo << "JUGADOR1: " << player1.Nombre << "\n";
+    archivo << "JUGADOR2: " << player2.Nombre << "\n";
+    archivo << "TURNO: " << (player1.Turno ? 1 : 2) << "\n";
+    archivo << "TABLERO:\n";
+
+    for (int fila = 0; fila < 8; fila++) {
+        for (int col = 0; col < 8; col++) {
+            Pieza* pieza = casillas[fila][col];
+            if (pieza) {
+                archivo << static_cast<int>(pieza->getTipo()) << " "
+                    << static_cast<int>(pieza->getColor()) << " "
+                    << fila << " " << col << "\n";
+            }
+        }
+    }
+
+    archivo.close();
+    return true;
+}
+
+bool Tablero::cargarPartida(const string& nombreArchivo) {
+    ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) return false;
+
+    string linea;
+    int turno;
+    getline(archivo, linea); player1.Nombre = linea.substr(10);
+    getline(archivo, linea); player2.Nombre = linea.substr(10);
+    getline(archivo, linea); turno = stoi(linea.substr(7));
+    player1.Turno = (turno == 1);
+    player2.Turno = !player1.Turno;
+
+    // Limpiar tablero actual
+    for (int f = 0; f < 8; ++f)
+        for (int c = 0; c < 8; ++c)
+            casillas[f][c] = nullptr;
+
+    player1.lista_piezas_actuales = ListaPiezas();
+    player2.lista_piezas_actuales = ListaPiezas();
+
+    getline(archivo, linea); // "TABLERO:"
+    int tipo, color, fila, col;
+
+    while (archivo >> tipo >> color >> fila >> col) {
+        Pieza* nueva = nullptr;
+        Colorpieza colP = static_cast<Colorpieza>(color);
+
+        switch (static_cast<TipoPieza>(tipo)) {
+        case TipoPieza::PEON: nueva = new Peon(colP); break;
+        case TipoPieza::TORRE: nueva = new Torre(colP); break;
+        case TipoPieza::CABALLO: nueva = new Caballo(colP); break;
+        case TipoPieza::ALFIL: nueva = new Alfil(colP); break;
+        case TipoPieza::REINA: nueva = new Reina(colP); break;
+        case TipoPieza::REY: nueva = new Rey(colP); break;
+        default: break;
+        }
+
+        if (nueva) {
+            casillas[fila][col] = nueva;
+            if (colP == Colorpieza::BLANCO)
+                player1.lista_piezas_actuales.agregar(nueva);
+            else
+                player2.lista_piezas_actuales.agregar(nueva);
+        }
+    }
+
+    return true;
 }

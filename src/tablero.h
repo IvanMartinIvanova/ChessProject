@@ -36,6 +36,8 @@ public:
         casillas[x][y] = nullptr;
     }
     void gestion_turnos();
+    bool guardarPartida(const std::string& nombreArchivo);
+    bool cargarPartida(const std::string& nombreArchivo);
     friend class Pieza;
     friend class Partida;
 };

@@ -140,6 +140,7 @@
     <ClCompile Include="src\estela.cpp" />
     <ClCompile Include="src\Jugador.cpp" />
     <ClCompile Include="src\ListaPiezas.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\mundo.cpp" />
     <ClCompile Include="src\pared.cpp" />
     <ClCompile Include="src\particulas.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="src\estela.h" />
     <ClInclude Include="src\Jugador.h" />
     <ClInclude Include="src\ListaPiezas.h" />
+    <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\mundo.h" />
     <ClInclude Include="src\pared.h" />
     <ClInclude Include="src\particulas.h" />
