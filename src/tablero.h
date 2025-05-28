@@ -46,6 +46,7 @@ public:
     Casilla buscar_pieza(Pieza* p);
     bool guardarPartida(const std::string& nombreArchivo);
     bool cargarPartida(const std::string& nombreArchivo);
+	void mostrarConCursor(int fila_cursor, int col_cursor); //Muestra el tablero con un cursor en la posición indicada
     friend class Pieza;
     friend class Partida;
 };

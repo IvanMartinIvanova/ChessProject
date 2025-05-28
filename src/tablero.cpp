@@ -323,19 +323,32 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
     for (int i = 0; i < turno_activo.lista_piezas_actuales.size(); i++)
     {
         piezas_atacantes = buscar_pieza(turno_activo.lista_piezas_actuales.lista_piezas[i]);
-        if (piezas_atacantes.fila == -1)
-            cout << "ERROR PIEZA NO ENCONTRADA EN EL PROCESO" << endl;
+
+        if (piezas_atacantes.fila == -1 || piezas_atacantes.columna == -1) {
+            cout << "ERROR: Pieza atacante no encontrada. Saltando...\n";
+            continue; // Evita continuar con datos inválidos
+        }
+
         Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
-        if (atacante1->getTipo() != TipoPieza::VACIA )
+
+        if (atacante1 == nullptr) {
+            cout << "ERROR: Puntero nulo en atacante1. Saltando...\n";
+            continue;
+        }
+
+        if (atacante1->getTipo() != TipoPieza::VACIA)
         {
-            if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, casillaRey.fila, casillaRey.columna, *this)) //Comprobamos si alguna pieza del jugador con el turno activo hace jaque al rey del oponente
-            {
+            if (atacante1->movimientoValido(
+                piezas_atacantes.fila, piezas_atacantes.columna,
+                casillaRey.fila, casillaRey.columna, *this)) {
+
                 cout << "JAQUE AL REY" << endl;
                 return true;
             }
         }
     }
     return false;
+
 }
 
 bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
@@ -528,4 +541,47 @@ bool Tablero::cargarPartida(const string& nombreArchivo) {
     }
 
     return true;
+}
+
+void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
+    std::cout << "  ";
+    for (int col = 0; col <= 7; col++) std::cout << col + 1 << " ";
+    std::cout << "\n";
+
+    for (int fila = 0; fila <= 7; fila++) {
+        std::cout << char('a' + fila) << " ";
+        for (int col = 0; col <= 7; col++) {
+            if (fila == fila_cursor && col == col_cursor) {
+                std::cout << "[";
+            }
+            else {
+                std::cout << " ";
+            }
+
+            char simbolo = '.';
+            Pieza* pieza = casillas[fila][col];
+            if (pieza) {
+                switch (pieza->getTipo()) {
+                case TipoPieza::PEON: simbolo = 'P'; break;
+                case TipoPieza::TORRE: simbolo = 'T'; break;
+                case TipoPieza::CABALLO: simbolo = 'C'; break;
+                case TipoPieza::ALFIL: simbolo = 'A'; break;
+                case TipoPieza::REINA: simbolo = 'Q'; break;
+                case TipoPieza::REY: simbolo = 'K'; break;
+                default: simbolo = '?'; break;
+                }
+                if (pieza->getColor() == Colorpieza::BLANCO)
+                    simbolo = tolower(simbolo);
+            }
+            std::cout << simbolo;
+
+            if (fila == fila_cursor && col == col_cursor) {
+                std::cout << "]";
+            }
+            else {
+                std::cout << " ";
+            }
+        }
+        std::cout << "\n";
+    }
 }
