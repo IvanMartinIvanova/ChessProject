@@ -251,49 +251,60 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
                 for (int j = 0; j < atacante.lista_piezas_actuales.size(); j++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
                 {
                     piezas_atacantes = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[j]);
-                    Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
-                    if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey está amenazada
+                    if (piezas_atacantes.fila != -1)
                     {
-                        //El rey no se puede mover a esa posición -> Hay que comprobar si podemos cubrir al rey con una pieza
-                        for (int m = 0; m < defensor.lista_piezas_actuales.size(); m++)
+                        Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
+                        if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey está amenazada
                         {
-                            if (defensor.lista_piezas_actuales.lista_piezas[m]->getTipo() != TipoPieza::REY)
+                            //El rey no se puede mover a esa posición -> Hay que comprobar si podemos cubrir al rey con una pieza
+                            for (int m = 0; m < defensor.lista_piezas_actuales.size(); m++)
                             {
-                                piezas_defensoras = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[m]);
-                                Pieza* defensor = getCasilla(piezas_defensoras.fila, piezas_defensoras.columna);
-                                for (int f = 0; f <= 7; f++)
+                                if (defensor.lista_piezas_actuales.lista_piezas[m]->getTipo() != TipoPieza::REY)
                                 {
-                                    for (int c = 0; c <= 7; c++)
+                                    piezas_defensoras = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[m]);
+
+                                    if (piezas_defensoras.fila != -1)
                                     {
-                                        if (defensor->movimientoValido(piezas_defensoras.fila, piezas_defensoras.columna, f, c, *this))
+                                        Pieza* defensor = getCasilla(piezas_defensoras.fila, piezas_defensoras.columna);
+
+                                        for (int f = 0; f <= 7; f++)
                                         {
-                                            setCasilla(f, c, defensor);
-                                            for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
+                                            for (int c = 0; c <= 7; c++)
                                             {
-                                                piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
-                                                Pieza* atacante2 = getCasilla(piezas_atacantes2.fila, piezas_atacantes2.columna);
-                                                if (atacante2->movimientoValido(piezas_atacantes2.fila, piezas_atacantes2.columna, casillaRey.fila,casillaRey.columna, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey
+                                                if (defensor->movimientoValido(piezas_defensoras.fila, piezas_defensoras.columna, f, c, *this))
                                                 {
-                                                    resetCasilla(f, c); //El defensor no ha podido proteger al rey
-                                                    escape_rey = 0;
+                                                    setCasilla(f, c, defensor);
+                                                    for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
+                                                    {
+                                                        piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
+                                                        if (piezas_atacantes2.fila != -1)
+                                                        {
+                                                            Pieza* atacante2 = getCasilla(piezas_atacantes2.fila, piezas_atacantes2.columna);
+                                                            if (atacante2->movimientoValido(piezas_atacantes2.fila, piezas_atacantes2.columna, casillaRey.fila, casillaRey.columna, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey
+                                                            {
+                                                                resetCasilla(f, c); //El defensor no ha podido proteger al rey
+                                                                escape_rey = 0;
+                                                            }
+                                                            else
+                                                            {
+                                                                resetCasilla(f, c);
+                                                                return true; //El defensor puede proteger al rey
+                                                            }
+                                                        }
+
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    resetCasilla(f, c);
-                                                    return true; //El defensor puede proteger al rey
-                                                }
+
 
                                             }
                                         }
-
-                                        
                                     }
                                 }
                             }
                         }
+                        else
+                            escape_rey = 1; //No está amenazada y se puede mover a ella
                     }
-                    else
-                        escape_rey = 1; //No está amenazada y se puede mover a ella
                 }
                 if (escape_rey == 1) //El rey ha podido moverse a una casilla donde no está amenazado
                     return true;

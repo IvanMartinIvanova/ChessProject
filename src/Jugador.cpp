@@ -108,6 +108,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
     {
         system("cls");
         std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
+        std::cout << "Turno de " << this->Nombre << endl;
         tab.mostrarConCursor(fila_cursor, col_cursor);
 
         char tecla = _getch();
