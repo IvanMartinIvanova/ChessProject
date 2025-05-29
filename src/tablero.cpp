@@ -2,19 +2,18 @@
 #include "DATOS_DIBUJO.h"
 #include <iostream>
 #include <string>
-
 #include <fstream>
 using namespace std;
 
-Tablero::Tablero(): player1(), player2(){
+Tablero::Tablero() : player1(), player2() {
     for (int fila = 0; fila < 8; fila++)
-        for (int col = 0; col< 8; col++)
+        for (int col = 0; col < 8; col++)
             casillas[fila][col] = nullptr;
 }
 
-Tablero& Tablero::operator=(const Tablero & tab)
+Tablero& Tablero::operator=(const Tablero& tab)
 {
-    
+
     if (this != &tab)
     {
         // Primero limpia piezas antiguas
@@ -52,20 +51,11 @@ Tablero& Tablero::operator=(const Tablero & tab)
         player1.points = tab.player1.points;
         player2.points = tab.player2.points;
     }
-        return *this;
-
-using namespace std;
-
-Tablero::Tablero() {
-    for (int fila = 0; fila < 8; fila++)
-        for (int col = 0; col < 8; col++)
-            casillas[fila][col] = nullptr;
-
+    return *this;
 }
 
 
 Tablero::~Tablero() {
-
     //std::cout << "Destruyendo pieza en: " << this << endl;
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
@@ -74,13 +64,12 @@ Tablero::~Tablero() {
                 delete casillas[fila][col];
                 casillas[fila][col] = nullptr;
             }
-
+}
 
 void Tablero::inicializar() {
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
             casillas[fila][col] = nullptr;
-
 
     // Negras derecha (columna 6 y 7)
     casillas[0][7] = new Torre(Colorpieza::NEGRO);
@@ -100,7 +89,6 @@ void Tablero::inicializar() {
             player2.lista_piezas_actuales.agregar(casillas[j][i]);
     }
 
-
     // Blancas izquierda (columna 0 y 1)
     for (int i = 0; i < 8; i++)
         casillas[i][1] = new Peon(Colorpieza::BLANCO);
@@ -114,13 +102,11 @@ void Tablero::inicializar() {
     casillas[6][0] = new Caballo(Colorpieza::BLANCO);
     casillas[7][0] = new Torre(Colorpieza::BLANCO);
 
-
     for (int i = 0; i <= 1; i++) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
     {
         for (int j = 0; j < 8; j++)
             player1.lista_piezas_actuales.agregar(casillas[j][i]);
     }
-
 }
 
 void Tablero::mostrar() {
@@ -153,12 +139,11 @@ void Tablero::mostrar() {
     }
 }
 
-
-bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& player, DATOS_DIBUJO& dat) {
+bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player, DATOS_DIBUJO& dat) {
 
     Pieza* casilla_origen = this->getCasilla(FilIni, ColIni);
     Pieza* casilla_destino = this->getCasilla(FilFin, ColFin);
-    
+
 
     if (casilla_origen->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) //Comprobamos si el movimiento de la pieza seleccionado es correcto
     {
@@ -176,28 +161,28 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& play
 
             }
         }
-        
+
         this->resetCasilla(FilFin, ColFin); //Liberamos la casilla de destino
         this->setCasilla(FilFin, ColFin, casilla_origen); //Aplicamos el movimiento
         this->resetCasilla(FilIni, ColIni); //Liberamos la casilla de origen
-       
-        if (aplicarGravedad(*this, {FilFin, ColFin}, dat.pieza_fin_conGrav))
+
+        if (aplicarGravedad(*this, { FilFin, ColFin }, dat.pieza_fin_conGrav))
         {
-           
+
             if (casilla_destino != nullptr)
                 player.lista_piezas_comidas.agregar(casilla_destino); //Agregamos la pieza que el jugador se come a su lista de piezas comidas
 
             return true;
         }
-       
-        
+
+
     }
     return false;
 }
 
 
-bool Tablero::aplicarGravedad(Tablero& tab,Casilla destino_sinGravedad,Pieza*& Pieza_final_conGrav) {
- 
+bool Tablero::aplicarGravedad(Tablero& tab, Casilla destino_sinGravedad, Pieza*& Pieza_final_conGrav) {
+
     for (int columna = 0; columna <= 7; columna++)
     {
         for (int fila = 7; fila >= 0; fila--) {
@@ -212,14 +197,14 @@ bool Tablero::aplicarGravedad(Tablero& tab,Casilla destino_sinGravedad,Pieza*& P
                     casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
                     casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
                     if (columna == destino_sinGravedad.columna)
-                    Pieza_final_conGrav = getCasilla(destino, columna);
+                        Pieza_final_conGrav = getCasilla(destino, columna);
 
                 }
             }
         }
     }
     return true;
-        
+
 
 }
 
@@ -234,7 +219,7 @@ Casilla Tablero::buscar_pieza(Pieza* p)
                 Casilla encontrado = { fila, columna };
                 return encontrado;
             }
-                
+
         }
     }
     return { -1,-1 };
@@ -373,27 +358,9 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
             }
         }
     }
-
-bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin) {
-    if (!casillas[FilIni][ColIni]) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
-        cout << "No hay pieza en la casilla de origen.\n";
-        return false;
-    }
-
-    Pieza* pieza = casillas[FilIni][ColIni];
-    if (pieza->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) {
-        delete casillas[FilFin][ColFin];
-        casillas[FilFin][ColFin] = pieza;
-        //Hay que llamar a una función para que guarde qué pieza se ha comido
-        casillas[FilIni][ColIni] = nullptr;
-        aplicarGravedad();
-        return true;
-    }
-
     return false;
 
 }
-
 
 bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 {
@@ -459,10 +426,10 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
     }
     else //TURNO PLAYER 2
     {
-        cout << "Turno de " << player2.Nombre <<":" << endl;
+        cout << "Turno de " << player2.Nombre << ":" << endl;
         if (!jaque)
         {
-            if (player2.seleccion_casilla(*this,dat))
+            if (player2.seleccion_casilla(*this, dat))
             {
                 if (!comprobacion_jaque(player2, player1))
                 {
@@ -482,7 +449,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
             if (gestion_jaque(player2, player1))
             {
 
-                if (player2.seleccion_casilla(*this,dat))
+                if (player2.seleccion_casilla(*this, dat))
                 {
                     if (!comprobacion_jaque(player1, player2))
                     {
@@ -530,23 +497,6 @@ bool Tablero::guardarPartida(const string& nombreArchivo) {
                 archivo << static_cast<int>(pieza->getTipo()) << " "
                     << static_cast<int>(pieza->getColor()) << " "
                     << fila << " " << col << "\n";
-
-void Tablero::aplicarGravedad() {
-    for (int columna = 0; columna <= 7; columna++)
-    {
-        for (int fila = 7; fila >= 0; fila--) {
-            if (casillas[fila][columna] != nullptr) {
-                int destino = fila; //Destino es un flag que nos ayudará a saber si hay hueco libre debajo de una pieza y almacenar la posición hasta la que puede bajar una pieza
-
-                while (destino + 1 < 8 && casillas[destino + 1][columna] == nullptr) { //Hay espacio debajo de la pieza
-                    destino++;
-                }
-                if (destino != fila) { //Ha cambiado el flag por lo que hay espacio debajo de la pieza
-
-                    casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
-                    casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
-                }
-
             }
         }
     }
@@ -604,7 +554,6 @@ bool Tablero::cargarPartida(const string& nombreArchivo) {
     return true;
 }
 
-
 void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
     std::cout << "  ";
     for (int col = 0; col <= 7; col++) std::cout << col + 1 << " ";
@@ -648,39 +597,4 @@ void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
     }
 }
 
-void Tablero::jugabilidad() {
-    inicializar();
-    mostrar();
-    string entrada;
-
-    while (true) {
-        cout << "Introduce el movimiento (Por ejemplo: b2 b3) o 'salir': ";
-        getline(cin, entrada);
-
-        if (entrada == "salir") break;
-
-        if (entrada.length() != 5 || entrada[2] != ' ') {
-            cout << "Formato inválido. Usa: b2 b4\n";
-            continue;
-        }
-
-        int ColumnaIni = entrada[1] - '1'; //Quitamos 1 al numero que introducimos ya que el jugador ve filas/columnas del (1-8) pero el vector de filas/columnas es de (0-7)
-        int FilaIni = entrada[0] - 'a';
-        int ColumnaFin = entrada[4] - '1';
-        int FilaFin = entrada[3] - 'a';
-
-        if (FilaIni < 0 || FilaIni >= 8 || ColumnaIni < 0 || ColumnaIni >= 8 ||
-            FilaFin < 0 || FilaFin >= 8 || ColumnaFin < 0 || ColumnaFin >= 8) {
-            cout << "Coordenadas fuera de rango.\n";
-            continue;
-        }
-
-        if (mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin)) {
-            mostrar();
-        }
-        else {
-            cout << "Movimiento inválido.\n";
-        }
-    }
-}
 

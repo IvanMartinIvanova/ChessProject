@@ -133,9 +133,9 @@ using namespace std;
 	
 	protected:
 		ETSIDI_API double tick();
-		std::map <std::string, std::string> spritepieza = {
+		/*std::map <std::string, std::string> spritepieza = {
 			{"peon","rc/peon.png"},{"caballo","rc/caballo.png"}, {"alfil","rc/alfil.png"},
-			{"torre","rc/torre.png"},{"reina","rc/reina.png"},{"rey","rc/rey.png"}, };
+			{"torre","rc/torre.png"},{"reina","rc/reina.png"},{"rey","rc/rey.png"}, };*/
 
 		long int last_update;
 		GLTexture _texture;
