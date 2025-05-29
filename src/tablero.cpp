@@ -145,6 +145,7 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& pla
     Pieza* casilla_destino = this->getCasilla(FilFin, ColFin);
 
 
+
     if (casilla_origen->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) //Comprobamos si el movimiento de la pieza seleccionado es correcto
     {
         dat.pieza_origen = casilla_origen; //Sacamos la casilla de inicio y final pre-gravedad para llevarlo a INFO.CPP para dibujarla 
@@ -164,11 +165,12 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& pla
 
         this->resetCasilla(FilFin, ColFin); //Liberamos la casilla de destino
         this->setCasilla(FilFin, ColFin, casilla_origen); //Aplicamos el movimiento
+        dat.pieza_fin_conGrav = getCasilla(FilFin, ColFin);
         this->resetCasilla(FilIni, ColIni); //Liberamos la casilla de origen
 
         if (aplicarGravedad(*this, { FilFin, ColFin }, dat.pieza_fin_conGrav))
         {
-
+            
             if (casilla_destino != nullptr)
                 player.lista_piezas_comidas.agregar(casilla_destino); //Agregamos la pieza que el jugador se come a su lista de piezas comidas
 
@@ -181,12 +183,15 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& pla
 }
 
 
-bool Tablero::aplicarGravedad(Tablero& tab, Casilla destino_sinGravedad, Pieza*& Pieza_final_conGrav) {
+bool Tablero::aplicarGravedad(Tablero& tab, Casilla destino_sinGravedad, Pieza*& Pieza_final_conGrav) 
+{
+
 
     for (int columna = 0; columna <= 7; columna++)
     {
         for (int fila = 7; fila >= 0; fila--) {
-            if (casillas[fila][columna] != nullptr) {
+            if (casillas[fila][columna] != nullptr) 
+            {
                 int destino = fila; //Destino es un flag que nos ayudará a saber si hay hueco libre debajo de una pieza y almacenar la posición hasta la que puede bajar una pieza
 
                 while (destino + 1 < 8 && casillas[destino + 1][columna] == nullptr) { //Hay espacio debajo de la pieza
@@ -196,10 +201,10 @@ bool Tablero::aplicarGravedad(Tablero& tab, Casilla destino_sinGravedad, Pieza*&
 
                     casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
                     casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
-                    if (columna == destino_sinGravedad.columna)
-                        Pieza_final_conGrav = getCasilla(destino, columna);
 
                 }
+                
+
             }
         }
     }
@@ -362,6 +367,105 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
 
 }
 
+void Tablero::comp_coronacion(Casilla cas_final_p)
+{
+    int aux;//Para controlar que pieza quiere
+    TipoPieza p;
+    int columna_fin = cas_final_p.columna;
+    int fila_fin = cas_final_p.fila;
+    p = casillas[fila_fin][columna_fin]->getTipo();
+    Colorpieza color = casillas[fila_fin][columna_fin]->getColor();
+
+
+    if (int(p) == 1 && columna_fin == 7 && color == Colorpieza::BLANCO)
+    {
+
+        std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+        std::cin >> aux;
+        while (aux != 2 && aux != 3 && aux != 4 && aux != 6)
+        {
+            std::cout << "\nNumero incorrecto, por favor:" << endl;
+            std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+            std::cin >> aux;
+        }
+
+        switch (aux) {
+        case 2:
+            player1.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Torre(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 3:
+            player1.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Caballo(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 4:
+            player1.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Alfil(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 6:
+            player1.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        default:
+            player1.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        }
+    }
+
+    if (int(p) == 1 && columna_fin == 0 && color == Colorpieza::NEGRO)
+    {
+
+        std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+        std::cin >> aux;
+
+        switch (aux) {
+        case 2:
+            player2.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Torre(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 3:
+            player2.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Caballo(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 4:
+            player2.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Alfil(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 6:
+            player2.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        default:
+            player2.lista_piezas_actuales.eliminar(casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        }
+    }
+
+
+}
+
 bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 {
     string entrada;
@@ -369,26 +473,42 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 
     Tablero backup;
     backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atrás
+    
 
     if (player1.Turno) //TURNO PLAYER 1
     {
+        
         cout << "Turno de " << player1.Nombre << ":" << endl;
+
 
         if (!jaque)
         {
             if (player1.seleccion_casilla(*this, dat)) //TRUE si el movimiento se ha realizado correctamente
             {
+
                 if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
                 {
+                    if (dat.pieza_fin_conGrav != nullptr)
+                      comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                  
+                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                    player2.actualizar_listas(player1);
+                    
                     player1.Turno = false;
                     player2.Turno = true;
+                    
 
                 }
                 else //Hay JAQUE al rey
                 {
+                    //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                    player2.actualizar_listas(player1);
+
                     jaque = true;
                     player1.Turno = false;
                     player2.Turno = true;
+                 
                 }
             }
         }
@@ -401,17 +521,24 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
                 {
                     if (!comprobacion_jaque(player2, player1)) //Comprobamos si ha salido del JAQUE
                     {
+                        //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
                         player1.Turno = false;
                         player2.Turno = true;
                         jaque = false; //Ha salido del JAQUE
+                      
 
                     }
                     else
                     {
+                        //No actualizamos listas porque se ha cancelado el movimiento seleccionado porque el rey sigue en jaque
                         cout << "EL REY SIGUE ESTANDO EN JAQUE, HAZ OTRO MOVIMIENTO" << endl;
                         *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
                         player1.Turno = true; //Repetimos su turno
                         player2.Turno = false;
+
                     }
                 }
 
@@ -423,9 +550,15 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 
         }
 
+        estado_JAQUE = jaque;
+        return true; //Termina el turno
+
     }
+
     else //TURNO PLAYER 2
     {
+        
+
         cout << "Turno de " << player2.Nombre << ":" << endl;
         if (!jaque)
         {
@@ -433,14 +566,26 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
             {
                 if (!comprobacion_jaque(player2, player1))
                 {
+                    if (dat.pieza_fin_conGrav != nullptr)
+                        comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+
+                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                    player2.actualizar_listas(player1);
+
                     player2.Turno = false;
                     player1.Turno = true;
+                 
                 }
                 else
                 {
+                    //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                    player2.actualizar_listas(player1);
+
                     jaque = true; //Hay JAQUE del player 2 al player 1
                     player1.Turno = true;
                     player2.Turno = false;
+                    
                 }
             }
         }
@@ -453,16 +598,22 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
                 {
                     if (!comprobacion_jaque(player1, player2))
                     {
+                        //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
                         player1.Turno = true;
                         player2.Turno = false;
                         jaque = false;
                     }
                     else
                     {
+                        //No actualizamos listas porque se ha cancelado el movimiento seleccionado porque el rey sigue en jaque
                         cout << "EL REY SIGUE ESTANDO EN JAQUE, HAZ OTRO MOVIMIENTO" << endl;
                         *this = backup;
                         player1.Turno = false;
                         player2.Turno = true;
+                        
                     }
 
                 }
@@ -473,10 +624,11 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
                 return false; //JAQUE MATE - TERMINA LA PARTIDA
 
         }
+
+        estado_JAQUE = jaque;
+        return true; //Termina el turno
     }
 
-    estado_JAQUE = jaque;
-    return true; //Termina el turno
 
 }
 

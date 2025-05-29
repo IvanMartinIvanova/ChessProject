@@ -98,6 +98,27 @@ Jugador& Jugador::operator=(const Jugador& player) {
 //
 //}
 
+void Jugador::actualizar_listas(Jugador& player)
+{
+
+    for (int i = 0; i < player.lista_piezas_comidas.size(); i++) //Verificamos la lista de las piezas que ha comido el jugador que se pasa a la función como argumento del jugador que llama a la función
+    {
+        Pieza* pieza_comida = player.lista_piezas_comidas.obtener_pieza(i);
+
+        for (int j = 0; j < this->lista_piezas_actuales.size(); j++)
+        {
+            
+            if (pieza_comida == lista_piezas_actuales.obtener_pieza(j))
+            {
+                this->lista_piezas_actuales.eliminar(pieza_comida); //Eliminamos la pieza del jugador que llama a la función que hayan sido comidas por el jugador que se pasa como argumento
+                return;
+            }
+        }
+    }
+    return;
+
+}
+
 bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 {
     int fila_cursor = 0, col_cursor = 0;
@@ -106,7 +127,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 
     while (continuar)
     {
-        system("cls");
+        //system("cls");
         std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
         std::cout << "Turno de " << this->Nombre << endl;
         tab.mostrarConCursor(fila_cursor, col_cursor);

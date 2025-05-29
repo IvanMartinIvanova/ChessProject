@@ -45,6 +45,7 @@ public:
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat);
     bool gestion_jaque(Jugador defensor, Jugador atacante);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
+    void comp_coronacion(Casilla cas_final_p);
     Casilla buscar_pieza(Pieza* p);
     bool guardarPartida(const std::string& nombreArchivo);
     bool cargarPartida(const std::string& nombreArchivo);

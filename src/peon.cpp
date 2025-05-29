@@ -11,7 +11,7 @@ bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tab
         if (xIni == xFin && yIni == 1 && yFin == 3 && tablero.getCasilla(xFin, yFin) == nullptr && tablero.getCasilla(xIni, yIni + 1) == nullptr) {
             return true;  // Avance de dos casillas hacia adelante
         }
-        if (abs(xFin - xIni) == 1 && yFin == yIni + 1 && tablero.getCasilla(xFin, yFin) != nullptr && tablero.getCasilla(xFin, yFin)->getColor() != color) {
+        if (abs(xFin - xIni) == 1 && yFin == yIni + 1 && tablero.getCasilla(xFin, yFin) != nullptr) {
             return true;  // Captura en diagonal
         }
     }
@@ -22,7 +22,7 @@ bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tab
         if (xIni == xFin && yIni == 6 && yFin == 4 && tablero.getCasilla(xFin, yFin) == nullptr && tablero.getCasilla(xIni, yIni - 1) == nullptr) {
             return true;  // Avance de dos casillas hacia adelante
         }
-        if (abs(xFin - xIni) == 1 && yFin == yIni - 1 && tablero.getCasilla(xFin, yFin) != nullptr && tablero.getCasilla(xFin, yFin)->getColor() != color) {
+        if (abs(xFin - xIni) == 1 && yFin == yIni - 1 && tablero.getCasilla(xFin, yFin) != nullptr) {
             return true;  // Captura en diagonal
         }
     }

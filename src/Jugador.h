@@ -22,10 +22,11 @@ public:
 	Jugador();
 	Jugador& operator=(const Jugador& player);
 	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat);
-	//bool comp_jaque_mate(int xFin, int yFin, Tablero& tab);
+	void actualizar_listas(Jugador& player);
 	~Jugador() = default;
 	friend class Tablero;
 	friend class Partida;
+	friend class ListaPiezas;
 	
 
 };

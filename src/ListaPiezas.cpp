@@ -17,22 +17,24 @@ void ListaPiezas::agregar(Pieza* p)
 	}
 
 }
+
+Pieza* ListaPiezas::obtener_pieza(int index) const
+{
+	return lista_piezas.at(index); //.at devuelve el elemento de la posición index de la lista verificando antes el rango
+}
 using namespace std;
-void ListaPiezas::eliminar(vector<Pieza*> lista, Pieza* p)
+void ListaPiezas::eliminar(Pieza* p)
 {
 	int count = 0;
-	for (int i = 0; i < lista.size(); i++)
+	for (auto it = this->lista_piezas.begin(); it != this->lista_piezas.end(); it++)
 	{
 		count++;
-		if (lista[i] == p)
+		if (*it == p)
 		{
-			delete lista[i];
-			for (int i = count - 1; i < lista.size(); i++)
-			{
-				lista[i] = lista[i + 1]; //Ordenamos el vector para dejar como elemento libre (por haber eliminado la pieza) el último de la lista
-			}
-			lista.pop_back(); //Eliminamos el último elemento de la lista (que deberá estar vacio)
-
+			delete *it;
+			lista_piezas.erase(it);
+			return;
+			
 		}
 
 	}

@@ -1,71 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Graficos">
-      <UniqueIdentifier>{4f7e4e71-9794-4fef-8f04-7f3fc233cca2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Mecanicas">
-      <UniqueIdentifier>{a94dc785-2ec7-41da-aa88-c63b48c32b2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Globales">
-      <UniqueIdentifier>{62faa3ea-73d7-49e5-b0c8-986ec76847f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Graficos">
-      <UniqueIdentifier>{3c278af4-684d-4aa6-af80-523e1dba9965}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Mecanicas">
-      <UniqueIdentifier>{62e9ecd1-45a7-43e0-970b-9dfb1037a4c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Globales">
-      <UniqueIdentifier>{e235a68f-7e45-40b0-8e41-41f7bc8f2a75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Graficos\Objetos">
-      <UniqueIdentifier>{52561304-9644-427e-8062-9b7f7d27b8dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Graficos\Sprites">
-      <UniqueIdentifier>{fbb25fe6-94ba-46ef-bf6a-969acf15e376}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Graficos\Objetos">
-      <UniqueIdentifier>{73a9891d-4f89-4ca2-8f39-2789be6514ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Graficos\Sprites">
-      <UniqueIdentifier>{40be6f10-18b4-43ba-bfae-8d4ce2be34c4}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Info.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mundo.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\peon.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pieza.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tablero.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vector2D.cpp">
-      <Filter>Archivos de origen\Globales</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vector3D.cpp">
-      <Filter>Archivos de origen\Globales</Filter>
-    </ClCompile>
     <ClCompile Include="src\Color.cpp">
       <Filter>Archivos de origen\Globales</Filter>
     </ClCompile>
@@ -75,60 +10,121 @@
     <ClCompile Include="src\caballo.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
+    <ClCompile Include="src\cara.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\circulos.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\estela.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jugador.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ListaPiezas.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mundo.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pared.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particulas.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partida.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\peon.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pieza.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\piezagraf.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plataforma.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
     <ClCompile Include="src\reina.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
     <ClCompile Include="src\rey.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
-    <ClCompile Include="src\torre.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
     <ClCompile Include="src\sprite3D.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
-
-    <ClCompile Include="src\Jugador.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="src\tablero.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
-    <ClCompile Include="src\ListaPiezas.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Partida.cpp">
-      <Filter>Archivos de origen</Filter>
-
-    <ClCompile Include="src\cara.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\circulos.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\estela.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pared.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\particulas.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\plataforma.cpp">
-      <Filter>Archivos de origen\Graficos\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\listapiezas.cpp">
-      <Filter>Archivos de origen\Graficos\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="src\piezagraf.cpp">
-      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+    <ClCompile Include="src\torre.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
     <ClCompile Include="src\vectabl.cpp">
-      <Filter>Archivos de origen\Graficos\Sprites</Filter>
-
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector2D.cpp">
+      <Filter>Archivos de origen\Globales</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector3D.cpp">
+      <Filter>Archivos de origen\Globales</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\alfil.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\caballo.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cara.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Casilla.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
+    </ClInclude>
+    <ClInclude Include="src\circulos.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Color.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
+    </ClInclude>
+    <ClInclude Include="src\estela.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DATOS_DIBUJO.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jugador.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ListaPiezas.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
     <ClInclude Include="src\mundo.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pared.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particulas.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partida.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
     <ClInclude Include="src\peon.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
@@ -136,23 +132,14 @@
     <ClInclude Include="src\pieza.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
-    <ClInclude Include="src\tablero.h">
-      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    <ClInclude Include="src\piezagraf.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vector2D.h">
+    <ClInclude Include="src\plataforma.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Puntuacion.h">
       <Filter>Archivos de encabezado\Globales</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vector3D.h">
-      <Filter>Archivos de encabezado\Globales</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Color.h">
-      <Filter>Archivos de encabezado\Globales</Filter>
-    </ClInclude>
-    <ClInclude Include="src\alfil.h">
-      <Filter>Archivos de encabezado\Mecanicas</Filter>
-    </ClInclude>
-    <ClInclude Include="src\caballo.h">
-      <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
     <ClInclude Include="src\reina.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
@@ -160,56 +147,26 @@
     <ClInclude Include="src\rey.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
+    <ClInclude Include="src\sprite3D.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tablero.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
     <ClInclude Include="src\torre.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
-    <ClInclude Include="src\cara.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\circulos.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\estela.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pared.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\particulas.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\plataforma.h">
-      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sprite3D.h">
-      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="src\listapiezas.h">
-      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="src\piezagraf.h">
-      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vectabl.h">
-      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="Matriz.h">
+    <ClInclude Include="src\Tiempo.h">
       <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jugador.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="src\vectabl.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\ListaPiezas.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="src\Vector2D.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
-    <ClInclude Include="src\Puntuacion.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tiempo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Partida.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="src\Vector3D.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -222,5 +179,34 @@
     <Image Include="bin\rc\pieces.png">
       <Filter>Archivos de recursos</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{3e73bd83-87c6-45ed-a035-104d6c029cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Globales">
+      <UniqueIdentifier>{ed65fd3e-e018-4593-b512-62ea7321371f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Graficos">
+      <UniqueIdentifier>{4a6210b3-2a40-44a9-bf13-17b5a03ac1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Mecanicas">
+      <UniqueIdentifier>{9cd0af95-40be-444f-a1b2-694924c463e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{bdb3acf1-9811-476e-9f2b-401b34a6486a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Globales">
+      <UniqueIdentifier>{02cae9fa-499e-43d5-af22-730d4e48d4cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Graficos">
+      <UniqueIdentifier>{17203839-1ed2-4310-9bd5-dec9c537c62b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Mecanicas">
+      <UniqueIdentifier>{0996964e-9bc6-4331-af3c-c618f13854d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{f5833573-94ba-4473-ac89-bb78f9cfe47c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
