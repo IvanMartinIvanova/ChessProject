@@ -19,7 +19,7 @@
 //		std::cin >> y1 >> x2 >> y2;
 //
 //		if (!t.mover(x1, y1, x2, y2)) {
-//			std::cout << "Movimiento inválido. Intenta de nuevo.\n";
+//			std::cout << "Movimiento invÃ¡lido. Intenta de nuevo.\n";
 //		}
 //
 //		t.mostrar();
@@ -103,7 +103,7 @@
 //int main() {
 //    Partida p;
 //    p.escoger_player();
-//    if (p.Progress_Partida()) //Si devuelve True - se ha acabado la partida / Si devuelve FALSE - todavía no ha acabado la partida
+//    if (p.Progress_Partida()) //Si devuelve True - se ha acabado la partida / Si devuelve FALSE - todavÃ­a no ha acabado la partida
 //    {
 //        return 0;
 //    }
@@ -120,6 +120,7 @@
 
 std::string Conversor(TipoPieza tipo)
 {
+
     switch (tipo)
     {
     case TipoPieza::ALFIL:
@@ -158,6 +159,7 @@ std::string Conversor(TipoPieza tipo)
         break;
     }
     }
+
 }
 
 std::string Conversor2(Colorpieza& color)
@@ -234,7 +236,7 @@ int main() {
                
             }
 
-            cout << "¿Deseas guardar la partida? (s/n): ";
+            cout << "Â¿Deseas guardar la partida? (s/n): ";
             char resp; cin >> resp;
             if (resp == 's' || resp == 'S') {
                 if (partida.getTablero().guardarPartida("partida_guardada.txt"))
@@ -265,7 +267,7 @@ int main() {
             salir = true;
             break;
         default:
-            cout << "Opción invalida. Intenta otra vez.\n";
+            cout << "OpciÃ³n invalida. Intenta otra vez.\n";
             break;
         }
     }

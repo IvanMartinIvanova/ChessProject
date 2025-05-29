@@ -31,30 +31,24 @@
     <Filter Include="Archivos de origen\Globales">
       <UniqueIdentifier>{e235a68f-7e45-40b0-8e41-41f7bc8f2a75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Graficos\Objetos">
+      <UniqueIdentifier>{52561304-9644-427e-8062-9b7f7d27b8dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Graficos\Sprites">
+      <UniqueIdentifier>{fbb25fe6-94ba-46ef-bf6a-969acf15e376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Graficos\Objetos">
+      <UniqueIdentifier>{73a9891d-4f89-4ca2-8f39-2789be6514ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Graficos\Sprites">
+      <UniqueIdentifier>{40be6f10-18b4-43ba-bfae-8d4ce2be34c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Info.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\cara.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\circulos.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\estela.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
     <ClCompile Include="src\mundo.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pared.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\particulas.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\plataforma.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
     <ClCompile Include="src\peon.cpp">
@@ -93,6 +87,7 @@
     <ClCompile Include="src\sprite3D.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
+
     <ClCompile Include="src\Jugador.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -101,25 +96,38 @@
     </ClCompile>
     <ClCompile Include="src\Partida.cpp">
       <Filter>Archivos de origen</Filter>
+
+    <ClCompile Include="src\cara.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\circulos.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\estela.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pared.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particulas.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plataforma.cpp">
+      <Filter>Archivos de origen\Graficos\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\listapiezas.cpp">
+      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="src\piezagraf.cpp">
+      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vectabl.cpp">
+      <Filter>Archivos de origen\Graficos\Sprites</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\cara.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\circulos.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\estela.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
     <ClInclude Include="src\mundo.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pared.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\particulas.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
     <ClInclude Include="src\peon.h">
@@ -130,9 +138,6 @@
     </ClInclude>
     <ClInclude Include="src\tablero.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
-    </ClInclude>
-    <ClInclude Include="src\plataforma.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
     <ClInclude Include="src\Vector2D.h">
       <Filter>Archivos de encabezado\Globales</Filter>
@@ -158,8 +163,35 @@
     <ClInclude Include="src\torre.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
+    <ClInclude Include="src\cara.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\circulos.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\estela.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pared.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particulas.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plataforma.h">
+      <Filter>Archivos de encabezado\Graficos\Objetos</Filter>
+    </ClInclude>
     <ClInclude Include="src\sprite3D.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\listapiezas.h">
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\piezagraf.h">
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vectabl.h">
+      <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="Matriz.h">
       <Filter>Archivos de encabezado\Globales</Filter>
@@ -181,9 +213,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\OneDrive\Escritorio\skymedow.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
     <Image Include="bin\rc\board.png">
       <Filter>Archivos de recursos</Filter>
     </Image>

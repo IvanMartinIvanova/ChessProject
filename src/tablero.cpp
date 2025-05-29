@@ -2,6 +2,7 @@
 #include "DATOS_DIBUJO.h"
 #include <iostream>
 #include <string>
+
 #include <fstream>
 using namespace std;
 
@@ -52,10 +53,19 @@ Tablero& Tablero::operator=(const Tablero & tab)
         player2.points = tab.player2.points;
     }
         return *this;
+
+using namespace std;
+
+Tablero::Tablero() {
+    for (int fila = 0; fila < 8; fila++)
+        for (int col = 0; col < 8; col++)
+            casillas[fila][col] = nullptr;
+
 }
 
 
 Tablero::~Tablero() {
+
     //std::cout << "Destruyendo pieza en: " << this << endl;
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
@@ -64,12 +74,13 @@ Tablero::~Tablero() {
                 delete casillas[fila][col];
                 casillas[fila][col] = nullptr;
             }
-}
+
 
 void Tablero::inicializar() {
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
             casillas[fila][col] = nullptr;
+
 
     // Negras derecha (columna 6 y 7)
     casillas[0][7] = new Torre(Colorpieza::NEGRO);
@@ -89,6 +100,7 @@ void Tablero::inicializar() {
             player2.lista_piezas_actuales.agregar(casillas[j][i]);
     }
 
+
     // Blancas izquierda (columna 0 y 1)
     for (int i = 0; i < 8; i++)
         casillas[i][1] = new Peon(Colorpieza::BLANCO);
@@ -102,11 +114,13 @@ void Tablero::inicializar() {
     casillas[6][0] = new Caballo(Colorpieza::BLANCO);
     casillas[7][0] = new Torre(Colorpieza::BLANCO);
 
+
     for (int i = 0; i <= 1; i++) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
     {
         for (int j = 0; j < 8; j++)
             player1.lista_piezas_actuales.agregar(casillas[j][i]);
     }
+
 }
 
 void Tablero::mostrar() {
@@ -138,6 +152,7 @@ void Tablero::mostrar() {
         cout << "\n";
     }
 }
+
 
 bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin,Jugador& player, DATOS_DIBUJO& dat) {
 
@@ -187,7 +202,7 @@ bool Tablero::aplicarGravedad(Tablero& tab,Casilla destino_sinGravedad,Pieza*& P
     {
         for (int fila = 7; fila >= 0; fila--) {
             if (casillas[fila][columna] != nullptr) {
-                int destino = fila; //Destino es un flag que nos ayudar· a saber si hay hueco libre debajo de una pieza y almacenar la posiciÛn hasta la que puede bajar una pieza
+                int destino = fila; //Destino es un flag que nos ayudar√° a saber si hay hueco libre debajo de una pieza y almacenar la posici√≥n hasta la que puede bajar una pieza
 
                 while (destino + 1 < 8 && casillas[destino + 1][columna] == nullptr) { //Hay espacio debajo de la pieza
                     destino++;
@@ -239,7 +254,7 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
         if (defensor.lista_piezas_actuales.lista_piezas[i]->getTipo() == TipoPieza::REY)
             pos_listaRey = i;
 
-    //Primero comprobamos si el rey puede hacer alg˙n movimiento que evite el Jaque
+    //Primero comprobamos si el rey puede hacer alg√∫n movimiento que evite el Jaque
     casillaRey = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[pos_listaRey]);
     Pieza* rey = getCasilla(casillaRey.fila, casillaRey.columna);
     for (int fila = 0; fila <= 7; fila++)
@@ -248,15 +263,15 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
         {
             if (rey->movimientoValido(casillaRey.fila, casillaRey.columna, fila, columna, *this))
             {
-                for (int j = 0; j < atacante.lista_piezas_actuales.size(); j++) //Comprobamos si la posicÌÛn a la que se puede mover est· amenazada por otra pieza atacante
+                for (int j = 0; j < atacante.lista_piezas_actuales.size(); j++) //Comprobamos si la posic√≠√≥n a la que se puede mover est√° amenazada por otra pieza atacante
                 {
                     piezas_atacantes = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[j]);
                     if (piezas_atacantes.fila != -1)
                     {
                         Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
-                        if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey est· amenazada
+                        if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey est√° amenazada
                         {
-                            //El rey no se puede mover a esa posiciÛn -> Hay que comprobar si podemos cubrir al rey con una pieza
+                            //El rey no se puede mover a esa posici√≥n -> Hay que comprobar si podemos cubrir al rey con una pieza
                             for (int m = 0; m < defensor.lista_piezas_actuales.size(); m++)
                             {
                                 if (defensor.lista_piezas_actuales.lista_piezas[m]->getTipo() != TipoPieza::REY)
@@ -274,7 +289,7 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
                                                 if (defensor->movimientoValido(piezas_defensoras.fila, piezas_defensoras.columna, f, c, *this))
                                                 {
                                                     setCasilla(f, c, defensor);
-                                                    for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicÌÛn a la que se puede mover est· amenazada por otra pieza atacante
+                                                    for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posic√≠√≥n a la que se puede mover est√° amenazada por otra pieza atacante
                                                     {
                                                         piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
                                                         if (piezas_atacantes2.fila != -1)
@@ -303,10 +318,10 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
                             }
                         }
                         else
-                            escape_rey = 1; //No est· amenazada y se puede mover a ella
+                            escape_rey = 1; //No est√° amenazada y se puede mover a ella
                     }
                 }
-                if (escape_rey == 1) //El rey ha podido moverse a una casilla donde no est· amenazado
+                if (escape_rey == 1) //El rey ha podido moverse a una casilla donde no est√° amenazado
                     return true;
                 else
                     return false; //El rey no ha podido salir del JAQUE, por tanto, JAQUE MATE
@@ -337,7 +352,7 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
 
         if (piezas_atacantes.fila == -1 || piezas_atacantes.columna == -1) {
             cout << "ERROR: Pieza atacante no encontrada. Saltando...\n";
-            continue; // Evita continuar con datos inv·lidos
+            continue; // Evita continuar con datos inv√°lidos
         }
 
         Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
@@ -358,9 +373,27 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
             }
         }
     }
+
+bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin) {
+    if (!casillas[FilIni][ColIni]) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
+        cout << "No hay pieza en la casilla de origen.\n";
+        return false;
+    }
+
+    Pieza* pieza = casillas[FilIni][ColIni];
+    if (pieza->movimientoValido(FilIni, ColIni, FilFin, ColFin, *this)) {
+        delete casillas[FilFin][ColFin];
+        casillas[FilFin][ColFin] = pieza;
+        //Hay que llamar a una funci√≥n para que guarde qu√© pieza se ha comido
+        casillas[FilIni][ColIni] = nullptr;
+        aplicarGravedad();
+        return true;
+    }
+
     return false;
 
 }
+
 
 bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 {
@@ -368,7 +401,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
     bool jaque = estado_JAQUE;
 
     Tablero backup;
-    backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atr·s
+    backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atr√°s
 
     if (player1.Turno) //TURNO PLAYER 1
     {
@@ -393,7 +426,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
             }
         }
 
-        else //Player 1 est· en JAQUE
+        else //Player 1 est√° en JAQUE
         {
             if (gestion_jaque(player1, player2)) //Comprueba si el rey tiene opciones de salvarse
             {
@@ -497,6 +530,23 @@ bool Tablero::guardarPartida(const string& nombreArchivo) {
                 archivo << static_cast<int>(pieza->getTipo()) << " "
                     << static_cast<int>(pieza->getColor()) << " "
                     << fila << " " << col << "\n";
+
+void Tablero::aplicarGravedad() {
+    for (int columna = 0; columna <= 7; columna++)
+    {
+        for (int fila = 7; fila >= 0; fila--) {
+            if (casillas[fila][columna] != nullptr) {
+                int destino = fila; //Destino es un flag que nos ayudar√° a saber si hay hueco libre debajo de una pieza y almacenar la posici√≥n hasta la que puede bajar una pieza
+
+                while (destino + 1 < 8 && casillas[destino + 1][columna] == nullptr) { //Hay espacio debajo de la pieza
+                    destino++;
+                }
+                if (destino != fila) { //Ha cambiado el flag por lo que hay espacio debajo de la pieza
+
+                    casillas[destino][columna] = casillas[fila][columna]; //Movemos la pieza
+                    casillas[fila][columna] = nullptr; //Dejamos libre el sitio en el que estaba
+                }
+
             }
         }
     }
@@ -554,6 +604,7 @@ bool Tablero::cargarPartida(const string& nombreArchivo) {
     return true;
 }
 
+
 void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
     std::cout << "  ";
     for (int col = 0; col <= 7; col++) std::cout << col + 1 << " ";
@@ -596,3 +647,40 @@ void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
         std::cout << "\n";
     }
 }
+
+void Tablero::jugabilidad() {
+    inicializar();
+    mostrar();
+    string entrada;
+
+    while (true) {
+        cout << "Introduce el movimiento (Por ejemplo: b2 b3) o 'salir': ";
+        getline(cin, entrada);
+
+        if (entrada == "salir") break;
+
+        if (entrada.length() != 5 || entrada[2] != ' ') {
+            cout << "Formato inv√°lido. Usa: b2 b4\n";
+            continue;
+        }
+
+        int ColumnaIni = entrada[1] - '1'; //Quitamos 1 al numero que introducimos ya que el jugador ve filas/columnas del (1-8) pero el vector de filas/columnas es de (0-7)
+        int FilaIni = entrada[0] - 'a';
+        int ColumnaFin = entrada[4] - '1';
+        int FilaFin = entrada[3] - 'a';
+
+        if (FilaIni < 0 || FilaIni >= 8 || ColumnaIni < 0 || ColumnaIni >= 8 ||
+            FilaFin < 0 || FilaFin >= 8 || ColumnaFin < 0 || ColumnaFin >= 8) {
+            cout << "Coordenadas fuera de rango.\n";
+            continue;
+        }
+
+        if (mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin)) {
+            mostrar();
+        }
+        else {
+            cout << "Movimiento inv√°lido.\n";
+        }
+    }
+}
+
