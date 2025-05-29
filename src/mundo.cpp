@@ -67,7 +67,7 @@ void Mundo::dibuja()
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
-	tablero.counter += 0.05;
+	//tablero.counter += 0.05;
 
 	//fondo.dibujaxy();
 	glEnd();

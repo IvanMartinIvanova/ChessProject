@@ -138,10 +138,15 @@
     <ClCompile Include="src\circulos.cpp" />
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\estela.cpp" />
-    <ClCompile Include="src\listapiezas.cpp" />
+
+    <ClCompile Include="src\Jugador.cpp" />
+    <ClCompile Include="src\ListaPiezas.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+
     <ClCompile Include="src\mundo.cpp" />
     <ClCompile Include="src\pared.cpp" />
     <ClCompile Include="src\particulas.cpp" />
+    <ClCompile Include="src\Partida.cpp" />
     <ClCompile Include="src\peon.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\piezagraf.cpp" />
@@ -159,21 +164,30 @@
     <ClInclude Include="src\alfil.h" />
     <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\cara.h" />
+    <ClInclude Include="src\Casilla.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
+    <ClInclude Include="src\DATOS_DIBUJO.h" />
     <ClInclude Include="src\estela.h" />
-    <ClInclude Include="src\listapiezas.h" />
+
+    <ClInclude Include="src\Jugador.h" />
+    <ClInclude Include="src\ListaPiezas.h" />
+    <ClInclude Include="src\Menu.h" />
+
     <ClInclude Include="src\mundo.h" />
     <ClInclude Include="src\pared.h" />
     <ClInclude Include="src\particulas.h" />
+    <ClInclude Include="src\Partida.h" />
     <ClInclude Include="src\peon.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\piezagraf.h" />
     <ClInclude Include="src\plataforma.h" />
+    <ClInclude Include="src\Puntuacion.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
     <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
+    <ClInclude Include="src\Tiempo.h" />
     <ClInclude Include="src\torre.h" />
     <ClInclude Include="src\vectabl.h" />
     <ClInclude Include="src\Vector2D.h" />

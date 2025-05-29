@@ -87,6 +87,16 @@
     <ClCompile Include="src\sprite3D.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
+
+    <ClCompile Include="src\Jugador.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ListaPiezas.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partida.cpp">
+      <Filter>Archivos de origen</Filter>
+
     <ClCompile Include="src\cara.cpp">
       <Filter>Archivos de origen\Graficos\Objetos</Filter>
     </ClCompile>
@@ -113,6 +123,7 @@
     </ClCompile>
     <ClCompile Include="src\vectabl.cpp">
       <Filter>Archivos de origen\Graficos\Sprites</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +192,24 @@
     </ClInclude>
     <ClInclude Include="src\vectabl.h">
       <Filter>Archivos de encabezado\Graficos\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Matriz.h">
+      <Filter>Archivos de encabezado\Globales</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jugador.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ListaPiezas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Puntuacion.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tiempo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partida.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
