@@ -54,12 +54,12 @@ void ListaCasillas::dibuja(Vector3D org, float side)
         glPopMatrix();
     }
     selec.draw(side, org);
+    selec.resalta(side, org);
 }
 
 PiezaGr* ListaCasillas::getpieza(int rowin, int filein)
 {
-    Casilla casilla = listacasillas[(rowin - 1) * 8 + (filein - 1)];
-    return casilla.getpieza();
+    return listacasillas[(rowin - 1) * 8 + (filein - 1)].getpieza();
 }
 
 void ListaCasillas::move(unsigned char tecla)
@@ -70,4 +70,9 @@ void ListaCasillas::move(unsigned char tecla)
 void ListaCasillas::setpieza(int rowin, int filein, PiezaGr* piezain)
 {
     listacasillas[(rowin - 1) * 8 + (filein - 1)].setpieza(piezain);
+}
+
+string ListaCasillas::gettipo(int rowin, int filein)
+{
+    return getpieza(rowin, filein)->gettipo();
 }

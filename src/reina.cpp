@@ -1,5 +1,7 @@
 #include "reina.h"
 #include <cmath> // Para usar abs()
+#include "casilla.h"
+#include "listacasillas.h"
 
 
 
@@ -35,3 +37,5 @@ bool Reina::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& ta
 
     return false;
 }
+
+

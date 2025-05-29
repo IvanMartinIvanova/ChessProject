@@ -7,4 +7,5 @@ public:
     Torre(Colorpieza color) : Pieza(TipoPieza::TORRE, color) {}
 
     bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) override;
+    bool movimientoValido(int xIni, int yIni, int xFin, int yFin);
 };

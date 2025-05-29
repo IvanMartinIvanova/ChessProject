@@ -3,7 +3,9 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <Vector3D.h>
 #include "piezagr.h"
+#include "freeglut.h"
 
 using namespace std;
 
@@ -25,6 +27,8 @@ public:
 	float getfile();
 	PiezaGr* getpieza();
 	string gettipo();
+	void drawselec(int side, Vector3D org);
+	void drawposibl(int side, Vector3D org);
 
 
 	virtual void draw();

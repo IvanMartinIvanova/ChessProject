@@ -9,7 +9,7 @@ constexpr float tamaño = 2.0f;
 class PiezaGr
 {
 public:
-	bool color;
+	bool color; //1->blanco 0->negro
 	std::string tipo;
 	ETSIDI::Sprite* sprite;
 
@@ -97,7 +97,11 @@ public:
 
 class VacioGr : public PiezaGr
 {
-	using PiezaGr::PiezaGr;
+public:
+	VacioGr(bool colorin) : PiezaGr(colorin) {
+		sprite = nullptr;
+		tipo = "vacio";
+	}
 
 	void draw() override {  }
 };

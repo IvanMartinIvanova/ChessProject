@@ -1,5 +1,6 @@
 #include "caballo.h"
 #include <cmath>
+#include "listacasillas.h"
 
 bool Caballo::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
     int dx = abs(xFin - xIni);

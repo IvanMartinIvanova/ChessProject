@@ -11,16 +11,16 @@
 class ListaCasillas:public Plataforma
 {	
 	CasillaSelec selec;
-protected:
-	std::vector <Casilla> listacasillas;
-	std::vector <Casilla>* blancas;
-	std::vector <Casilla>* negra;
-
 public:
+	std::vector <Casilla> listacasillas;
+	
 	ListaCasillas();
 	void dibuja(Vector3D org, float side);
 	PiezaGr* getpieza(int row, int file);
+	string gettipo(int rowin, int filein);
 	void move(unsigned char tecla);
 	void setpieza(int row, int file, PiezaGr* piezain);
+
+	friend class Pieza;
 };
 

@@ -1,4 +1,5 @@
 #include "casilla.h"
+#include "Vector3D.h"
 
 Casilla::Casilla()
 { 
@@ -61,4 +62,22 @@ PiezaGr* Casilla::getpieza()
 string Casilla::gettipo()
 {
 	return pieza->gettipo();
+}
+
+void Casilla::drawselec(int side, Vector3D  org)
+{
+	glPushMatrix();
+	glColor3ub(100, 255, 155);
+	glTranslated(row / 9.0 * side + org.x, file / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
+	glutSolidCube(1);
+	glPopMatrix();
+}
+
+void Casilla::drawposibl(int side, Vector3D  org)
+{
+	glPushMatrix();
+	glColor3ub(255, 255, 255);
+	glTranslated(row / 9.0 * side + org.x, file / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
+	glutSolidCube(1);
+	glPopMatrix();
 }
