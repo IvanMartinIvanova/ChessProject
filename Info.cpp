@@ -188,7 +188,7 @@ std::string Conversor2(Colorpieza& color)
 
 
 
-int main() {
+int main(int argc, char* argv[]) {
     Menu menu;
     bool salir = false;
     DATOS_DIBUJO datos;
@@ -200,9 +200,9 @@ int main() {
 
     while (!salir) {
         menu.mostrarPrincipal();
-        int opcion = menu.obtenerOpcion();
 		menu.limpiarPantalla();
-
+        menu.iniciar(argc, argv);
+        int opcion = menu.obtenerOpcion();
         switch (opcion) {
         case 1: {
             partida.inicializar();       //Solo nueva partida lo usa

@@ -9,7 +9,7 @@ void Menu::mostrarPrincipal() {
     cout << "3. Salir\n";
 	cout << "\n\n\n Para guardar partidas, escribir 'g' en cualquier momento.\n\n Para guardar y salir, escribir 'q'.\n\n\n";
 }
-
+/*
 int Menu::obtenerOpcion() {
     int opcion;
     while (true) {
@@ -28,6 +28,7 @@ int Menu::obtenerOpcion() {
         }
     }
 }
+*/
 void Menu::limpiarPantalla() {
     system("cls"); 
 }
