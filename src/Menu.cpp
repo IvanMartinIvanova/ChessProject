@@ -7,6 +7,7 @@ void Menu::mostrarPrincipal() {
     cout << "1. Nueva partida\n";
     cout << "2. Cargar partida \n";
     cout << "3. Salir\n";
+    cout << "4. Jugar contra el ordenador\n";
 	cout << "\n\n\n Para guardar partidas, escribir 'g' en cualquier momento.\n\n Para guardar y salir, escribir 'q'.\n\n\n";
 }
 

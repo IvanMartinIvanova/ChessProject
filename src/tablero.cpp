@@ -11,6 +11,14 @@ Tablero::Tablero(): player1(), player2(){
             casillas[fila][col] = nullptr;
 }
 
+Jugador& Tablero::getPlayer1() {
+    return player1;
+}
+
+Jugador& Tablero::getPlayer2() {
+    return player2;
+}
+
 Tablero& Tablero::operator=(const Tablero & tab)
 {
     
@@ -584,4 +592,97 @@ void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
         }
         std::cout << "\n";
     }
+}
+
+void Tablero::comp_coronacion(Casilla cas_final_p)
+{
+    int aux;//Para controlar que pieza quiere
+    TipoPieza p;
+    int columna_fin = cas_final_p.columna;
+    int fila_fin = cas_final_p.fila;
+    p = casillas[fila_fin][columna_fin]->getTipo();
+    Colorpieza color = casillas[fila_fin][columna_fin]->getColor();
+
+
+    if (int(p) == 1 && columna_fin == 7 && color == Colorpieza::BLANCO)
+    {
+        
+        std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+        std::cin >> aux;
+
+        switch (aux) {
+        case 2:
+            player1.lista_piezas_actuales.eliminar(player1.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin]  = nullptr;
+            casillas[fila_fin][columna_fin] = new Torre(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 3:
+            player1.lista_piezas_actuales.eliminar(player1.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Caballo(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 4:
+            player1.lista_piezas_actuales.eliminar(player1.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Alfil(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 6:
+            player1.lista_piezas_actuales.eliminar(player1.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        default:
+            player1.lista_piezas_actuales.eliminar(player1.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player1.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        }
+    }
+
+    if (int(p) == 1 && columna_fin == 0 && color == Colorpieza::NEGRO)
+    {
+
+        std::cout << "Escoge la pieza que quieres obtener: TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ";
+        std::cin >> aux;
+
+        switch (aux) {
+        case 2:
+            player2.lista_piezas_actuales.eliminar(player2.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Torre(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 3:
+            player2.lista_piezas_actuales.eliminar(player2.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Caballo(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 4:
+            player2.lista_piezas_actuales.eliminar(player2.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Alfil(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        case 6:
+            player2.lista_piezas_actuales.eliminar(player2.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        default:
+            player2.lista_piezas_actuales.eliminar(player2.lista_piezas_actuales.lista_piezas, casillas[fila_fin][columna_fin]);
+            casillas[fila_fin][columna_fin] = nullptr;
+            casillas[fila_fin][columna_fin] = new Reina(color);
+            player2.lista_piezas_actuales.agregar(casillas[fila_fin][columna_fin]);
+            break;
+        }
+    }
+
+
 }

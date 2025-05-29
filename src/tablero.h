@@ -49,5 +49,10 @@ public:
 	void mostrarConCursor(int fila_cursor, int col_cursor); //Muestra el tablero con un cursor en la posición indicada
     friend class Pieza;
     friend class Partida;
+
+    void comp_coronacion(Casilla cas_final_p);
+    int generador_de_movimientos(Jugador& jug_humano, Jugador& maq);
+    Jugador& getPlayer1();
+    Jugador& getPlayer2();
 };
 
