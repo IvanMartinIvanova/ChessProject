@@ -184,8 +184,14 @@
     <ClInclude Include="src\Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\titulo.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\far-clouds.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\far-mountains.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\mountains.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\near-clouds.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\sky.png" />
+    <Image Include="..\..\..\OneDrive\Escritorio\Montains\trees.png" />
     <Image Include="bin\rc\bizop.png" />
-    <Image Include="bin\rc\board.png" />
     <Image Include="bin\rc\horsey.png" />
     <Image Include="bin\rc\indicators.png" />
     <Image Include="bin\rc\king.png" />

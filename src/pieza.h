@@ -18,6 +18,13 @@ public:
 
     TipoPieza getTipo() const { return tipo; }
     Colorpieza getColor() const { return color; }
+    bool getColorBool() const
+    {
+        if (color == Colorpieza::BLANCO)
+            return 1;
+        if (color == Colorpieza::NEGRO || color==Colorpieza::NINGUNO)
+            return 0;
+    }
     void getlista(vector<Casilla>* listain) { lista = listain; }
 
     virtual bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) = 0;

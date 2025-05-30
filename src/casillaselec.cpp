@@ -177,31 +177,31 @@ bool CasillaSelec::peon(Casilla casillap, Casilla casillacheck) {
 	int yFin = casillacheck.getrow();
 
 	int x1in = xIni, y1in = yIni, x2in = xFin, y2in = yFin;
-	//if (casillap.getfile() < 8 && casillap.getfile() > 1)
-	//{
-	//	if (casillap.getpieza()->color == 1) {
-	//		if (xIni == xFin && yFin == yIni + 1 && (*lista)[(xFin - 1) * 8 + (yFin - 1)].gettipo() == "vacio") {
-	//			return true;  // Avance de una casilla hacia adelante
-	//		}
-	//		if (xIni == xFin && yIni == 1 && yFin == 3 && (*lista)[(xFin - 1) * 8 + (yFin - 1)].gettipo() == "vacio" && (*lista)[(xIni - 1) * 8 + ((yIni + 1) - 1)].gettipo() == "vacio") {
-	//			return true;  // Avance de dos casillas hacia adelante
-	//		}
-	//		if (abs(xFin - xIni) == 1 && yFin == yIni + 1 && (*lista)[(xFin - 1) * 8 + (yFin - 1)].gettipo() != "vacio") {
-	//			return true;  // Captura en diagonal
-	//		}
-	//	}
-	//	else if (casillap.getpieza()->color == 0) {
-	//		if (xIni == xFin && yFin == yIni - 1 && tablero.getCasilla(xFin, yFin) == nullptr) {
-	//			return true;  // Avance de una casilla hacia adelante
-	//		}
-	//		if (xIni == xFin && yIni == 6 && yFin == 4 && tablero.getCasilla(xFin, yFin) == nullptr && tablero.getCasilla(xIni, yIni - 1) == nullptr) {
-	//			return true;  // Avance de dos casillas hacia adelante
-	//		}
-	//		if (abs(xFin - xIni) == 1 && yFin == yIni - 1 && tablero.getCasilla(xFin, yFin) != nullptr && tablero.getCasilla(xFin, yFin)->getColor() != color) {
-	//			return true;  // Captura en diagonal
-	//		}
-	//	}
-	//}
+	if (casillap.getfile() < 9 && casillap.getfile() > 0)
+	{
+		if (casillap.getpieza()->color == 1) {
+			if (xIni == xFin && yFin == yIni + 1 && gettipo(xFin,yFin) == "vacio") {
+				return true;  // Avance de una casilla hacia adelante
+			}
+			if (xIni == xFin && yIni == 2 && yFin == 4 && gettipo(xFin, yFin) == "vacio" && gettipo(xIni, yIni+1) == "vacio") {
+				return true;  // Avance de dos casillas hacia adelante
+			}
+			if (abs(xFin - xIni) == 1 && yFin == yIni + 1 && gettipo(xFin,yFin) != "vacio") {
+				return true;  // Captura en diagonal
+			}
+		}
+		else if (casillap.getpieza()->color == 0) {
+			if (xIni == xFin && yFin == yIni - 1 && gettipo(xFin, yFin) == "vacio") {
+				return true;  // Avance de una casilla hacia adelante
+			}
+			if (xIni == xFin && yIni == 7 && yFin == 5 && gettipo(xFin, yFin) == "vacio" && gettipo(xIni, yIni - 1) == "vacio") {
+				return true;  // Avance de dos casillas hacia adelante
+			}
+			if (abs(xFin - xIni) == 1 && yFin == yIni - 1 && gettipo(xFin, yFin) != "vacio") {
+				return true;  // Captura en diagonal
+			}
+		}
+	}
 	return false;  // Si ninguna de las condiciones anteriores se cumple, el movimiento no es válido
 }
 

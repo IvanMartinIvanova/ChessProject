@@ -16,7 +16,7 @@ ListaCasillas::ListaCasillas()
     for (auto i = 0; listacasillas.size()>i;i++)
     {
         bool color;
-        if (listacasillas[i].getfile() < 3)
+        if (listacasillas[i].getrow() < 4)
             color = 1;
         else
             color = 0;

@@ -13,14 +13,14 @@ Mundo::Mundo()
 	x_ojo = 0;
 
 	y_ojo = 0;
-	z_ojo = 40;
+	z_ojo = 50;
 
 	//y_ojo = 20;
 	//z_ojo = 40;
 
 	xmira = 0.0;
 	ymira = 0;
-	zmira = 0.0;
+	zmira = 0;
 
 	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
 	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
@@ -48,8 +48,9 @@ void Mundo::dibuja()
 	tablero.dibuja();
 	piezas1.dibuja();
 	piezas2.dibuja();
-	//fondo->dibuja(0);
-	tablerogr.dibuja(); 
+	
+	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
+	tablerogr.dibuja(nullptr); 
 
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);
@@ -78,4 +79,3 @@ void Mundo::tecla(char key)
 	}
 	tablerogr.mueve(key);
 }
-

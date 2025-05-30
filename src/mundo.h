@@ -13,6 +13,9 @@ class Mundo
 private:
 	double x_ojo, y_ojo, z_ojo;
 	double xmira, ymira, zmira;
+	const int scale = 20;
+	const float lejos = 4;
+	int counter = 0;
 	//Disparo disparo;
 	//Esfera esfera;
 	//Hombre hombre;
@@ -22,9 +25,6 @@ private:
 	Plataforma piezas1{ {-15,-5,0},{-13,-6,-5},{180,0,240} };
 	Plataforma piezas2{ {13,-5,0},{15,-6,-5},{180,0,240} };
 	TableroGr tablerogr;
-	/*Sprite3D fondo{ {0,0,0.1}, "rc/board.png",0,0,25,25)};
-	Sprite3D board;*/
-	ETSIDI::Sprite* fondo = new ETSIDI::Sprite("rc/sprite_prueba.png", 0, 0, 25, 25);
 	
 
 	//Cara fondo{ -100.f, 100.f, 100.f, 100.f, -100.f, -100.f, {180,60,200} };
@@ -38,5 +38,4 @@ public:
 	void rotarOjo();
 	void inicializa();
 	void tecla(char key);
-
 };

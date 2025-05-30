@@ -1,5 +1,7 @@
 #pragma once
 #include "Plataforma.h"
+#include "tablero.h"
+#include "pieza.h"
 #include "listacasillas.h"
 
 class TableroGr: public Plataforma
@@ -9,8 +11,9 @@ class TableroGr: public Plataforma
 	ListaCasillas casillas;
 
 public:
-	void dibuja();
+	void dibuja(Pieza* tableroin[8][8]);
 	Vector3D idle();
+	void settablero(Pieza* tableroin[8][8]);
 	void mueve(unsigned char tecla);
 };
 

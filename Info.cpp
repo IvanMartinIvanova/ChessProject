@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 
 	// Configurar perspectiva
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
+	gluPerspective(40.0, 800 / 600.0f, 0.1, 2000);
 
 	mundo.inicializa();
 	// Callbacks
