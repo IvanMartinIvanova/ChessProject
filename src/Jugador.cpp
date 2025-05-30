@@ -125,9 +125,9 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
     int fila_ini = -1, col_ini = -1;
     bool continuar = true;
 
-    while (continuar)
-    {
-        //system("cls");
+   // while (continuar)
+   // {
+        system("cls");
         std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
         std::cout << "Turno de " << this->Nombre << endl;
         tab.mostrarConCursor(fila_cursor, col_cursor);
@@ -221,7 +221,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 
         default: break;
         }
-    }
+   // }
 
     return false;
 }

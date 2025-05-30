@@ -20,7 +20,7 @@ Mundo::Mundo()
 
 	xmira = 0.0;
 	ymira = 0;
-	zmira = 0.0;
+	zmira = 0;
 
 	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
 	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
@@ -45,33 +45,21 @@ void Mundo::dibuja()
 	//glDisable(GL_LIGHTING);
 
 
-	//tablero.dibuja();
+	tablero.dibuja();
 	piezas1.dibuja();
 	piezas2.dibuja();
-	//fondo->dibuja(0);
 
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D,
-		ETSIDI::getTexture("rc/board.png").id);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	glTexCoord2d(0, 1); glVertex2d(-25, -25);
-	glTexCoord2d(1, 1); glVertex2d(-25, 25);
-	glTexCoord2d(1, 0); glVertex2d(25, 25);
-	glTexCoord2d(0, 0); glVertex2d(25, -25);
-	glEnd();
-	glEnable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
+	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
+	tablerogr.dibuja(nullptr);
 
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
-	//tablero.counter += 0.05;
+	tablero.counter += 0.05;
 
 	//fondo.dibujaxy();
 	glEnd();
-//	glEnable(GL_LIGHTING);
+	//	glEnable(GL_LIGHTING);
 }
 
 void Mundo::mueve()
@@ -86,8 +74,9 @@ void Mundo::inicializa()
 void Mundo::tecla(char key)
 {
 	if (key == GLUT_KEY_LEFT)
-	if (key == 'c')
-	{
-	}
+		if (key == 'c')
+		{
+		}
+	tablerogr.mueve(key);
 }
 

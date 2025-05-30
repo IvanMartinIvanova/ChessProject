@@ -1,4 +1,9 @@
 #include "Menu.h"
+#include <limits>
+
+#ifdef max
+#undef max
+#endif
 
 using namespace std;
 
@@ -20,11 +25,11 @@ int Menu::obtenerOpcion() {
         if (cin.fail()) {
             // falló la entrada: el usuario escribió letras u otra cosa
             cin.clear(); // limpia el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia la línea
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia la línea
             cout << "Entrada invalida. Por favor, introduce un numero.\n";
         }
         else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia cualquier cosa que haya quedado
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia cualquier cosa que haya quedado
             return opcion;
         }
     }
@@ -99,6 +104,11 @@ std::string Menu::Conversor2(const Colorpieza& color)
     }
 
     }
+}
+
+void Menu::tecla(char key)
+{
+    tecla_key = key;
 }
 
 void Menu::Menu_Progress(void)

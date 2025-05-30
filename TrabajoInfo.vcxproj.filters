@@ -49,9 +49,6 @@
     <ClCompile Include="src\pieza.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
-    <ClCompile Include="src\piezagraf.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
     <ClCompile Include="src\plataforma.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
@@ -78,6 +75,16 @@
     </ClCompile>
     <ClCompile Include="src\Vector3D.cpp">
       <Filter>Archivos de origen\Globales</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Casilla.cpp" />
+    <ClCompile Include="src\casillaselec.cpp" />
+    <ClCompile Include="src\listacasillas.cpp" />
+    <ClCompile Include="src\sprite.cpp" />
+    <ClCompile Include="src\piezagr.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tablerogr.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +139,6 @@
     <ClInclude Include="src\pieza.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
-    <ClInclude Include="src\piezagraf.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
     <ClInclude Include="src\plataforma.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
@@ -168,17 +172,15 @@
     <ClInclude Include="src\Vector3D.h">
       <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="bin\rc\board.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\rc\indicators.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\rc\pieces.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
+    <ClInclude Include="src\casillaselec.h" />
+    <ClInclude Include="src\listacasillas.h" />
+    <ClInclude Include="src\sprite.h" />
+    <ClInclude Include="src\piezagr.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tablerogr.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -208,5 +210,61 @@
     <Filter Include="Archivos de recursos">
       <UniqueIdentifier>{f5833573-94ba-4473-ac89-bb78f9cfe47c}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\rc\bizop.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\board.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\far-clouds.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\far-mountains.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\fondo.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\horsey.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\indicators.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\king.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\mountains.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\near-clouds.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\pieces.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\pwaun.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\qween.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\sky.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\sprite_prueba.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\titulo.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\tower.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\rc\trees.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

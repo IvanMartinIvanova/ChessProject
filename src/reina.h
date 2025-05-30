@@ -2,8 +2,9 @@
 #include "pieza.h"
 #include "tablero.h"  // Necesario para usar el tablero
 
-class Reina : public Pieza {
-public:
+class Reina : public Pieza 
+{
+    public:
     // Constructor que recibe el color de la pieza
     Reina(Colorpieza color) : Pieza(TipoPieza::REINA, color) {}
     Pieza* clonar() const override {

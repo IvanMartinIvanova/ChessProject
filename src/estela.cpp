@@ -18,13 +18,13 @@ Estela::Estela(float posx, float posy, float posz)
 {
     org = { posx,posy,posz };
     for (auto i = 0; max - 1 > i; i++)
-    { 
-        circulitos[i].setpos({ posx, posy - ((float)i / (max-1)) * dmax, posz });
+    {
+        circulitos[i].setpos({ posx, posy - ((float)i / (max - 1)) * dmax, posz });
     }
     //std::cout << posx << posy << posz;
 }
 
-void Estela::setorg(const Vector3D& orgin) 
+void Estela::setorg(const Vector3D& orgin)
 {
     org = orgin;
 }
@@ -32,12 +32,11 @@ void Estela::setorg(const Vector3D& orgin)
 void Estela::dibuja()
 {
     int i;
-    glPushMatrix();
 
     for (i = 0; max - 1 > i; i++)
     {
+        glPushMatrix();
         circulitos[i].drawcirc(org);
+        glPopMatrix();
     }
-   glPopMatrix();
-   // std::cout << std::endl;
 }

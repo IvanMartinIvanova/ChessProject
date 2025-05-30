@@ -143,6 +143,7 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& pla
 
     Pieza* casilla_origen = this->getCasilla(FilIni, ColIni);
     Pieza* casilla_destino = this->getCasilla(FilFin, ColFin);
+    Casilla posFin = { FilFin, ColFin };
 
 
 
@@ -168,7 +169,7 @@ bool Tablero::mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& pla
         dat.pieza_fin_conGrav = getCasilla(FilFin, ColFin);
         this->resetCasilla(FilIni, ColIni); //Liberamos la casilla de origen
 
-        if (aplicarGravedad(*this, { FilFin, ColFin }, dat.pieza_fin_conGrav))
+        if (aplicarGravedad(*this, posFin, dat.pieza_fin_conGrav))
         {
             
             if (casilla_destino != nullptr)
@@ -246,20 +247,20 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
 
     //Primero comprobamos si el rey puede hacer algún movimiento que evite el Jaque
     casillaRey = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[pos_listaRey]);
-    Pieza* rey = getCasilla(casillaRey.fila, casillaRey.columna);
+    Pieza* rey = getCasilla(casillaRey.row, casillaRey.file);
     for (int fila = 0; fila <= 7; fila++)
     {
         for (int columna = 0; columna <= 7; columna++)
         {
-            if (rey->movimientoValido(casillaRey.fila, casillaRey.columna, fila, columna, *this))
+            if (rey->movimientoValido(casillaRey.row, casillaRey.file, fila, columna, *this))
             {
                 for (int j = 0; j < atacante.lista_piezas_actuales.size(); j++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
                 {
                     piezas_atacantes = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[j]);
-                    if (piezas_atacantes.fila != -1)
+                    if (piezas_atacantes.row != -1)
                     {
-                        Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
-                        if (atacante1->movimientoValido(piezas_atacantes.fila, piezas_atacantes.columna, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey está amenazada
+                        Pieza* atacante1 = getCasilla(piezas_atacantes.row, piezas_atacantes.file);
+                        if (atacante1->movimientoValido(piezas_atacantes.row, piezas_atacantes.file, fila, columna, *this)) //Comprobamos si la posicion a la que se puede mover el rey está amenazada
                         {
                             //El rey no se puede mover a esa posición -> Hay que comprobar si podemos cubrir al rey con una pieza
                             for (int m = 0; m < defensor.lista_piezas_actuales.size(); m++)
@@ -268,24 +269,24 @@ bool Tablero::gestion_jaque(Jugador defensor, Jugador atacante) //Devuelve TRUE 
                                 {
                                     piezas_defensoras = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[m]);
 
-                                    if (piezas_defensoras.fila != -1)
+                                    if (piezas_defensoras.row != -1)
                                     {
-                                        Pieza* defensor = getCasilla(piezas_defensoras.fila, piezas_defensoras.columna);
+                                        Pieza* defensor = getCasilla(piezas_defensoras.row, piezas_defensoras.file);
 
                                         for (int f = 0; f <= 7; f++)
                                         {
                                             for (int c = 0; c <= 7; c++)
                                             {
-                                                if (defensor->movimientoValido(piezas_defensoras.fila, piezas_defensoras.columna, f, c, *this))
+                                                if (defensor->movimientoValido(piezas_defensoras.row, piezas_defensoras.file, f, c, *this))
                                                 {
                                                     setCasilla(f, c, defensor);
                                                     for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
                                                     {
                                                         piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
-                                                        if (piezas_atacantes2.fila != -1)
+                                                        if (piezas_atacantes2.row != -1)
                                                         {
-                                                            Pieza* atacante2 = getCasilla(piezas_atacantes2.fila, piezas_atacantes2.columna);
-                                                            if (atacante2->movimientoValido(piezas_atacantes2.fila, piezas_atacantes2.columna, casillaRey.fila, casillaRey.columna, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey
+                                                            Pieza* atacante2 = getCasilla(piezas_atacantes2.row, piezas_atacantes2.file);
+                                                            if (atacante2->movimientoValido(piezas_atacantes2.row, piezas_atacantes2.file, casillaRey.row, casillaRey.file, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey
                                                             {
                                                                 resetCasilla(f, c); //El defensor no ha podido proteger al rey
                                                                 escape_rey = 0;
@@ -334,18 +335,18 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
             pos_listaRey = i;
 
     casillaRey = buscar_pieza(turno_inactivo.lista_piezas_actuales.lista_piezas[pos_listaRey]);
-    Pieza* rey = getCasilla(casillaRey.fila, casillaRey.columna);
+    Pieza* rey = getCasilla(casillaRey.row, casillaRey.file);
 
     for (int i = 0; i < turno_activo.lista_piezas_actuales.size(); i++)
     {
         piezas_atacantes = buscar_pieza(turno_activo.lista_piezas_actuales.lista_piezas[i]);
 
-        if (piezas_atacantes.fila == -1 || piezas_atacantes.columna == -1) {
+        if (piezas_atacantes.row == -1 || piezas_atacantes.file == -1) {
             cout << "ERROR: Pieza atacante no encontrada. Saltando...\n";
             continue; // Evita continuar con datos inválidos
         }
 
-        Pieza* atacante1 = getCasilla(piezas_atacantes.fila, piezas_atacantes.columna);
+        Pieza* atacante1 = getCasilla(piezas_atacantes.row, piezas_atacantes.file);
 
         if (atacante1 == nullptr) {
             cout << "ERROR: Puntero nulo en atacante1. Saltando...\n";
@@ -355,8 +356,8 @@ bool Tablero::comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo)
         if (atacante1->getTipo() != TipoPieza::VACIA)
         {
             if (atacante1->movimientoValido(
-                piezas_atacantes.fila, piezas_atacantes.columna,
-                casillaRey.fila, casillaRey.columna, *this)) {
+                piezas_atacantes.row, piezas_atacantes.file,
+                casillaRey.row, casillaRey.file, *this)) {
 
                 cout << "JAQUE AL REY" << endl;
                 return true;
@@ -371,8 +372,8 @@ void Tablero::comp_coronacion(Casilla cas_final_p)
 {
     int aux;//Para controlar que pieza quiere
     TipoPieza p;
-    int columna_fin = cas_final_p.columna;
-    int fila_fin = cas_final_p.fila;
+    int columna_fin = cas_final_p.file;
+    int fila_fin = cas_final_p.row;
     p = casillas[fila_fin][columna_fin]->getTipo();
     Colorpieza color = casillas[fila_fin][columna_fin]->getColor();
 

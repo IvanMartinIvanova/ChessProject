@@ -8,6 +8,8 @@
 #include <iostream>
 
     class Menu {
+
+        char tecla_key;
     public:
         void mostrarPrincipal();
         int obtenerOpcion();
@@ -15,6 +17,7 @@
         void Menu_Progress();
         std::string Conversor(const TipoPieza& tipo);
         std::string Conversor2(const Colorpieza& color);
+        void tecla(char key);
     };
 
 

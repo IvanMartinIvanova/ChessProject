@@ -135,26 +135,29 @@
     <ClCompile Include="src\alfil.cpp" />
     <ClCompile Include="src\caballo.cpp" />
     <ClCompile Include="src\cara.cpp" />
+    <ClCompile Include="src\Casilla.cpp" />
+    <ClCompile Include="src\casillaselec.cpp" />
     <ClCompile Include="src\circulos.cpp" />
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\estela.cpp" />
-
     <ClCompile Include="src\Jugador.cpp" />
+    <ClCompile Include="src\listacasillas.cpp" />
     <ClCompile Include="src\ListaPiezas.cpp" />
     <ClCompile Include="src\Menu.cpp" />
-
     <ClCompile Include="src\mundo.cpp" />
     <ClCompile Include="src\pared.cpp" />
     <ClCompile Include="src\particulas.cpp" />
     <ClCompile Include="src\Partida.cpp" />
     <ClCompile Include="src\peon.cpp" />
     <ClCompile Include="src\pieza.cpp" />
-    <ClCompile Include="src\piezagraf.cpp" />
+    <ClCompile Include="src\piezagr.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
+    <ClCompile Include="src\sprite.cpp" />
     <ClCompile Include="src\sprite3D.cpp" />
     <ClCompile Include="src\tablero.cpp" />
+    <ClCompile Include="src\tablerogr.cpp" />
     <ClCompile Include="src\torre.cpp" />
     <ClCompile Include="src\vectabl.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
@@ -165,28 +168,30 @@
     <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\cara.h" />
     <ClInclude Include="src\Casilla.h" />
+    <ClInclude Include="src\casillaselec.h" />
     <ClInclude Include="src\circulos.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\DATOS_DIBUJO.h" />
     <ClInclude Include="src\estela.h" />
-
     <ClInclude Include="src\Jugador.h" />
+    <ClInclude Include="src\listacasillas.h" />
     <ClInclude Include="src\ListaPiezas.h" />
     <ClInclude Include="src\Menu.h" />
-
     <ClInclude Include="src\mundo.h" />
     <ClInclude Include="src\pared.h" />
     <ClInclude Include="src\particulas.h" />
     <ClInclude Include="src\Partida.h" />
     <ClInclude Include="src\peon.h" />
     <ClInclude Include="src\pieza.h" />
-    <ClInclude Include="src\piezagraf.h" />
+    <ClInclude Include="src\piezagr.h" />
     <ClInclude Include="src\plataforma.h" />
     <ClInclude Include="src\Puntuacion.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
+    <ClInclude Include="src\sprite.h" />
     <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
+    <ClInclude Include="src\tablerogr.h" />
     <ClInclude Include="src\Tiempo.h" />
     <ClInclude Include="src\torre.h" />
     <ClInclude Include="src\vectabl.h" />
@@ -194,9 +199,24 @@
     <ClInclude Include="src\Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bin\rc\bizop.png" />
     <Image Include="bin\rc\board.png" />
+    <Image Include="bin\rc\far-clouds.png" />
+    <Image Include="bin\rc\far-mountains.png" />
+    <Image Include="bin\rc\fondo.png" />
+    <Image Include="bin\rc\horsey.png" />
     <Image Include="bin\rc\indicators.png" />
+    <Image Include="bin\rc\king.png" />
+    <Image Include="bin\rc\mountains.png" />
+    <Image Include="bin\rc\near-clouds.png" />
     <Image Include="bin\rc\pieces.png" />
+    <Image Include="bin\rc\pwaun.png" />
+    <Image Include="bin\rc\qween.png" />
+    <Image Include="bin\rc\sky.png" />
+    <Image Include="bin\rc\sprite_prueba.png" />
+    <Image Include="bin\rc\titulo.png" />
+    <Image Include="bin\rc\tower.png" />
+    <Image Include="bin\rc\trees.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

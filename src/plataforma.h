@@ -14,6 +14,7 @@ public:
 	Estela estela{ (limite1.x + limite2.x) / 2,(limite1.y + limite2.y) / 2, limite2.z };
 	//Estela estela{ 0,0,0 };
 	Color color;
+	const float osci = 0.65;
 
 
 public:

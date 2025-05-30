@@ -9,6 +9,8 @@ public:
         return new Rey(*this);
     }
     bool movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) override;
+   
+
 
 };
 
