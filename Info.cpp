@@ -267,14 +267,20 @@ int main() {
             salir = true;
             break;
         case 4: {
+            
+
             partida.inicializar();
-            Jugador jug_hum, IA;
-            bool turnoIA = false, turno_jug = true;
+            
+            bool turnoIA = false, turno_jug = true, aux;
             Jugador& jug_hum = tablero.getPlayer1();
             Jugador& IA = tablero.getPlayer2();
 
-            while (partida.Progress_Partida(datos))
+            while (partida.Progress_Partida_IA(datos))
             {
+               
+               
+
+                
                 if (turno_jug == true) {
                     pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
                     pieza_fin_sG = tablero.buscar_pieza(datos.pieza_fin_sinGrav);
@@ -300,93 +306,11 @@ int main() {
                         cout << "\n Pieza de destino seleccionada despues de aplicar gravedad " << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
                         tablero.comp_coronacion(pieza_fin_cG);
                     }
-
-                    turno_jug = false;
-                    turnoIA = true;
                 }
-
-                if (turnoIA == true)
-                {
-
-                    int pos_caso_extremo_x, pos_caso_extremo_y; //Dos varibles auxiliares en caso de que sea inevitableque el jugador coma a la IA
-
-                    int pos_inicial_x, pos_inicial_y; //Para guardar la casilla a copiar
-
-                    bool provoca_jaque_mate = tablero.gestion_jaque(IA, jug_hum);
-
-                    if (provoca_jaque_mate == false)
-                        cout << "Jaque mate" << endl;
-
-                    else
-                    {
-                        Casilla cas_ini = tablero.buscar_pieza(datos.pieza_origen);
-
-                        if (datos.pieza_origen != nullptr && datos.pieza_origen->getColor() == Colorpieza::NEGRO)
-                        {
-                            for (int c = 0; c <= 7; c++)
-                            {
-                                for (int d = 0; d <= 7; d++)
-                                {
-                                    Pieza* pieza_a_mover = tablero.getCasilla(cas_ini.fila, cas_ini.columna);
                                 
-                                    bool aux = pieza_a_mover->movimientoValido(cas_ini.fila, cas_ini.columna, c, d, tablero);
-
-                                    bool provoca_jaque;
-
-                                    if (aux == true)
-                                    {
-                                        aux = tablero.mover(cas_ini.fila, cas_ini.columna, c, d, IA, datos);
-                                        
-
-                                        provoca_jaque = tablero.comprobacion_jaque(IA, jug_hum);
-                                        bool comp_pieza_comida = t.come_pieza_a_IA(color, t, c, d);
-
-                                        if (provoca_jaque == true)
-                                        {
-                                            Pieza* cas_final = tablero.getCasilla(c, d);
-                                            cas_final = nullptr;
-                                            casillas[i][j] = crearPieza(p, color);
-                                        }
-
-                                        if (provoca_jaque == false && comp_pieza_comida == true)
-                                        {
-                                            pos_caso_extremo_x = c;
-                                            pos_caso_extremo_y = d;
-
-                                            pos_inicial_x = i;
-                                            pos_inicial_y = j;
-                                        }
-
-                                        if (provoca_jaque == false && comp_pieza_comida == false)
-                                            return 0;
-
-
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                }
-
-                casillas[pos_caso_extremo_x][pos_caso_extremo_y] = casillas[pos_inicial_x][pos_inicial_y];
-                delete casillas[pos_inicial_x][pos_inicial_y];
-                casillas[pos_inicial_x][pos_inicial_y] = nullptr;
-                return 0;
             }
-
-
+            break;
         }
-
-                        }
-                    }
-                }
-
-            }
-        }
-           
-
-
         default:
             cout << "Opción invalida. Intenta otra vez.\n";
             break;

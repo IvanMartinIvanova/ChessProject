@@ -41,8 +41,10 @@ public:
         casillas[x][y] = nullptr;
     }
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat);
+    bool gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t);
+
     bool gestion_jaque(Jugador defensor, Jugador atacante);
-    bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
+    bool comprobacion_jaque(Jugador& turno_activo, Jugador& turno_inactivo);
     Casilla buscar_pieza(Pieza* p);
     bool guardarPartida(const std::string& nombreArchivo);
     bool cargarPartida(const std::string& nombreArchivo);
@@ -51,7 +53,8 @@ public:
     friend class Partida;
 
     void comp_coronacion(Casilla cas_final_p);
-    int generador_de_movimientos(Jugador& jug_humano, Jugador& maq);
+    bool generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tablero& t, DATOS_DIBUJO& datos);
+    bool come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA);
     Jugador& getPlayer1();
     Jugador& getPlayer2();
 };

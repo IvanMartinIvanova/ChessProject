@@ -30,6 +30,12 @@ bool Partida::Progress_Partida(DATOS_DIBUJO& dat)
 	tablero.mostrar();
 	return tablero.gestion_turnos(this->estado_JAQUE, dat);
 }
+
+bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat)
+{
+	tablero.mostrar();
+	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, dat, tablero);
+}
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);
 }
