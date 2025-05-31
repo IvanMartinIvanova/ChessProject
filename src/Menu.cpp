@@ -40,9 +40,9 @@ void Menu::dibujarMenu()
     banner->draw();
     glTranslatef(0, 0, 0.1);
     // Dibuja texto opciones (coordenadas adaptables)
-    dibujarTexto(-0.25f, 0.2f, "1. Nueva partida");
-    dibujarTexto(-0.25f, 0.0f, "2. Cargar partida");
-    dibujarTexto(-0.25f, -0.2f, "3. Salir");
+    dibujarTexto(-0.2f, 0.2f, "1. Nueva partida");
+    dibujarTexto(-0.2f, 0.0f, "2. Cargar partida");
+    dibujarTexto(-0.2f, -0.2f, "3. Salir");
 
     dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2 o 3 para elegir.");
     glTranslatef(0, 0, -0.1);
@@ -59,7 +59,7 @@ Menu::Menu()
 {
     instancia = this;
    // fondo = new ETSIDI::Sprite("rc/fondo.png", 0, 0, .0f, 2.0f);
-    banner = new ETSIDI::Sprite("rc/banner.png", -0.4, -0.4, 4.0f, 4.0f);
+    banner = new ETSIDI::Sprite("rc/banner.png", 0,0, 2, 2);
 }
 /*
 void Menu::iniciar(int argc, char* argv[]) {

@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE);
-	glutCreateWindow("UwU");
+	glutCreateWindow("Gravitacional Chess");
 
 	glEnable(0x809D);
 
