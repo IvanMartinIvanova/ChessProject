@@ -1,8 +1,8 @@
 #include "tablerogr.h"
 
-void TableroGr::dibuja(Pieza* tableroin[8][8])
+void TableroGr::dibuja(Pieza* (*tableroin)[8])
 {
-    //settablero(tableroin);
+    settablero(tableroin);
     casillas.dibuja(TableroGr::idle(), side);
 }
 
@@ -16,11 +16,16 @@ void TableroGr::mueve(unsigned char tecla)
     casillas.move(tecla);
 }
 
-void TableroGr::settablero(Pieza* tableroin[8][8])
+void TableroGr::settablero(Pieza* (*tableroin)[8])
 {
+
     int index = 0;
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
+    for (int j = 0; j < 8; ++j) {
+        for (int i = 0;  i< 8; ++i) {
+
+            Pieza* pieza = tableroin[i][j];
+            if (!pieza) continue;
+
             if (tableroin[i][j]->getTipo() == TipoPieza::VACIA)
                 casillas.listacasillas[index].setpieza(new VacioGr(tableroin[i][j]->getColorBool()));
             if (tableroin[i][j]->getTipo() == TipoPieza::PEON)

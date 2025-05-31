@@ -3,6 +3,7 @@
 #include "ETSIDI.h"
 #include "freeglut.h"
 #include "Vector3D.h"
+#include "Jugador.h"
 
 class CasillaSelec
 {

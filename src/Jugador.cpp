@@ -6,6 +6,15 @@
 
 using namespace std;
 
+
+
+
+int Jugador::fila_cursor = 0;
+int Jugador::col_cursor = 0;
+int Jugador::fila_ini = -1;
+int Jugador::col_ini = -1;
+
+
 Jugador::Jugador(): points({0.0,0.0,0.0,0.0}), temp({0,0}), Turno(false)
 {
 

@@ -2,10 +2,10 @@
 
 CasillaSelec::CasillaSelec()
 {
-	file = 3;
-	row = 3;
-	filein = 3;
-	rowin = 3;
+	file = 8;
+	row = 1;
+	filein = 8;
+	rowin = 1;
 }
 
 void CasillaSelec::move(unsigned char tecla)
@@ -18,7 +18,7 @@ void CasillaSelec::move(unsigned char tecla)
 		rowin += 1;
 	if (tecla == 'a' && rowin > 1)
 		rowin -= 1;
-	if (tecla == ' ')
+	if (tecla == '\r')
 	{
 		file = filein;
 		row = rowin;
@@ -248,7 +248,7 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 	int x = xIni + xDirection;
 	int y = yIni + yDirection;
 
-	while (x != xFin && y != yFin) {
+	while (x != xFin && y != yFin && xFin < 8 && yFin < 8) {
 		if (gettipo(x, y) != "vacio") {
 			return false;  // Si hay una pieza en el camino, no se puede mover
 		}

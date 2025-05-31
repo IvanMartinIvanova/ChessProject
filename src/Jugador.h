@@ -8,8 +8,12 @@ class Tablero; //Declaración anticipada para poder usar el puntero a la clase  T
 #include <string>
 
 using namespace std;
+
+
+
 class Jugador
 {
+	friend class CasillaSelec;
 protected:
 	ListaPiezas lista_piezas_actuales;
 	ListaPiezas lista_piezas_comidas;
@@ -19,8 +23,8 @@ protected:
 	bool Turno; //True - si es el turno del jugador / False - si no es el turno del jugador
 
 public:
-	int fila_cursor = 0, col_cursor = 0;
-	int fila_ini = -1, col_ini = -1;
+	static int fila_cursor, col_cursor;
+	static int fila_ini, col_ini;
 	Jugador();
 	Jugador& operator=(const Jugador& player);
 	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key);
@@ -32,4 +36,3 @@ public:
 	
 
 };
-

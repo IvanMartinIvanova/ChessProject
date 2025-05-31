@@ -154,7 +154,6 @@
     <ClCompile Include="src\plataforma.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
-    <ClCompile Include="src\sprite.cpp" />
     <ClCompile Include="src\sprite3D.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\tablerogr.cpp" />
@@ -188,7 +187,6 @@
     <ClInclude Include="src\Puntuacion.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
-    <ClInclude Include="src\sprite.h" />
     <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\tablerogr.h" />

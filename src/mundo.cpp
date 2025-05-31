@@ -55,7 +55,7 @@ void Mundo::dibuja()
 	piezas2.dibuja();
 
 	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
-	tablerogr.dibuja(nullptr);
+	tablerogr.dibuja(partida.getTablero().getVectorCasillas());
 
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);

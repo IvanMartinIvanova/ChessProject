@@ -11,9 +11,9 @@ class TableroGr : public Plataforma
 	ListaCasillas casillas;
 
 public:
-	void dibuja(Pieza* tableroin[8][8]);
+	void dibuja(Pieza* (*tableroin)[8]);
 	Vector3D idle();
-	void settablero(Pieza* tableroin[8][8]);
+	void settablero(Pieza* (*tableroin)[8]);
 	void mueve(unsigned char tecla);
 };
 

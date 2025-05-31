@@ -31,17 +31,21 @@ public:
 
     bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player, DATOS_DIBUJO& dat);
     bool aplicarGravedad(Tablero& tab,Casilla destin0_sinGravedad, Pieza*& posPieza_final_conGrav); //primer intento de gravedad
-    Pieza* getCasilla(int x, int y) const { //Getter
+
+    Pieza* getCasilla(int x, int y) const 
+    { //Getter
         return casillas[x][y];
     }
-    Pieza* getVectorCasillas() { return casillas[8][8]; }
-    void setCasilla(int x, int y, Pieza* pieza) { //Setter
+
+    Pieza* (*getVectorCasillas())[8] { return casillas; }
+
+    void setCasilla(int x, int y, Pieza* pieza) 
+    { //Setter
         casillas[x][y] = pieza;
     }
     void resetCasilla(int x, int y) //Reinicio de casilla
     {
         casillas[x][y] = nullptr;
-
     }
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
     bool gestion_jaque(Jugador defensor, Jugador atacante);
