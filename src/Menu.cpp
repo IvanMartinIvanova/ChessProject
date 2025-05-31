@@ -111,7 +111,7 @@ void Menu::tecla(char key)
     tecla_key = key;
 }
 
-void Menu::Menu_Progress(void)
+void Menu::Menu_Progress(int option, char tecla)
 {
 
     bool salir = false;
@@ -122,19 +122,15 @@ void Menu::Menu_Progress(void)
     Tablero& tablero = partida.getTablero();
     using namespace std;
 
-      while (!salir) {
-            mostrarPrincipal();
-            int opcion = obtenerOpcion();
-            limpiarPantalla();
+          int opcion = option;
 
             switch (opcion) {
             case 1: {
-                partida.inicializar();       //Solo nueva partida lo usa
-                partida.escoger_player();
-                while (partida.Progress_Partida(datos))
+                
+                while (partida.Progress_Partida(datos, tecla))
                 {
 
-                    pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
+                    /*pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
                     pieza_fin_sG = tablero.buscar_pieza(datos.pieza_fin_sinGrav);
                     pieza_fin_cG = tablero.buscar_pieza(datos.pieza_fin_conGrav);
 
@@ -155,19 +151,19 @@ void Menu::Menu_Progress(void)
                         tipo_pieza_fin_cG = Conversor(datos.pieza_fin_conGrav->getTipo());
                         color_pieza_fin_cG = Conversor2(datos.pieza_fin_conGrav->getColor());
                         cout << "\n Pieza de destino seleccionada despues de aplicar gravedad " << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
-                    }
+                    }*/
 
 
                 }
 
-                cout << "¿Deseas guardar la partida? (s/n): ";
+                /*cout << "¿Deseas guardar la partida? (s/n): ";
                 char resp; cin >> resp;
                 if (resp == 's' || resp == 'S') {
                     if (partida.getTablero().guardarPartida("partida_guardada.txt"))
                         cout << "Partida guardada exitosamente.\n";
                     else
                         cout << "Error al guardar la partida.\n";
-                }
+                }*/
 
                 break;
             }
@@ -175,7 +171,7 @@ void Menu::Menu_Progress(void)
                 Partida partida;
                 if (partida.cargarDesdeArchivo("partida_guardada.txt")) {
                     cout << "Partida cargada exitosamente.\n";
-                    while (partida.Progress_Partida(datos))
+                    while (partida.Progress_Partida(datos,tecla))
                     {
                         //Aqui se pondria lo de los datos de dibujo
                     }
@@ -194,7 +190,6 @@ void Menu::Menu_Progress(void)
                 cout << "Opción invalida. Intenta otra vez.\n";
                 break;
             }
-      }
-
+      
         return;
 }

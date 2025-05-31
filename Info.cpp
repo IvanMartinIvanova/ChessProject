@@ -45,9 +45,8 @@ int main(int argc, char* argv[])
 	glutTimerFunc(25, OnTimer, 0);
 	glutKeyboardFunc(OnKeyboardDown);
 
-	Menu m;
-	m.Menu_Progress();
-
+	//Menu m;
+	//m.Menu_Progress();
 	glutMainLoop();
 
 	
@@ -75,10 +74,12 @@ void OnKeyboardDown(unsigned char key, int x, int y)
 	if (key == 27) // ESC para salir
 		exit(0);
 	mundo.tecla(key);
+	mundo.key_tecla = key;
 }
 
 void OnTimer(int value)
 {
-	glutTimerFunc(25, OnTimer, 0);
+	mundo.update();
 	glutPostRedisplay(); // Redibujar la pantalla
+	glutTimerFunc(25, OnTimer, 0);
 }

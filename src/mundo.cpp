@@ -22,6 +22,11 @@ Mundo::Mundo()
 	ymira = 0;
 	zmira = 0;
 
+	opcion_modo = 0;
+	estado = EstadoJuego::MENU;
+	key_tecla = NULL;
+
+
 	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
 	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
 }
@@ -68,11 +73,66 @@ void Mundo::mueve()
 
 void Mundo::inicializa()
 {
-	/*fondo->setCenter()*/
+	
+}
+
+void Mundo::update() {
+	cout << key_tecla << endl;
+	int opcion = opcion_modo;
+	switch (estado)
+	{
+	case EstadoJuego::MENU:
+	{
+		menu_juego.mostrarPrincipal();
+		if (key_tecla >= '1' && key_tecla <= '9')
+		{
+			opcion = key_tecla - '0';
+			if (opcion == 1)
+			{
+				opcion_modo = opcion;
+				partida.inicializar();       //Solo nueva partida lo usa
+				//partida.escoger_player();
+				estado = EstadoJuego::JUGANDO;
+				key_tecla = 0;
+			}
+		}
+		break;
+	}
+	case EstadoJuego::ESPERANDO_INPUT:
+	{
+		if (opcion == 1)
+		{
+			partida.inicializar();       //Solo nueva partida lo usa
+			//partida.escoger_player();
+			estado = EstadoJuego::JUGANDO;
+		}
+		break;
+	}
+	case EstadoJuego::JUGANDO:
+	{
+		if (partida.Progress_Partida(datos, key_tecla))
+		{
+			key_tecla = 0;
+		}
+		else
+		{
+			opcion_modo = -1;
+			estado = EstadoJuego::FIN_PARTIDA;
+			break;
+		}
+	}
+	case EstadoJuego::FIN_PARTIDA:
+	{
+		cout << "Partida Finalizada" << endl;
+		break;
+	}
+	}
 }
 
 void Mundo::tecla(char key)
 {
+	key_tecla = key;
+
 	if (key == GLUT_KEY_LEFT)
 		if (key == 'c')
 		{

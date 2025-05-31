@@ -5,7 +5,7 @@
 #include <fstream>
 using namespace std;
 
-Tablero::Tablero() : player1(), player2() {
+Tablero::Tablero(){
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
             casillas[fila][col] = nullptr;
@@ -467,11 +467,11 @@ void Tablero::comp_coronacion(Casilla cas_final_p)
 
 }
 
-bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
+bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
 {
     string entrada;
     bool jaque = estado_JAQUE;
-
+    char key_seleccion = tecla;
     Tablero backup;
     backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atrás
     
@@ -484,7 +484,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
 
         if (!jaque)
         {
-            if (player1.seleccion_casilla(*this, dat)) //TRUE si el movimiento se ha realizado correctamente
+            if (player1.seleccion_casilla(*this, dat,key_seleccion)) //TRUE si el movimiento se ha realizado correctamente
             {
 
                 if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
@@ -518,7 +518,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
         {
             if (gestion_jaque(player1, player2)) //Comprueba si el rey tiene opciones de salvarse
             {
-                if (player1.seleccion_casilla(*this, dat))
+                if (player1.seleccion_casilla(*this, dat,key_seleccion))
                 {
                     if (!comprobacion_jaque(player2, player1)) //Comprobamos si ha salido del JAQUE
                     {
@@ -563,7 +563,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
         cout << "Turno de " << player2.Nombre << ":" << endl;
         if (!jaque)
         {
-            if (player2.seleccion_casilla(*this, dat))
+            if (player2.seleccion_casilla(*this, dat,key_seleccion))
             {
                 if (!comprobacion_jaque(player2, player1))
                 {
@@ -595,7 +595,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat)
             if (gestion_jaque(player2, player1))
             {
 
-                if (player2.seleccion_casilla(*this, dat))
+                if (player2.seleccion_casilla(*this, dat,key_seleccion))
                 {
                     if (!comprobacion_jaque(player1, player2))
                     {

@@ -34,6 +34,7 @@ public:
     Pieza* getCasilla(int x, int y) const { //Getter
         return casillas[x][y];
     }
+    Pieza* getVectorCasillas() { return casillas[8][8]; }
     void setCasilla(int x, int y, Pieza* pieza) { //Setter
         casillas[x][y] = pieza;
     }
@@ -42,7 +43,7 @@ public:
         casillas[x][y] = nullptr;
 
     }
-    bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat);
+    bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
     bool gestion_jaque(Jugador defensor, Jugador atacante);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
     void comp_coronacion(Casilla cas_final_p);

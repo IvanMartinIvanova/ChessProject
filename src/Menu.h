@@ -14,7 +14,7 @@
         void mostrarPrincipal();
         int obtenerOpcion();
         void limpiarPantalla();
-        void Menu_Progress();
+        void Menu_Progress(int option, char tecla);
         std::string Conversor(const TipoPieza& tipo);
         std::string Conversor2(const Colorpieza& color);
         void tecla(char key);

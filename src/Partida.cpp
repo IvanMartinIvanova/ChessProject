@@ -1,5 +1,6 @@
 #include "Partida.h"
 #include <iostream>
+#include <conio.h>
 
 using namespace std;
 
@@ -25,10 +26,12 @@ void Partida::escoger_player()
 	getline(cin, tablero.player2.Nombre);
 }
 
-bool Partida::Progress_Partida(DATOS_DIBUJO& dat)
+bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 {
+	char tecla = key;
 	tablero.mostrar();
-	return tablero.gestion_turnos(this->estado_JAQUE, dat);
+	system("cls");
+	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
 }
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);

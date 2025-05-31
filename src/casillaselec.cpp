@@ -24,8 +24,8 @@ void CasillaSelec::move(unsigned char tecla)
 		row = rowin;
 	}
 
-	std::cout << row << " " << file << std::endl;
-	std::cout << CasillaSelec::gettipo(rowin, file) << std::endl;
+	//std::cout << row << " " << file << std::endl;
+	//std::cout << CasillaSelec::gettipo(rowin, file) << std::endl;
 }
 
 
@@ -140,7 +140,7 @@ bool CasillaSelec::reina(Casilla casillap, Casilla casillacheck)
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
 
-	std::cout << "balls" << std::endl;
+	//std::cout << "balls" << std::endl;
 
 	// Verificamos si el movimiento es en l�nea recta o en diagonal
 	if (dx == 0 || dy == 0 || dx == dy) {

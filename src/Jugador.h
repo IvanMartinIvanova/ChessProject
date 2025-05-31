@@ -19,9 +19,11 @@ protected:
 	bool Turno; //True - si es el turno del jugador / False - si no es el turno del jugador
 
 public:
+	int fila_cursor = 0, col_cursor = 0;
+	int fila_ini = -1, col_ini = -1;
 	Jugador();
 	Jugador& operator=(const Jugador& player);
-	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat);
+	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key);
 	void actualizar_listas(Jugador& player);
 	~Jugador() = default;
 	friend class Tablero;

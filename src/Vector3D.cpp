@@ -57,5 +57,5 @@ Vector3D Vector3D::operator *(float e) const // producto por un escalar
 
 void Vector3D::print()
 {
-	std::cout << x << " " << y << " " << z << std::endl;
+	//std::cout << x << " " << y << " " << z << std::endl;
 }

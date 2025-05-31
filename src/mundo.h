@@ -5,8 +5,12 @@
 #include "ETSIDI.h"
 #include "tablerogr.h"
 #include "casillaselec.h"
+#include "Partida.h"
+#include "Menu.h"
 
 using uchar = unsigned char;
+
+enum class EstadoJuego { MENU, JUGANDO, ESPERANDO_INPUT, FIN_PARTIDA};
 
 class Mundo
 {
@@ -32,10 +36,20 @@ private:
 
 
 public:
+	EstadoJuego estado;
+	Jugador player1;
+	Jugador player2;
+	Partida partida;
+	Menu menu_juego;
+	DATOS_DIBUJO datos;
+	int opcion_modo;
+	char key_tecla;
 	void mueve();
 	void dibuja();
 	Mundo();
 	void rotarOjo();
 	void inicializa();
 	void tecla(char key);
+
+	void update();
 };

@@ -119,77 +119,74 @@ void Jugador::actualizar_listas(Jugador& player)
 
 }
 
-bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
+bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key)
 {
-    int fila_cursor = 0, col_cursor = 0;
-    int fila_ini = -1, col_ini = -1;
     bool continuar = true;
 
    // while (continuar)
    // {
-        system("cls");
+        /*system("cls");
         std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
-        std::cout << "Turno de " << this->Nombre << endl;
-        tab.mostrarConCursor(fila_cursor, col_cursor);
+        std::cout << "Turno de " << this->Nombre << endl;*/
+        //tab.mostrarConCursor(fila_cursor, col_cursor);
 
-        char tecla = _getch();
 
-        switch (tecla)
+        switch (key)
         {
         case 'w': if (fila_cursor > 0) fila_cursor--; break;
         case 's': if (fila_cursor < 7) fila_cursor++; break;
         case 'a': if (col_cursor > 0) col_cursor--; break;
         case 'd': if (col_cursor < 7) col_cursor++; break;
 
-        case 'g': {
-            if (tab.guardarPartida("partida_guardada.txt"))
-                std::cout << "Partida guardada.\n";
-            else
-                std::cout << "Error al guardar la partida.\n";
-            _getch();
-            break;
-        }
+        //case 'g': {
+        //    if (tab.guardarPartida("partida_guardada.txt"))
+        //        std::cout << "Partida guardada.\n";
+        //    else
+        //        std::cout << "Error al guardar la partida.\n";
+        //    //_getch();
+        //    break;
+        //}
 
-        case 'q': {
-            if (tab.guardarPartida("partida_guardada.txt"))
-                std::cout << "Guardado y salida exitosa.\n";
-            else
-                std::cout << "Guardado fallido. Cerrando de todos modos.\n";
-            exit(0);
-        }
+        //case 'q': {
+        //    if (tab.guardarPartida("partida_guardada.txt"))
+        //        std::cout << "Guardado y salida exitosa.\n";
+        //    else
+        //        std::cout << "Guardado fallido. Cerrando de todos modos.\n";
+        //    exit(0);
+        //}
 
-        case 't': {  //  modo texto
-            std::string entrada;
-            std::cout << "\nIntroduce el movimiento (Ej: b2 b3): ";
-            std::getline(std::cin, entrada);
+        //case 't': {  //  modo texto
+        //    std::string entrada;
+        //    std::cout << "\nIntroduce el movimiento (Ej: b2 b3): ";
+        //    std::getline(std::cin, entrada);
 
-            if (entrada == "guardar") {
-                tab.guardarPartida("partida_guardada.txt");
-                std::cout << "Partida guardada.\n";
-                _getch();
-                break;
-            }
-            if (entrada == "guardar y salir") {
-                tab.guardarPartida("partida_guardada.txt");
-                std::cout << "Partida guardada. Cerrando...\n";
-                exit(0);
-            }
+        //    if (entrada == "guardar") {
+        //        tab.guardarPartida("partida_guardada.txt");
+        //        std::cout << "Partida guardada.\n";
+        //        _getch();
+        //        break;
+        //    }
+        //    if (entrada == "guardar y salir") {
+        //        tab.guardarPartida("partida_guardada.txt");
+        //        std::cout << "Partida guardada. Cerrando...\n";
+        //        exit(0);
+        //    }
 
-            if (entrada.length() == 5 && entrada[2] == ' ') {
-                int col_ini = entrada[0] - 'a';
-                int fila_ini = entrada[1] - '1';
-                int col_fin = entrada[3] - 'a';
-                int fila_fin = entrada[4] - '1';
+        //    if (entrada.length() == 5 && entrada[2] == ' ') {
+        //        int col_ini = entrada[0] - 'a';
+        //        int fila_ini = entrada[1] - '1';
+        //        int col_fin = entrada[3] - 'a';
+        //        int fila_fin = entrada[4] - '1';
 
-                if (tab.mover(fila_ini, col_ini, fila_fin, col_fin, *this, dat))
-                    return true;
-                else {
-                    std::cout << "Movimiento inválido.\n";
-                    _getch();
-                }
-            }
-            break;
-        }
+        //        if (tab.mover(fila_ini, col_ini, fila_fin, col_fin, *this, dat))
+        //            return true;
+        //        else {
+        //            std::cout << "Movimiento inválido.\n";
+        //            _getch();
+        //        }
+        //    }
+        //    break;
+        //}
 
         case '\r':  // ENTER para seleccionar
             if (fila_ini == -1) {
@@ -208,11 +205,13 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
             else {
                 // DESTINO
                 if (tab.mover(fila_ini, col_ini, fila_cursor, col_cursor, *this, dat)) {
+                    fila_ini = -1;
+                    col_ini = -1;
                     return true;
                 }
                 else {
                     std::cout << "Movimiento inválido.\n";
-                    _getch();
+                    //_getch();
                 }
                 fila_ini = -1;
                 col_ini = -1;
@@ -222,7 +221,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
         default: break;
         }
    // }
-
+    tab.mostrarConCursor(fila_cursor, col_cursor);
     return false;
 }
 
