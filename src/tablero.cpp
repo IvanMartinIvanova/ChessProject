@@ -983,7 +983,7 @@ bool Tablero::gestion_jaque_IA(Jugador& defensor, Jugador& atacante, Tablero& t,
     bool comp_cas_jaque = true;
     Pieza* def;
     Pieza* fin;
-    Colorpieza color;
+    //Pieza* pieza_fin_gravedad;
 
 
     for (int i = 0; i < defensor.lista_piezas_actuales.size(); i++)
@@ -991,14 +991,25 @@ bool Tablero::gestion_jaque_IA(Jugador& defensor, Jugador& atacante, Tablero& t,
 
         casillaDef = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[i]);
         def = getCasilla(casillaDef.fila, casillaDef.columna);
+        
+        //color = def->getColor();
+        if (casillaDef.fila == -1 && casillaDef.columna == -1) {
+            std::cerr << "Error.\n";
+            continue;
+        }
 
         for (k = 0; k <= 7; k++) {
             for (j = 0; j <= 7; j++) {
 
-                //color = def->getColor();
+                
+
                 if (def->movimientoValido(casillaDef.fila, casillaDef.columna, k, j, t))
                 {
-
+                    
+                    //Casilla cas_antes_grav = {k, j};
+                    //bool aux = aplicarGravedad(t, cas_antes_grav, pieza_fin_gravedad);
+                   
+                    
                     //cas_fin = buscar_pieza(defensor.lista_piezas_actuales.lista_piezas[i]);
                     fin = getCasilla(k, j);
 
