@@ -2,23 +2,24 @@
 
 CasillaSelec::CasillaSelec()
 {
-	file = 8;
-	row = 1;
-	filein = 8;
-	rowin = 1;
+	row = 8;
+	file = 1;
+	rowin = 8;
+	filein = 1;
 }
 
 void CasillaSelec::move(unsigned char tecla)
 {
-	if ((tecla == 'w') && (filein < 8))
-		filein += 1;
-	if (tecla == 's' && filein > 1)
-		filein -= 1;
-	if (tecla == 'd' && rowin < 8)
+	if (tecla == 'w' && rowin < 8)
 		rowin += 1;
-	if (tecla == 'a' && rowin > 1)
+	if (tecla == 's' && rowin > 1)
 		rowin -= 1;
-	if (tecla == '\r')
+	if (tecla == 'd' && filein < 8)
+		filein += 1;
+	if (tecla == 'a' && filein > 1)
+		filein -= 1;
+	//if (tecla == '\r')
+	if (tecla == ' ')
 	{
 		file = filein;
 		row = rowin;
@@ -31,7 +32,8 @@ void CasillaSelec::move(unsigned char tecla)
 
 void CasillaSelec::draw(float side, Vector3D org)
 {
-	getcasilla(rowin, filein).drawselec(side, org);
+	getcasilla(filein, rowin).drawselec(side, org);
+	getcasilla(filein, rowin).print();
 	//std::cout << file << " " << row << " " << endl;
 }
 
@@ -40,36 +42,56 @@ void CasillaSelec::getlista(vector<Casilla>* listain)
 	lista = listain;
 }
 
-PiezaGr* CasillaSelec::getpieza(int rowin, int filein)
+PiezaGr* CasillaSelec::getpieza(int filein, int rowin)
 {
-	Casilla casilla = (*lista)[(rowin - 1) * 8 + (filein - 1)];
-	return casilla.getpieza();
+	if (filein > 0 && rowin > 0 && filein < 9 && rowin < 9)
+		return (*lista)[(filein - 1) * 8 + (rowin - 1)].getpieza();
+
+	else 
+	{
+		std::cerr << "Error: coordenadas inválidas (getpieza) (" << filein << ", " << rowin << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
 
-string CasillaSelec::gettipo(int rowin, int filein)
+string CasillaSelec::gettipo(int filein, int rowin)
 {
-	return getpieza(rowin, filein)->gettipo();
+	if (filein > 0 && rowin > 0 && filein < 9 && rowin < 9)
+		return getpieza(filein, rowin)->gettipo();
+
+	else
+	{
+		std::cerr << "Error: coordenadas inválidas (gettipo) (" << filein << ", " << rowin << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
 
 Casilla CasillaSelec::getcasilla()
 {
-	return (*lista)[(row - 1) * 8 + (file - 1)];
+	return (*lista)[(file - 1) * 8 + (row - 1)];
 }
 
-Casilla CasillaSelec::getcasilla(int row, int file)
+Casilla CasillaSelec::getcasilla(int file, int row)
 {
-	return (*lista)[(row - 1) * 8 + (file - 1)];
+	if (file > 0 && row > 0 && file < 9 && row < 9)
+		return (*lista)[(file - 1) * 8 + (row - 1)];
+
+	else 
+	{
+		std::cerr << "Error: coordenadas inválidas (getcasilla) (" << file << ", " << row << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
 
 void CasillaSelec::resalta(int side, Vector3D org)
 {
-	std::string tipo = getcasilla(file, row).gettipo();
-
+	std::string tipo = gettipo(file, row);
+	cout << file << " " << row << endl;
 	if (tipo == "reina")
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (reina(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (reina(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
@@ -79,7 +101,7 @@ void CasillaSelec::resalta(int side, Vector3D org)
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (peon(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (peon(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
@@ -89,7 +111,7 @@ void CasillaSelec::resalta(int side, Vector3D org)
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (torre(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (torre(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
@@ -99,7 +121,7 @@ void CasillaSelec::resalta(int side, Vector3D org)
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (alfil(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (alfil(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
@@ -109,7 +131,7 @@ void CasillaSelec::resalta(int side, Vector3D org)
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (caballo(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (caballo(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
@@ -119,14 +141,12 @@ void CasillaSelec::resalta(int side, Vector3D org)
 	{
 		for (auto i = 0; (*lista).size() > i; i++)
 		{
-			if (rey(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			if (rey(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
 			{
 				(*lista)[i].drawposibl(side, org);
 			}
 		}
 	}
-
-
 }
 
 bool CasillaSelec::reina(Casilla casillap, Casilla casillacheck)
@@ -136,6 +156,7 @@ bool CasillaSelec::reina(Casilla casillap, Casilla casillacheck)
 	int yIni = casillap.getrow();
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
+
 
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
@@ -171,10 +192,10 @@ bool CasillaSelec::reina(Casilla casillap, Casilla casillacheck)
 
 bool CasillaSelec::peon(Casilla casillap, Casilla casillacheck) {
 	// Verifica si el pe�n est� movi�ndose hacia adelante
-	int xIni = casillap.getfile();
-	int yIni = casillap.getrow();
-	int xFin = casillacheck.getfile();
-	int yFin = casillacheck.getrow();
+	int xIni = casillap.getrow();
+	int yIni = casillap.getfile();
+	int xFin = casillacheck.getrow();
+	int yFin = casillacheck.getfile();
 
 	int x1in = xIni, y1in = yIni, x2in = xFin, y2in = yFin;
 	if (casillap.getfile() < 9 && casillap.getfile() > 0)
@@ -236,6 +257,8 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
 
+
+
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
 
@@ -248,14 +271,18 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 	int x = xIni + xDirection;
 	int y = yIni + yDirection;
 
-	while (x != xFin && y != yFin && xFin < 8 && yFin < 8) {
-		if (gettipo(x, y) != "vacio") {
-			return false;  // Si hay una pieza en el camino, no se puede mover
+	if (x < 1 || y < 1 || x > 7 || y > 7)
+		return false;
+
+	while (x != xFin && y != yFin) {
+		if (xFin > 0 && yFin > 0) {
+			if (gettipo(x, y) != "vacio")
+				return false;  // Si hay una pieza en el camino, no se puede mover
 		}
+
 		x += xDirection;
 		y += yDirection;
 	}
-
 	return true;
 }
 

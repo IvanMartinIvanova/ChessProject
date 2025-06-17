@@ -197,7 +197,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key)
         //    break;
         //}
 
-        case '\r':  // ENTER para seleccionar
+        case ' ':  // ENTER para seleccionar
             if (fila_ini == -1) {
                 // ORIGEN
                 Pieza* seleccion = tab.getCasilla(fila_cursor, col_cursor);

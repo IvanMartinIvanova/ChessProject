@@ -1,11 +1,3 @@
-//#pragma once
-//
-//struct Casilla{
-//
-//	int fila;
-//	int columna;
-//};
-
 #pragma once
 #include <map>
 #include <vector>
@@ -38,6 +30,7 @@ public:
 	string gettipo();
 	void drawselec(int side, Vector3D org);
 	void drawposibl(int side, Vector3D org);
+	void print();
 
 
 	virtual void draw();

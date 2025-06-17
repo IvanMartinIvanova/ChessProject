@@ -133,7 +133,8 @@ public:
 class VacioGr : public PiezaGr
 {
 public:
-	VacioGr(bool colorin) : PiezaGr(colorin) {
+	VacioGr() {
+		color = NULL;
 		sprite = nullptr;
 		tipo = "vacio";
 	}

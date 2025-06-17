@@ -21,7 +21,7 @@ ListaCasillas::ListaCasillas()
         else
             color = 0;
 
-        listacasillas[i].setpieza(new VacioGr(color));
+        listacasillas[i].setpieza(new VacioGr());
 
         if (listacasillas[i].getfile() == 2 || listacasillas[i].getfile() == 7)
         {

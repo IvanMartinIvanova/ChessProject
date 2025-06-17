@@ -2,7 +2,7 @@
 #include "Vector3D.h"
 
 
-Casilla::Casilla(): file(0), row(0), pieza(nullptr){}
+Casilla::Casilla(): file(1), row(1), pieza(nullptr){}
 
 Casilla::Casilla(int fila, int columna)
 {
@@ -18,7 +18,7 @@ Casilla::Casilla(int fin, int rin, PiezaGr* pie)
 	pieza = pie;
 }
 
-void Casilla::setpos(int rowin, int filein)
+void Casilla::setpos(int filein, int rowin)
 {
 	row = rowin;
 	file = filein;
@@ -26,15 +26,8 @@ void Casilla::setpos(int rowin, int filein)
 
 void Casilla::setpieza(PiezaGr* piezain)
 {
-	if (pieza == nullptr)
-	{
-		pieza = piezain;
-	}
-	else if (pieza != piezain)
-	{
 		delete pieza;
 		pieza = piezain;
-	}
 }
 
 void Casilla::draw()
@@ -71,7 +64,7 @@ void Casilla::drawselec(int side, Vector3D  org)
 {
 	glPushMatrix();
 	glColor3ub(100, 255, 155);
-	glTranslated(row / 9.0 * side + org.x, file / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
+	glTranslated(file / 9.0 * side + org.x, row / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
 	glutSolidCube(1);
 	glPopMatrix();
 }
@@ -80,7 +73,16 @@ void Casilla::drawposibl(int side, Vector3D  org)
 {
 	glPushMatrix();
 	glColor3ub(255, 255, 255);
-	glTranslated(row / 9.0 * side + org.x, file / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
+	glTranslated(file / 9.0 * side + org.x, row / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
 	glutSolidCube(1);
 	glPopMatrix();
+}
+
+void Casilla::print()
+{
+	using namespace std;
+
+	cout << gettipo() << endl;
+	cout << getpieza()->color << endl;
+	cout << file << " " << row << endl;
 }
