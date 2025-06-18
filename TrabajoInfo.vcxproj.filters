@@ -79,7 +79,6 @@
     <ClCompile Include="src\Casilla.cpp" />
     <ClCompile Include="src\casillaselec.cpp" />
     <ClCompile Include="src\listacasillas.cpp" />
-    <ClCompile Include="src\sprite.cpp" />
     <ClCompile Include="src\piezagr.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
@@ -96,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="src\cara.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Casilla.h">
-      <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
     <ClInclude Include="src\circulos.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
@@ -174,11 +170,13 @@
     </ClInclude>
     <ClInclude Include="src\casillaselec.h" />
     <ClInclude Include="src\listacasillas.h" />
-    <ClInclude Include="src\sprite.h" />
     <ClInclude Include="src\piezagr.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
     <ClInclude Include="src\tablerogr.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Casilla.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,6 +19,7 @@ public:
 
 	virtual void draw() = 0;
 	void dibuja() { this->draw(); }
+	bool getcolor() { return color; }
 	std::string gettipo();
 	//virtual void drawmov() = 0;
 

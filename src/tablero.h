@@ -16,12 +16,17 @@
 
 
 class Tablero {
+
+    friend class CasillaSelec;
+    friend class Casilla;
+
 private:
     Pieza* casillas[8][8]; //tablero 8x8
     Jugador player1; //Piezas blancas
     Jugador player2; //Piezas negras
 
 public:
+    static bool turno;
     Tablero(); //constructor
 
     Tablero& operator=(const Tablero& tab); //Constructor copia

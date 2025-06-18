@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <Vector3D.h>
+#include "tablero.h"
 #include "piezagr.h"
 #include "freeglut.h"
 

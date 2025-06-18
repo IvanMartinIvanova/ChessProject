@@ -83,67 +83,72 @@ Casilla CasillaSelec::getcasilla(int file, int row)
 	}
 }
 
+
 void CasillaSelec::resalta(int side, Vector3D org)
 {
 	std::string tipo = gettipo(file, row);
+	bool color = getpieza(file, row)->getcolor();
 	cout << file << " " << row << endl;
-	if (tipo == "reina")
+	if (color == Tablero::turno)
 	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "reina" && color == Tablero::turno)
 		{
-			if (reina(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (reina(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
-	}
-	if (tipo == "peon")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "peon")
 		{
-			if (peon(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (peon(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
-	}
-	if (tipo == "torre")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "torre")
 		{
-			if (torre(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (torre(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
-	}
-	if (tipo == "alfil")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "alfil")
 		{
-			if (alfil(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (alfil(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
-	}
-	if (tipo == "caballo")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "caballo")
 		{
-			if (caballo(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (caballo(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
-	}
-	if (tipo == "rey")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "rey")
 		{
-			if (rey(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (rey(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
 	}

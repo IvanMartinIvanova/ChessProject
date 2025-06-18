@@ -33,9 +33,11 @@ bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 	system("cls");
 	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
 }
+
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);
 }
+
 void Partida::mostrarTablero() {
 	tablero.mostrar();
 }

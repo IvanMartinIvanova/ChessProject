@@ -19,6 +19,7 @@ Jugador::Jugador(): points({0.0,0.0,0.0,0.0}), temp({0,0}), Turno(false)
 {
 
 }
+
 Jugador& Jugador::operator=(const Jugador& player) {
     if (this != &player)
     {
@@ -31,6 +32,7 @@ Jugador& Jugador::operator=(const Jugador& player) {
     }
     return *this;
 }
+
 //bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 //{
 //    string entrada;

@@ -25,10 +25,11 @@ void TableroGr::settablero(Pieza* (*tableroin)[8])
 
             index++;
             Pieza* pieza = tableroin[i][j];
-            if (!pieza) continue;
 
             if (tableroin[i][j] == NULL)
                 casillas.listacasillas[index].setpieza(new VacioGr());
+
+            if (!pieza) continue;
 
             if (tableroin[i][j]->getTipo() == TipoPieza::PEON)
                 casillas.listacasillas[index].setpieza(new PeonGr(tableroin[i][j]->getColorBool()));

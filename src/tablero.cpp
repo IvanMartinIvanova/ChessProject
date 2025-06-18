@@ -1,9 +1,12 @@
 #include "tablero.h"
+#include "casillaselec.h"
 #include "DATOS_DIBUJO.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 using namespace std;
+
+bool Tablero::turno = 0;
 
 Tablero::Tablero(){
     for (int fila = 0; fila < 8; fila++)
@@ -478,7 +481,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
 
     if (player1.Turno) //TURNO PLAYER 1
     {
-        
+        turno = 1;
         cout << "Turno de " << player1.Nombre << ":" << endl;
 
 
@@ -559,7 +562,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
     else //TURNO PLAYER 2
     {
         
-
+        turno = 0;
         cout << "Turno de " << player2.Nombre << ":" << endl;
         if (!jaque)
         {
