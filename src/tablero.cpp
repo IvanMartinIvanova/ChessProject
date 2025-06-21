@@ -503,7 +503,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
                     
 
                 }
-                else //Hay JAQUE al rey
+                else //Hay JAQUE al rey de player2
                 {
                     //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
                     player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero

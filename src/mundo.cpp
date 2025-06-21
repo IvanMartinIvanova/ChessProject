@@ -83,7 +83,7 @@ void Mundo::update() {
 	{
 	case EstadoJuego::MENU:
 	{
-		menu_juego.mostrarPrincipal();
+		menu_juego.dibujarMenu();
 		if (key_tecla >= '1' && key_tecla <= '9')
 		{
 			opcion = key_tecla - '0';
