@@ -3,6 +3,11 @@
 
 
 bool Peon::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
+
+
+    //En caso de que se seleccione como casilla final la misma casilla que la inicial -> movimiento no válido
+    if (xIni == xFin && yIni == yFin) return false;
+
     // Verifica si el peón está moviéndose hacia adelante
     if (color == Colorpieza::BLANCO) {
         if (xIni == xFin && yFin == yIni + 1 && tablero.getCasilla(xFin, yFin) == nullptr) {
