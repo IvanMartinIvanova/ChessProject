@@ -53,6 +53,8 @@ public:
         casillas[x][y] = nullptr;
     }
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
+    bool gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t, char tecla);
+
     bool gestion_jaque(Jugador defensor, Jugador atacante);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
     void comp_coronacion(Casilla cas_final_p);
@@ -62,5 +64,12 @@ public:
 	void mostrarConCursor(int fila_cursor, int col_cursor); //Muestra el tablero con un cursor en la posición indicada
     friend class Pieza;
     friend class Partida;
+
+    bool generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tablero& t, DATOS_DIBUJO& datos);
+    bool come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA);
+    bool gestion_jaque_IA(Tablero& t, int& or_mov_x, int& or_mov_y, int& fin_mov_x, int& fin_mov_y, DATOS_DIBUJO& datos);
+
+    Jugador& getPlayer1();
+    Jugador& getPlayer2();
 };
 

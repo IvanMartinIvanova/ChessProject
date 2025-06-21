@@ -754,3 +754,334 @@ void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
 }
 
 
+bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t, char tecla) // Solo tiene la parte del jugador 1 de la función anterior
+{
+    string entrada;
+    bool jaque = estado_JAQUE, aux;
+    char key_seleccion = tecla;
+
+    Tablero backup;
+    backup = *this; //Copia del tablero al inicio del turno por si es necesario volver para atrás
+
+    if (player1.Turno) //TURNO PLAYER 1
+    {
+        cout << "Turno de " << player1.Nombre << ":" << endl;
+
+        if (!jaque)
+        {
+            if (player1.seleccion_casilla(*this, dat, key_seleccion)) //TRUE si el movimiento se ha realizado correctamente
+            {
+                if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
+                {
+                    player1.Turno = false;
+                    player2.Turno = true;
+
+                }
+                else //Hay JAQUE al rey
+                {
+                    jaque = true;
+                    player1.Turno = false;
+                    player2.Turno = true;
+                }
+            }
+        }
+
+        else //Player 1 está en JAQUE
+        {
+            if (gestion_jaque(player1, player2)) //Comprueba si el rey tiene opciones de salvarse
+            {
+                if (player1.seleccion_casilla(*this, dat, key_seleccion))
+                {
+                    if (!comprobacion_jaque(player2, player1)) //Comprobamos si ha salido del JAQUE
+                    {
+                        player1.Turno = false;
+                        player2.Turno = true;
+                        jaque = false; //Ha salido del JAQUE
+
+                    }
+                    else
+                    {
+                        cout << "EL REY SIGUE ESTANDO EN JAQUE, HAZ OTRO MOVIMIENTO" << endl;
+                        *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
+                        player1.Turno = true; //Repetimos su turno
+                        player2.Turno = false;
+                    }
+                }
+
+
+            }
+            else
+                return false; //JAQUE MATE - TERMINA LA PARTIDA
+
+
+        }
+
+    }
+
+    if (player2.Turno) //TURNO IA
+    {
+        aux = generador_de_movimientos(player1, player2, t, dat);
+
+        if (aux == false)
+        {
+            return false; //JAQUE MATE, Ganan las blancas
+        }
+
+        if (aux == true)
+        {
+
+            player1.Turno = true;
+            player2.Turno = false;
+        }
+
+        return true;
+    }
+}
+
+
+bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tablero& t, DATOS_DIBUJO& datos)
+{
+    int pos_caso_extremo_x = -1, pos_caso_extremo_y = -1, pos_inicial_x = -1, pos_inicial_y = -1, pos_pieza_a_buscar;
+    int var_aux_para_comp_comer_a_IA = 0;
+    bool aux = false;
+    bool comp_pieza_comida = false, hay_jaque_a_IA;
+    bool provoca_jaque;
+
+    Tablero t_pruebas;
+    Colorpieza color_p_destino;
+    t_pruebas = t;
+
+    bool provoca_jaque_mate = t_pruebas.gestion_jaque(t_pruebas.player2, t_pruebas.player1);
+
+
+    if (provoca_jaque_mate == false)
+    {
+        cout << "Jaque mate" << endl;
+        datos.jaqueMate = true; //Ganan las blancas
+        return false;
+
+    }
+
+    t_pruebas = t;
+    hay_jaque_a_IA = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
+    //TipoPieza p;
+    //Colorpieza c_p;
+    int or_mov_x, or_mov_y, fin_mov_x, fin_mov_y;
+    t_pruebas = t;
+
+    if (hay_jaque_a_IA == true)
+    {
+        bool aux = gestion_jaque_IA(t, or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, datos);
+        if (aux == true)
+        {
+            bool aux_2 = t.mover(or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, maq, datos);
+            Pieza* p = getCasilla(fin_mov_x, fin_mov_y);
+            t.comp_coronacion({ fin_mov_x, fin_mov_y });
+            aplicarGravedad(t, { fin_mov_x, fin_mov_y }, p);
+        }
+        return true;
+    }
+
+
+    if (hay_jaque_a_IA == false)
+    {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                Pieza* pieza_IA = t.getCasilla(i, j);
+                Casilla cas_ini = { i, j };
+
+                if (pieza_IA != nullptr && pieza_IA->getColor() == Colorpieza::NEGRO && pieza_IA->getTipo() != TipoPieza::VACIA) {
+
+                    for (int c = 0; c <= 7; c++)
+                    {
+                        for (int d = 0; d <= 7; d++)
+                        {
+                            t_pruebas = t;
+
+                            Pieza* pieza_a_mover = t_pruebas.getCasilla(cas_ini.row, cas_ini.file);
+
+                            if (pieza_a_mover != nullptr && pieza_a_mover->getTipo() != TipoPieza::VACIA)
+                                aux = pieza_a_mover->movimientoValido(cas_ini.row, cas_ini.file, c, d, t_pruebas);
+                            else
+                                aux = false;
+
+                            if (aux == true)
+                            {
+
+                                Pieza* p_destino = t_pruebas.getCasilla(c, d);
+                                if (p_destino != nullptr)
+                                    color_p_destino = p_destino->getColor();
+
+                                t_pruebas.setCasilla(c, d, pieza_a_mover);
+                                t_pruebas.setCasilla(cas_ini.row, cas_ini.file, nullptr);
+
+                                aplicarGravedad(t_pruebas, { c, d }, pieza_a_mover);
+
+                                provoca_jaque = t_pruebas.comprobacion_jaque(t_pruebas.player2, t_pruebas.player1);
+
+                                if (p_destino != nullptr)
+                                    comp_pieza_comida = come_pieza_a_IA(color_p_destino, t_pruebas, c, d);
+                                else
+                                    comp_pieza_comida = false;
+
+
+                                if (provoca_jaque == true)
+                                {
+                                    continue;
+                                }
+
+                                if (provoca_jaque == false && comp_pieza_comida == true)
+                                {
+                                    pos_caso_extremo_x = c;
+                                    pos_caso_extremo_y = d;
+
+                                    pos_inicial_x = cas_ini.row;
+                                    pos_inicial_y = cas_ini.file;
+
+                                    var_aux_para_comp_comer_a_IA = 1;
+                                }
+
+                                if (provoca_jaque == false && comp_pieza_comida == false)
+                                {
+
+                                    bool aux = t.mover(cas_ini.row, cas_ini.file, c, d, maq, datos);
+                                    Pieza* real_pieza = getCasilla(c, d);
+                                    comp_coronacion({ c, d });
+                                    aplicarGravedad(t, { c, d }, real_pieza);
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        if (var_aux_para_comp_comer_a_IA == 1)
+        {
+            bool aux = t.mover(pos_inicial_x, pos_inicial_y, pos_caso_extremo_x, pos_caso_extremo_y, maq, datos);
+            Pieza* real_pieza = getCasilla(pos_caso_extremo_x, pos_caso_extremo_y);
+            comp_coronacion({ pos_caso_extremo_x, pos_caso_extremo_y });
+            aplicarGravedad(t, { pos_caso_extremo_x, pos_caso_extremo_y }, real_pieza);
+            return true;
+        }
+
+    }
+}
+
+bool Tablero::come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA)
+{
+    TipoPieza p;
+    Colorpieza color;
+    bool aux;
+    for (int i = 0; i <= 7; i++)
+    {
+        for (int j = 0; j <= 7; j++)
+        {
+
+            Pieza* pieza = casillas[i][j];
+
+            if (pieza != nullptr && pieza->getTipo() != TipoPieza::VACIA) {
+                p = pieza->getTipo();
+                color = pieza->getColor();
+
+                if ((int(p) == 1 || int(p) == 2 || int(p) == 3 || int(p) == 4 || int(p) == 5 || int(p) == 6) && color != color_IA)
+                {
+                    for (int c = 0; c <= 7; c++) {
+                        for (int d = 0; d <= 7; d++) {
+
+                            if (pieza != nullptr && pieza->getTipo() != TipoPieza::VACIA)
+                            {
+                                aux = casillas[i][j]->movimientoValido(i, j, x_fin_p_IA, y_fin_p_IA, t);
+                            }
+                            else
+                                aux = false;
+
+                            if (aux == true)
+                                return true;
+
+
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    return false;
+}
+
+
+bool Tablero::gestion_jaque_IA(Tablero& t, int& or_mov_x, int& or_mov_y, int& fin_mov_x, int& fin_mov_y, DATOS_DIBUJO& datos)
+{
+    int i, j, k;
+    Casilla casillaDef;
+    Tablero t_pruebas;
+
+
+    bool comp_cas_jaque = true;
+    Pieza* pos_defensor;
+    Pieza* fin;
+    //Pieza* pieza_fin_gravedad;
+
+
+    for (i = 0; i < t.player2.lista_piezas_actuales.size(); i++)
+    {
+        pos_defensor = t.player2.lista_piezas_actuales.lista_piezas[i];
+        casillaDef = t.buscar_pieza(pos_defensor);
+        int fil_def = casillaDef.row;
+        int col_def = casillaDef.file;
+
+        //color = def->getColor();
+        if (casillaDef.row == -1 && casillaDef.file == -1) {
+            std::cerr << "Error.\n";
+            continue;
+        }
+
+        for (k = 0; k <= 7; k++) {
+            for (j = 0; j <= 7; j++) {
+
+                t_pruebas = t;
+                Pieza* def = t_pruebas.getCasilla(fil_def, col_def);
+
+                fin = t_pruebas.getCasilla(k, j);
+
+                //if (def->movimientoValido(casillaDef.fila, casillaDef.columna, k, j, t_pruebas))
+                if (t_pruebas.mover(casillaDef.row, casillaDef.file, k, j, t_pruebas.player2, datos))
+                {
+                    comp_cas_jaque = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
+
+                    if (comp_cas_jaque == false)
+                    {
+                        fin_mov_x = k;
+                        fin_mov_y = j;
+
+                        or_mov_x = casillaDef.row;
+                        or_mov_y = casillaDef.file;
+
+                        return true;
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+    return false;
+
+}
+
+
+Jugador& Tablero::getPlayer1() {
+    return player1;
+}
+
+Jugador& Tablero::getPlayer2() {
+    return player2;
+}

@@ -16,6 +16,17 @@ void Partida::inicializar() {
 	tablero.player2.Turno = false;
 }
 
+void Partida::inicializar_IA() {
+
+	tablero.inicializar();
+	tablero.mostrar();
+	estado_JAQUE = false;
+	bool turnoIA = false, turno_jug = true;
+	Jugador& jug_hum = tablero.getPlayer1();
+	Jugador& IA = tablero.getPlayer2();
+}
+
+
 void Partida::escoger_player()
 {
 	char intro;

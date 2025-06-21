@@ -187,6 +187,46 @@
 //                salir = true;
 //                break;
 //            default:
+//            case 4: {
+ //           partida.inicializar_IA();
+//
+//            bool turnoIA = false, turno_jug = true, aux;
+//            Jugador& jug_hum = tablero.getPlayer1();
+//            Jugador& IA = tablero.getPlayer2();
+//
+//            while (partida.Progress_Partida_IA(datos))
+//            {
+//                if (turno_jug == true) {
+//                    pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
+//                    pieza_fin_sG = tablero.buscar_pieza(datos.pieza_fin_sinGrav);
+//                    pieza_fin_cG = tablero.buscar_pieza(datos.pieza_fin_conGrav);
+//
+//
+//                    if (datos.pieza_origen != nullptr && datos.pieza_origen->getColor() == Colorpieza::BLANCO)
+//                    {
+//                        tipo_pieza_ini = Conversor(datos.pieza_origen->getTipo());
+//                        color_pieza_ini = Conversor2(datos.pieza_origen->getColor());
+//                        cout << "\n Pieza de origen seleccionada " << tipo_pieza_ini << " " << color_pieza_ini << endl;
+//                    }
+//                    if (datos.pieza_fin_sinGrav != nullptr && datos.pieza_origen->getColor() == Colorpieza::BLANCO)
+//                    {
+//                        tipo_pieza_fin_sG = Conversor(datos.pieza_fin_sinGrav->getTipo());
+//                        color_pieza_fin_sG = Conversor2(datos.pieza_fin_sinGrav->getColor());
+//                        cout << "\n Pieza de destino seleccionada antes de aplicar gravedad " << tipo_pieza_fin_sG << " " << color_pieza_fin_sG << endl;
+//                    }
+//                    if (datos.pieza_fin_conGrav != nullptr && datos.pieza_origen->getColor() == Colorpieza::BLANCO)
+//                    {
+//                        tipo_pieza_fin_cG = Conversor(datos.pieza_fin_conGrav->getTipo());
+//                        color_pieza_fin_cG = Conversor2(datos.pieza_fin_conGrav->getColor());
+//                        cout << "\n Pieza de destino seleccionada despues de aplicar gravedad " << tipo_pieza_fin_cG << " " << color_pieza_fin_cG << endl;
+//                        tablero.comp_coronacion(pieza_fin_cG);
+//                    }
+//                }
+//
+//            }
+//            break;
+//           }
+// 
 //                cout << "Opción invalida. Intenta otra vez.\n";
 //                break;
 //            }
@@ -239,13 +279,14 @@ void Menu::dibujarMenu()
     dibujarTexto(-0.2f, 0.2f, "1. Nueva partida");
     dibujarTexto(-0.2f, 0.0f, "2. Cargar partida");
     dibujarTexto(-0.2f, -0.2f, "3. Salir");
+    dibujarTexto(-0.2f, -0.2f, "4. Jugar contra el ordenador");
 
-    dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2 o 3 para elegir.");
+    dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2, 3 o 4 para elegir.");
     glTranslatef(0, 0, -0.1);
 }
 
 void Menu::procesarTecla(unsigned char key) {
-    if (key >= '1' && key <= '3') {
+    if (key >= '1' && key <= '4') {
         opcionSeleccionada = key - '0';
         exit(0);  // Sale del programa, o usa glutLeaveMainLoop si tu FreeGLUT lo soporta
     }

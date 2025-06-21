@@ -95,6 +95,11 @@ void Mundo::update() {
 				estado = EstadoJuego::JUGANDO;
 				key_tecla = 0;
 			}
+
+			if (opcion == 4)
+			{
+
+			}
 		}
 		break;
 	}
