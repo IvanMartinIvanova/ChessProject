@@ -277,10 +277,6 @@ int main() {
 
             while (partida.Progress_Partida_IA(datos))
             {
-               
-               
-
-                
                 if (turno_jug == true) {
                     pieza_ini = tablero.buscar_pieza(datos.pieza_origen);
                     pieza_fin_sG = tablero.buscar_pieza(datos.pieza_fin_sinGrav);
