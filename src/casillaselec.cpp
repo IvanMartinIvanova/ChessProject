@@ -10,20 +10,24 @@ CasillaSelec::CasillaSelec()
 
 void CasillaSelec::move(unsigned char tecla)
 {
-	if (tecla == 'w' && rowin < 8)
-		rowin += 1;
-	if (tecla == 's' && rowin > 1)
-		rowin -= 1;
-	if (tecla == 'd' && filein < 8)
-		filein += 1;
-	if (tecla == 'a' && filein > 1)
-		filein -= 1;
-	//if (tecla == '\r')
 	if (tecla == ' ')
 	{
 		file = filein;
 		row = rowin;
 	}
+	else
+	{
+		if (tecla == 'w' && rowin < 8)
+			rowin += 1;
+		if (tecla == 's' && rowin > 1)
+			rowin -= 1;
+		if (tecla == 'd' && filein < 8)
+			filein += 1;
+		if (tecla == 'a' && filein > 1)
+			filein -= 1;
+	}
+	//if (tecla == '\r')
+	
 
 	//std::cout << row << " " << file << std::endl;
 	//std::cout << CasillaSelec::gettipo(rowin, file) << std::endl;

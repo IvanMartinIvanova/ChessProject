@@ -489,30 +489,38 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
         {
             if (player1.seleccion_casilla(*this, dat,key_seleccion)) //TRUE si el movimiento se ha realizado correctamente
             {
-
-                if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
+                if (comprobacion_jaque(player2, player1))
                 {
-                    if (dat.pieza_fin_conGrav != nullptr)
-                      comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
-                  
-                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
-                    player2.actualizar_listas(player1);
-                    
-                    player1.Turno = false;
-                    player2.Turno = true;
-                    
-
+                    *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
+                    player1.Turno = true; //Repetimos su turno porque el movimiento no es valido al provocar que el rey de player 1 esté en jaque tras mover una pieza de su color
+                    player2.Turno = false;
                 }
-                else //Hay JAQUE al rey de player2
+                else
                 {
-                    //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
-                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
-                    player2.actualizar_listas(player1);
+                    if (!comprobacion_jaque(player1, player2)) //Comprobamos si player1 hace JAQUE con su movimiento a player 2
+                    {
+                        if (dat.pieza_fin_conGrav != nullptr)
+                            comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
 
-                    jaque = true;
-                    player1.Turno = false;
-                    player2.Turno = true;
-                 
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
+                        player1.Turno = false;
+                        player2.Turno = true;
+
+
+                    }
+                    else //Hay JAQUE al rey de player2
+                    {
+                        //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
+                        jaque = true;
+                        player1.Turno = false;
+                        player2.Turno = true;
+
+                    }
                 }
             }
         }
@@ -568,28 +576,37 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
         {
             if (player2.seleccion_casilla(*this, dat,key_seleccion))
             {
-                if (!comprobacion_jaque(player2, player1))
+                if (comprobacion_jaque(player1, player2)) //Comprobamos si tras el movimiento del player2, ha provocado jaque a su rey y, por tanto, el movimiento no es válido
                 {
-                    if (dat.pieza_fin_conGrav != nullptr)
-                        comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
-
-                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
-                    player2.actualizar_listas(player1);
-
-                    player2.Turno = false;
-                    player1.Turno = true;
-                 
+                    *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
+                    player1.Turno = false; //Repetimos su turno porque el movimiento no es valido al provocar que el rey de player 1 esté en jaque tras mover una pieza de su color
+                    player2.Turno = true;
                 }
                 else
                 {
-                    //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
-                    player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
-                    player2.actualizar_listas(player1);
+                    if (!comprobacion_jaque(player2, player1))
+                    {
+                        if (dat.pieza_fin_conGrav != nullptr)
+                            comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
 
-                    jaque = true; //Hay JAQUE del player 2 al player 1
-                    player1.Turno = true;
-                    player2.Turno = false;
-                    
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
+                        player2.Turno = false;
+                        player1.Turno = true;
+
+                    }
+                    else
+                    {
+                        //comp_coronacion(buscar_pieza(dat.pieza_fin_conGrav));
+                        player1.actualizar_listas(player2); //Actualizamos las listas por si un jugador ha comido piezas al otro y hay que eliminarlas de su lista de piezas sobre el tablero
+                        player2.actualizar_listas(player1);
+
+                        jaque = true; //Hay JAQUE del player 2 al player 1
+                        player1.Turno = true;
+                        player2.Turno = false;
+
+                    }
                 }
             }
         }

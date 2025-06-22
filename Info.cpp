@@ -21,7 +21,7 @@ Tablero tablero;
 Mundo mundo;
 Menu menu;
 
-
+unsigned char tecla_;
 int main(int argc, char* argv[])
 {
 
@@ -98,6 +98,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		else if (key == '3') {
 			exit(0);
 		}
+		mundo.tecla(key);
 	}
 	else if (estadoActual == JUEGO) {
 		if (key == 27) exit(0); // ESC

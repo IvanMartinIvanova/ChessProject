@@ -83,7 +83,6 @@ void Mundo::update() {
 	{
 	case EstadoJuego::MENU:
 	{
-		menu_juego.dibujarMenu();
 		if (key_tecla >= '1' && key_tecla <= '9')
 		{
 			opcion = key_tecla - '0';
@@ -115,6 +114,7 @@ void Mundo::update() {
 	}
 	case EstadoJuego::JUGANDO:
 	{
+		tablerogr.mueve(key_tecla);
 		if (partida.Progress_Partida(datos, key_tecla))
 		{
 			key_tecla = 0;
@@ -142,6 +142,6 @@ void Mundo::tecla(char key)
 		if (key == 'c')
 		{
 		}
-	tablerogr.mueve(key);
+	
 }
 
