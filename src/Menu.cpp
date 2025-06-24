@@ -238,6 +238,7 @@
 #include <iostream>
 #include "freeglut.h"
 
+
 using namespace std;
 /*
 void Menu::mostrarPrincipal() {
@@ -254,6 +255,16 @@ void Menu::dibujarTexto(float x, float y, const char* texto)
     glRasterPos2f(x, y);
     while (*texto)
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *texto++);
+}
+
+void Menu::dibujarCadena_Caract(float x, float y, const std::string& texto)
+{
+    glColor3f(1, 1, 1);
+    glRasterPos2f(x, y);
+    for (char c : texto)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+    }
 }
 
 void Menu::dibujarMenuStatic()
@@ -279,7 +290,7 @@ void Menu::dibujarMenu()
     dibujarTexto(-0.2f, 0.2f, "1. Nueva partida");
     dibujarTexto(-0.2f, 0.0f, "2. Cargar partida");
     dibujarTexto(-0.2f, -0.2f, "3. Salir");
-    dibujarTexto(-0.2f, -0.2f, "4. Jugar contra el ordenador");
+    dibujarTexto(-0.2f, -0.4f, "4. Jugar contra el ordenador");
 
     dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2, 3 o 4 para elegir.");
     glTranslatef(0, 0, -0.1);

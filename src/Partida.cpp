@@ -1,6 +1,7 @@
 #include "Partida.h"
 #include <iostream>
 #include <conio.h>
+#include <string>
 
 using namespace std;
 
@@ -27,21 +28,36 @@ void Partida::inicializar_IA() {
 }
 
 
-void Partida::escoger_player()
+bool Partida::escoger_player(char key, Jugador& player)
 {
-	char intro;
-	cout << "Jugador 1 (Blancas) inserte su nombre:" << endl;
-	getline(cin, tablero.player1.Nombre);
-
-	cout << "Jugador 2 (Negras) inserte su nombre:" << endl;
-	getline(cin, tablero.player2.Nombre);
+	char tecla = key;
+	
+		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z'))
+		{
+			player.Nombre.push_back(key);
+		}
+		else if (key == '\r')
+		{
+		return true;
+		}
+		return false;
+			
 }
 
 bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 {
+	/*tablero.player1.Nombre = "Sanse";
+	tablero.player2.Nombre = "MH";*/
 	char tecla = key;
-	tablero.mostrar();
 	system("cls");
+	if (tablero.player1.Turno)
+	{
+		cout << "Turno de " << tablero.player1.Nombre << endl;
+	}
+	else
+	{
+		cout << "Turno de " << tablero.player2.Nombre << endl;
+	}
 	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
 }
 

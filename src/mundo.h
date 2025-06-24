@@ -10,7 +10,7 @@
 
 using uchar = unsigned char;
 
-enum class EstadoJuego { MENU, JUGANDO, ESPERANDO_INPUT, FIN_PARTIDA};
+//enum class EstadoJuego { MENU, JUGANDO, ESPERANDO_INPUT, FIN_PARTIDA};
 
 class Mundo
 {
@@ -36,7 +36,6 @@ private:
 
 
 public:
-	EstadoJuego estado;
 	Jugador player1;
 	Jugador player2;
 	Partida partida;
@@ -51,5 +50,5 @@ public:
 	void inicializa();
 	void tecla(char key);
 
-	void update();
+	bool update(int estado);
 };

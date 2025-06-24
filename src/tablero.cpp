@@ -482,9 +482,7 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
     if (player1.Turno) //TURNO PLAYER 1
     {
         turno = 1;
-        cout << "Turno de " << player1.Nombre << ":" << endl;
-
-
+       
         if (!jaque)
         {
             if (player1.seleccion_casilla(*this, dat,key_seleccion)) //TRUE si el movimiento se ha realizado correctamente
@@ -571,7 +569,6 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
     {
         
         turno = 0;
-        cout << "Turno de " << player2.Nombre << ":" << endl;
         if (!jaque)
         {
             if (player2.seleccion_casilla(*this, dat,key_seleccion))

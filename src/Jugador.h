@@ -29,6 +29,7 @@ public:
 	Jugador& operator=(const Jugador& player);
 	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key);
 	void actualizar_listas(Jugador& player);
+	string get_Name();
 	~Jugador() = default;
 	friend class Tablero;
 	friend class Partida;

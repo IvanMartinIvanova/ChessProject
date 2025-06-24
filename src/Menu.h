@@ -30,8 +30,6 @@ private:
     ETSIDI::Sprite* banner;
     int opcionSeleccionada = 0;
 
-    void dibujarTexto(float x, float y, const char* texto);
-
     static Menu* instancia;
 
     static void dibujarMenuStatic();
@@ -47,8 +45,9 @@ public:
     void dibujarMenu();
     //int obtenerOpcion();
     void limpiarPantalla();
+    void dibujarTexto(float x, float y, const char* texto);
+    void dibujarCadena_Caract(float x, float y, const std::string& texto);
     Menu();
-
     void iniciar(int argc, char* argv[]);
     int obtenerOpcion();
 

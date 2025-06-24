@@ -23,7 +23,6 @@ Mundo::Mundo()
 	zmira = 0;
 
 	opcion_modo = 0;
-	estado = EstadoJuego::MENU;
 	key_tecla = NULL;
 
 
@@ -76,59 +75,33 @@ void Mundo::inicializa()
 	
 }
 
-void Mundo::update() {
+bool Mundo::update(int estado) {
 	cout << key_tecla << endl;
 	int opcion = opcion_modo;
 	switch (estado)
 	{
-	case EstadoJuego::MENU:
+	case 0:
 	{
-		if (key_tecla >= '1' && key_tecla <= '9')
-		{
-			opcion = key_tecla - '0';
-			if (opcion == 1)
-			{
-				opcion_modo = opcion;
-				partida.inicializar();       //Solo nueva partida lo usa
-				//partida.escoger_player();
-				estado = EstadoJuego::JUGANDO;
-				key_tecla = 0;
-			}
+		//opcion_modo = opcion;
+		//partida.inicializar();       //Solo nueva partida lo usa
+		//key_tecla = 0;
 
-			if (opcion == 4)
-			{
-
-			}
-		}
 		break;
 	}
-	case EstadoJuego::ESPERANDO_INPUT:
-	{
-		if (opcion == 1)
-		{
-			partida.inicializar();       //Solo nueva partida lo usa
-			//partida.escoger_player();
-			estado = EstadoJuego::JUGANDO;
-		}
-		break;
-	}
-	case EstadoJuego::JUGANDO:
+	
+	case 2:
 	{
 		tablerogr.mueve(key_tecla);
 		if (partida.Progress_Partida(datos, key_tecla))
 		{
 			key_tecla = 0;
+			return true;
 		}
 		else
 		{
-			opcion_modo = -1;
-			estado = EstadoJuego::FIN_PARTIDA;
-			break;
+			return false; //Fin partida
+			
 		}
-	}
-	case EstadoJuego::FIN_PARTIDA:
-	{
-		cout << "Partida Finalizada" << endl;
 		break;
 	}
 	}
@@ -144,4 +117,6 @@ void Mundo::tecla(char key)
 		}
 	
 }
+
+
 

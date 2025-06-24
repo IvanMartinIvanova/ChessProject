@@ -11,7 +11,7 @@ public:
 	void inicializar();  // Método para nueva partida
 	void inicializar_IA();
 
-	void escoger_player();
+	bool escoger_player(char key, Jugador& player);
 	bool Progress_Partida(DATOS_DIBUJO& dat, char key);
 	bool cargarDesdeArchivo(const std::string& nombreArchivo);
 	void mostrarTablero();  // Nuevo método

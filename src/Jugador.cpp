@@ -33,6 +33,11 @@ Jugador& Jugador::operator=(const Jugador& player) {
     return *this;
 }
 
+string Jugador::get_Name()
+{
+    return this->Nombre;
+}
+
 //bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 //{
 //    string entrada;
