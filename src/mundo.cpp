@@ -55,7 +55,7 @@ void Mundo::dibuja()
 
 	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
 	tablerogr.dibuja(partida.getTablero().getVectorCasillas());
-
+	
 	//glTranslated(0, 0, 0);
 	//glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
@@ -78,6 +78,8 @@ void Mundo::inicializa()
 bool Mundo::update(int estado) {
 	cout << key_tecla << endl;
 	int opcion = opcion_modo;
+	Tablero tab;
+	tab = partida.getTablero();
 	switch (estado)
 	{
 	case 0:
@@ -99,6 +101,7 @@ bool Mundo::update(int estado) {
 		}
 		else
 		{
+			key_tecla = 0;
 			return false; //Fin partida
 			
 		}
@@ -116,6 +119,11 @@ void Mundo::tecla(char key)
 		{
 		}
 	
+}
+
+TableroGr& Mundo::getTablerogr()
+{
+	return this->tablerogr;
 }
 
 

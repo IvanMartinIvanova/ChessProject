@@ -7,6 +7,7 @@
 #include "casillaselec.h"
 #include "Partida.h"
 #include "Menu.h"
+#include <vector>
 
 using uchar = unsigned char;
 
@@ -49,6 +50,6 @@ public:
 	void rotarOjo();
 	void inicializa();
 	void tecla(char key);
-
+	TableroGr& getTablerogr();
 	bool update(int estado);
 };

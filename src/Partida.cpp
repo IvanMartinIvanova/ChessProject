@@ -36,18 +36,22 @@ bool Partida::escoger_player(char key, Jugador& player)
 		{
 			player.Nombre.push_back(key);
 		}
+		else if (key == '\b')
+		{
+			if (player.Nombre.size() > 0)
+			player.Nombre.pop_back(); //Para eliminar el último caracter de la cadena
+		}
 		else if (key == '\r')
 		{
 		return true;
 		}
+		
 		return false;
 			
 }
 
 bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 {
-	/*tablero.player1.Nombre = "Sanse";
-	tablero.player2.Nombre = "MH";*/
 	char tecla = key;
 	system("cls");
 	if (tablero.player1.Turno)
@@ -72,5 +76,10 @@ void Partida::mostrarTablero() {
 Tablero& Partida::getTablero()
 {
 	return this->tablero;
+}
+
+bool Partida::get_estado_Jaque()
+{
+	return this->estado_JAQUE;
 }
 

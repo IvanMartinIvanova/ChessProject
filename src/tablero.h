@@ -55,7 +55,7 @@ public:
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
     bool gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t, char tecla);
 
-    bool gestion_jaque(Jugador defensor, Jugador atacante);
+    bool gestion_jaque(Jugador defensor, Jugador atacante, DATOS_DIBUJO& datos);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
     void comp_coronacion(Casilla cas_final_p);
     Casilla buscar_pieza(Pieza* p);
@@ -71,5 +71,6 @@ public:
 
     Jugador& getPlayer1();
     Jugador& getPlayer2();
+    vector<Pieza*> get_Piezas_Jaque(Jugador& p1, Jugador& p2);
 };
 

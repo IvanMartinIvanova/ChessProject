@@ -38,6 +38,11 @@ string Jugador::get_Name()
     return this->Nombre;
 }
 
+bool Jugador::get_Turno()
+{
+    return this->Turno;
+}
+
 //bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
 //{
 //    string entrada;

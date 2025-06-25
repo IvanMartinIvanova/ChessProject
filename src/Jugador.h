@@ -30,6 +30,7 @@ public:
 	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key);
 	void actualizar_listas(Jugador& player);
 	string get_Name();
+	bool get_Turno();
 	~Jugador() = default;
 	friend class Tablero;
 	friend class Partida;

@@ -16,6 +16,7 @@ public:
 	bool cargarDesdeArchivo(const std::string& nombreArchivo);
 	void mostrarTablero();  // Nuevo método
 	Tablero& getTablero();
+	bool get_estado_Jaque();
 	~Partida() = default;
 	
 };

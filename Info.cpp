@@ -3,6 +3,7 @@
 #include "tablero.h"
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Menu.h"
 #include "Partida.h"
 #include "DATOS_DIBUJO.h"
@@ -27,6 +28,9 @@ unsigned char tecla_;
 bool nombre_Player1ok = false;
 string nomb1;
 string nomb2;
+vector<Pieza*> piezas_jaque_p1{};
+vector<Pieza*> piezas_jaque_p2{};
+
 int main(int argc, char* argv[])
 {
 
@@ -118,7 +122,41 @@ void OnDraw(void)
 	}
 	case EstadoApp::JUEGO:
 	{
+		//Dibujamos el tablero y las piezas
 		mundo.dibuja();
+		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
+		if (mundo.partida.getTablero().getPlayer1().get_Turno())
+		{
+			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
+			
+		}
+		if (mundo.partida.getTablero().getPlayer2().get_Turno())
+		{
+			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+		}
+
+		if (mundo.partida.get_estado_Jaque())
+		{
+			piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
+			piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
+			if (piezas_jaque_p1.size() > 0)
+			{
+				for (auto p1 : piezas_jaque_p1)
+				{
+					mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle());
+				}
+			}
+			if (piezas_jaque_p2.size() > 0)
+			{
+				for (auto p2 : piezas_jaque_p2)
+				{
+					mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle());
+				}
+			}
+
+		}
 		break;
 	}
 	}
@@ -182,6 +220,7 @@ void OnTimer(int value)
 {
 	if (!mundo.update(estadoActual))
 		estadoActual = MENU;
+	/*mundo.update(estadoActual);*/
 	glutPostRedisplay(); // Redibujar la pantalla
 	glutTimerFunc(25, OnTimer, 0);
 }

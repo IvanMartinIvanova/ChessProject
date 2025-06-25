@@ -9,6 +9,9 @@ bool Torre::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& ta
     int dx = (xFin > xIni) ? 1 : (xFin < xIni) ? -1 : 0;
     int dy = (yFin > yIni) ? 1 : (yFin < yIni) ? -1 : 0;
 
+    //No puede moverse en diagonal
+    if (dx != 0 && dy != 0) return false;
+
     int x = xIni + dx;
     int y = yIni + dy;
 

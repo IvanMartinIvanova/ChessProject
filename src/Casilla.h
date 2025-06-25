@@ -32,7 +32,7 @@ public:
 	void drawselec(int side, Vector3D org);
 	void drawposibl(int side, Vector3D org);
 	void print();
-
+	void dibuja_Jaque(int side, Vector3D org);
 
 	virtual void draw();
 	friend class Tablero;
