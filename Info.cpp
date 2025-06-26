@@ -11,7 +11,7 @@
 #include "freeglut.h"
 #include "mundo.h"
 
-enum EstadoApp { MENU, SEL_JUG, JUEGO};
+enum EstadoApp { MENU, SEL_JUG, JUEGO, FIN_JUG};
 EstadoApp estadoActual = MENU;
 
 void OnDraw(void);
@@ -23,7 +23,7 @@ Partida partida;
 Mundo mundo;
 Menu menu;
 Menu seleccion_jug;
-
+Menu pantalla_juego;
 unsigned char tecla_;
 bool nombre_Player1ok = false;
 string nomb1;
@@ -52,7 +52,6 @@ int main(int argc, char* argv[])
 	glMatrixMode(GL_PROJECTION);
 	//gluPerspective(40.0, 800 / 600.0f, 0.1, 2000);
 
-	mundo.inicializa();
 	// Callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);
@@ -124,6 +123,7 @@ void OnDraw(void)
 	{
 		//Dibujamos el tablero y las piezas
 		mundo.dibuja();
+
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
 		if (mundo.partida.getTablero().getPlayer1().get_Turno())
 		{
@@ -137,8 +137,10 @@ void OnDraw(void)
 			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
 		}
 
+		//Mensajes evento de jaque
 		if (mundo.partida.get_estado_Jaque())
 		{
+			seleccion_jug.dibujarTexto(16.0f, 12.0f, "JAQUE AL REY");
 			piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
 			piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
 			if (piezas_jaque_p1.size() > 0)
@@ -156,6 +158,12 @@ void OnDraw(void)
 				}
 			}
 
+		}
+		
+		if (mundo.getFlag() == -1)
+		{
+			pantalla_juego.dibujarTexto(-20.0, -16.0, "Un peon ha coronado. Escoge la pieza que quieres obtener:");
+			pantalla_juego.dibujarTexto(-20.0, -18.0, "TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ");
 		}
 		break;
 	}
@@ -199,7 +207,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			else
 				if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer2()))
 				{
-					mundo.partida.inicializar();
+					mundo.inicializa();
 					estadoActual = JUEGO;
 				}
 			break;
@@ -218,9 +226,11 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 
 void OnTimer(int value)
 {
-	if (!mundo.update(estadoActual))
-		estadoActual = MENU;
-	/*mundo.update(estadoActual);*/
+	/*if (!mundo.update(estadoActual))
+		estadoActual = MENU;*/
+
+	mundo.update(estadoActual);
+	
 	glutPostRedisplay(); // Redibujar la pantalla
 	glutTimerFunc(25, OnTimer, 0);
 }

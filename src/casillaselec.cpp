@@ -297,6 +297,9 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 
 		x += xDirection;
 		y += yDirection;
+
+		if (x < 1 || y < 1 || x > 7 || y > 7)
+			return false;
 	}
 	return true;
 }

@@ -11,7 +11,7 @@ Partida::Partida() {
 
 void Partida::inicializar() {
 	tablero.inicializar();
-	tablero.mostrar();
+	//tablero.mostrar();
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;

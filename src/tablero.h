@@ -57,7 +57,7 @@ public:
 
     bool gestion_jaque(Jugador defensor, Jugador atacante, DATOS_DIBUJO& datos);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
-    void comp_coronacion(Casilla cas_final_p);
+    bool comp_coronacion(Pieza*& pieza, unsigned char key);
     Casilla buscar_pieza(Pieza* p);
     bool guardarPartida(const std::string& nombreArchivo);
     bool cargarPartida(const std::string& nombreArchivo);
@@ -65,7 +65,7 @@ public:
     friend class Pieza;
     friend class Partida;
 
-    bool generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tablero& t, DATOS_DIBUJO& datos);
+    bool generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tablero& t, DATOS_DIBUJO& datos, unsigned char key);
     bool come_pieza_a_IA(Colorpieza color_IA, Tablero& t, int x_fin_p_IA, int y_fin_p_IA);
     bool gestion_jaque_IA(Tablero& t, int& or_mov_x, int& or_mov_y, int& fin_mov_x, int& fin_mov_y, DATOS_DIBUJO& datos);
 

@@ -42,6 +42,7 @@ public:
 	Partida partida;
 	Menu menu_juego;
 	DATOS_DIBUJO datos;
+	int flag;
 	int opcion_modo;
 	char key_tecla;
 	void mueve();
@@ -51,5 +52,6 @@ public:
 	void inicializa();
 	void tecla(char key);
 	TableroGr& getTablerogr();
+	int getFlag();
 	bool update(int estado);
 };
