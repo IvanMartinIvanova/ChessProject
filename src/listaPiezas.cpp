@@ -28,15 +28,12 @@ using namespace std;
 void ListaPiezas::eliminar(Pieza* p)
 {
 	int count = 0;
-	for (auto it = this->lista_piezas.begin(); it != this->lista_piezas.end(); it++)
+	for (int i = 0; i < this->lista_piezas.size(); i++)
 	{
-		count++;
-		if (*it == p)
+		if (p == lista_piezas[i])
 		{
-			delete *it;
-			lista_piezas.erase(it);
-			return;
-			
+			lista_piezas.erase(lista_piezas.begin() + i);
+			break;
 		}
 
 	}
