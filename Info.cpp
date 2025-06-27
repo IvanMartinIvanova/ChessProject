@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Menu.h"
+#include "Pantalla.h"
 #include "Partida.h"
 #include "DATOS_DIBUJO.h"
 #include "ETSIDI.h"
@@ -22,8 +23,9 @@ void OnKeyboardDown(unsigned char key, int x, int y);
 Partida partida;
 Mundo mundo;
 Menu menu;
-Menu seleccion_jug;
-Menu pantalla_juego;
+Pantalla seleccion_jug{"rc/fondo3.png"};
+Pantalla pantalla_juego{ "rc/fondo2.png" };
+Pantalla pantalla_fin_partida{ "rc/fondo1.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;
 string nomb1;
@@ -107,6 +109,13 @@ void OnDraw(void)
 		gluPerspective(40.0, 800.0 / 600.0, 0.1, 2000);
 		break;
 	}
+	case EstadoApp::FIN_JUG:
+	{
+		// Proyección 2D ortogonal para el menú
+		gluOrtho2D(-1, 1, -1, 1);
+		break;
+	}
+
 	}
 	
 
@@ -118,11 +127,12 @@ void OnDraw(void)
 	{
 	case EstadoApp::MENU:
 	{
-		menu.dibujarMenu();
+		menu.dibujarPantalla();
 		break;
 	}
 	case EstadoApp::SEL_JUG:
 	{
+		seleccion_jug.dibujarPantalla();
 		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
 		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
 		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
@@ -133,6 +143,7 @@ void OnDraw(void)
 	}
 	case EstadoApp::SEL_JUG_IA:
 	{
+		seleccion_jug.dibujarPantalla();
 		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
 		nomb2 = "IA";
 		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
@@ -144,6 +155,7 @@ void OnDraw(void)
 	case EstadoApp::JUEGO:
 	{
 		//Dibujamos el tablero y las piezas
+		pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
@@ -193,6 +205,7 @@ void OnDraw(void)
 	case EstadoApp::JUEGO_VS_IA:
 	{
 		//Dibujamos el tablero y las piezas
+		pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
@@ -237,6 +250,24 @@ void OnDraw(void)
 			pantalla_juego.dibujarTexto(-20.0, -18.0, "TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ");
 		}
 		break;
+	}
+
+	case EstadoApp::FIN_JUG:
+	{
+		pantalla_fin_partida.dibujarPantalla();
+		if (!mundo.partida.getTablero().getPlayer1().get_Turno())
+		{
+			pantalla_fin_partida.dibujarCadena_Caract(0.4f, 0.2f, nomb1);
+		}
+		else
+		{
+			pantalla_fin_partida.dibujarCadena_Caract(0.4f, 0.2f, nomb2);
+		}
+		pantalla_fin_partida.dibujarTexto(-0.6f, 0.2f, "FIN DE PARTIDA - HA GANADO ");
+		pantalla_fin_partida.dibujarCadena_Caract(-0.6f, 0.0f, nomb1);
+		pantalla_fin_partida.dibujarCadena_Caract(-0.6f, -0.2f, nomb2);
+		pantalla_fin_partida.dibujarNumero(-0.2f, 0.0f, mundo.partida.getTablero().getPlayer1().get_Punt());
+		pantalla_fin_partida.dibujarNumero(-0.2f, -0.2f, mundo.partida.getTablero().getPlayer2().get_Punt());
 	}
 
 	}
@@ -313,6 +344,11 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			mundo.key_tecla = key;
 			break;
 		}
+		case EstadoApp::FIN_JUG:
+		{
+			if (key == 27)
+				estadoActual = MENU;
+		}
 	}
 	
 
@@ -320,9 +356,8 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 
 void OnTimer(int value)
 {
-	/*if (!mundo.update(estadoActual))
-		estadoActual = MENU;*/
-	mundo.update(estadoActual);
+	if (!mundo.update(estadoActual))
+		estadoActual = FIN_JUG;
 	
 	glutPostRedisplay(); // Redibujar la pantalla
 	glutTimerFunc(25, OnTimer, 0);

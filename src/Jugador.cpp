@@ -132,7 +132,6 @@ void Jugador::actualizar_listas(Jugador& player)
             if (pieza_comida == lista_piezas_actuales.obtener_pieza(j))
             {
                 this->lista_piezas_actuales.eliminar(pieza_comida); //Eliminamos la pieza del jugador que llama a la función que hayan sido comidas por el jugador que se pasa como argumento
-                return;
             }
         }
     }
@@ -246,4 +245,67 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key)
     return false;
 }
 
+void Jugador::calc_punt(Colorpieza Color)
+{
+    float puntuacion1 = 0.0;
+    float puntuacion2 = 0.0;
+    for (int i = 0; i < this->lista_piezas_actuales.lista_piezas.size(); i++)
+    {
+        if (this->lista_piezas_actuales.lista_piezas[i]->color == Color)
+        {
+            switch (this->lista_piezas_actuales.lista_piezas[i]->getTipo())
+            {
+            case TipoPieza::PEON:
+                puntuacion1 += 1.0;
+                break;
+            case TipoPieza::ALFIL:
+                puntuacion1 += 3.0;
+                break;
+            case TipoPieza::CABALLO:
+                puntuacion1 += 3.0;
+                break;
+            case TipoPieza::TORRE:
+                puntuacion1 += 5.0;
+                break;
+            case TipoPieza::REINA:
+                puntuacion1 += 9.0;
+                break;
+            }
+        }
+    }
+    this->points.Puntos_remaining_piezas = puntuacion1;
+
+    for (int i = 0; i < this->lista_piezas_comidas.lista_piezas.size(); i++)
+    {
+        if (this->lista_piezas_comidas.lista_piezas[i]->color != Color) //No se tiene en cuenta para la puntuación las piezas del mismo color comidas, solo las piezas del otro jugador
+        {
+            switch (this->lista_piezas_comidas.lista_piezas[i]->getTipo())
+            {
+            case TipoPieza::PEON:
+                puntuacion2 += 1.0;
+                break;
+            case TipoPieza::ALFIL:
+                puntuacion2 += 3.0;
+                break;
+            case TipoPieza::CABALLO:
+                puntuacion2 += 3.0;
+                break;
+            case TipoPieza::TORRE:
+                puntuacion2 += 5.0;
+                break;
+            case TipoPieza::REINA:
+                puntuacion2 += 9.0;
+                break;
+            }
+        }
+    }
+    this->points.Puntos_piezas_comidas = puntuacion2;
+
+    this->points.Puntos_totales = puntuacion1 + puntuacion2;
+}
+
+float Jugador::get_Punt()
+{
+    return this->points.Puntos_totales;
+}
 

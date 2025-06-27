@@ -83,7 +83,7 @@ bool Mundo::update(int estado) {
 	tab = partida.getTablero();
 	switch (estado)
 	{
-	case 0:
+	case 0: // MENU
 	{
 		//opcion_modo = opcion;
 		//partida.inicializar();       //Solo nueva partida lo usa
@@ -92,7 +92,7 @@ bool Mundo::update(int estado) {
 		break;
 	}
 	
-	case 3:
+	case 3: // JUEGO 1 VS 1
 	{
 		tablerogr.mueve(key_tecla);
 
@@ -151,7 +151,7 @@ bool Mundo::update(int estado) {
 	}
 
 
-	case 4:
+	case 4: // JUEGO 1 VS IA
 	{
 		tablerogr.mueve(key_tecla);
 
@@ -208,6 +208,14 @@ bool Mundo::update(int estado) {
 		break;
 	}
 
+
+	case 5: //FIN PARTIDA
+	{
+		//Calculamos la puntuacion final de cada jugador
+		partida.getTablero().getPlayer1().calc_punt(Colorpieza::BLANCO);
+		partida.getTablero().getPlayer2().calc_punt(Colorpieza::NEGRO);
+
+	}
 	}
 }
 

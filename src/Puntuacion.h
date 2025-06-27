@@ -13,4 +13,5 @@ public:
 		Puntos_piezas_comidas(piezas_comidas), 
 		Puntos_remaining_tiempo(tiempo_restante) 
 	{};
+	friend class Jugador;
 };

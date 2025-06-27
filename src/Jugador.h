@@ -31,10 +31,13 @@ public:
 	void actualizar_listas(Jugador& player);
 	string get_Name();
 	bool get_Turno();
+	float get_Punt();
+	void calc_punt(Colorpieza Color);
 	~Jugador() = default;
 	friend class Tablero;
 	friend class Partida;
 	friend class ListaPiezas;
+
 	
 
 };

@@ -26,7 +26,7 @@ Tablero& Tablero::operator=(const Tablero& tab)
         player2.lista_piezas_actuales.limpiar();
         player2.lista_piezas_comidas.limpiar();
 
-
+        //Copiamos las piezas actuales (sobre el tablero) de cada player
         for (int fila = 0; fila < 8; ++fila)
         {
             for (int col = 0; col < 8; ++col)
@@ -45,6 +45,13 @@ Tablero& Tablero::operator=(const Tablero& tab)
                 }
             }
         }
+
+        //Copiamos las piezas comidas de cada player
+          
+        this->player1.lista_piezas_comidas.lista_piezas = tab.player1.lista_piezas_comidas.lista_piezas;
+        this->player2.lista_piezas_comidas.lista_piezas = tab.player2.lista_piezas_comidas.lista_piezas;
+  
+
         // Copia nombres y turnos
         player1.Nombre = tab.player1.Nombre;
         player2.Nombre = tab.player2.Nombre;
@@ -1046,12 +1053,11 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
                                 if (p_destino != nullptr)
                                     color_p_destino = p_destino->getColor();
 
-                                t_pruebas.setCasilla(c, d, pieza_a_mover);
-                                t_pruebas.setCasilla(cas_ini.row, cas_ini.file, nullptr);
+                                bool aux = t_pruebas.mover(cas_ini.row ,cas_ini.file, c, d, t_pruebas.player2, datos);
 
                                 aplicarGravedad(t_pruebas, { c, d }, pieza_a_mover);
 
-                                provoca_jaque = t_pruebas.comprobacion_jaque(t_pruebas.player2, t_pruebas.player1);
+                                provoca_jaque = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
 
                                 if (p_destino != nullptr)
                                     comp_pieza_comida = come_pieza_a_IA(color_p_destino, t_pruebas, c, d);
