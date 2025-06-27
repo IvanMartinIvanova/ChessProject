@@ -289,8 +289,8 @@ void Menu::dibujarMenu()
     // Dibuja texto opciones (coordenadas adaptables)
     dibujarTexto(-0.2f, 0.2f, "1. Nueva partida");
     dibujarTexto(-0.2f, 0.0f, "2. Cargar partida");
-    dibujarTexto(-0.2f, -0.2f, "3. Salir");
-    dibujarTexto(-0.2f, -0.4f, "4. Jugar contra el ordenador");
+    dibujarTexto(-0.2f, -0.2f, "3. Jugar contra el ordenador");
+    dibujarTexto(-0.2f, -0.4f, "4. Salir");
 
     dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2, 3 o 4 para elegir.");
     glTranslatef(0, 0, -0.1);

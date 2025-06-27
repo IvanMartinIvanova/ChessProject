@@ -88,11 +88,11 @@ bool Mundo::update(int estado) {
 		//opcion_modo = opcion;
 		//partida.inicializar();       //Solo nueva partida lo usa
 		//key_tecla = 0;
-
+		flag = 0;
 		break;
 	}
 	
-	case 2:
+	case 3:
 	{
 		tablerogr.mueve(key_tecla);
 
@@ -133,12 +133,6 @@ bool Mundo::update(int estado) {
 		{
 			if (partida.Progress_Partida(datos, key_tecla))
 			{
-				/*TipoPieza p = datos.pieza_fin_conGrav->getTipo();
-				switch (p)
-				{
-				case TipoPieza::PEON:
-					cout << "Peon"
-				}*/
 				key_tecla = 0;
 				flag = 1;
 				return true;
@@ -155,6 +149,65 @@ bool Mundo::update(int estado) {
 		
 		break;
 	}
+
+
+	case 4:
+	{
+		tablerogr.mueve(key_tecla);
+
+		if (flag == 1 || flag == -1)
+		{
+			if (datos.pieza_fin_conGrav != nullptr)
+			{
+				TipoPieza tipo = datos.pieza_fin_conGrav->getTipo();
+				Colorpieza color = datos.pieza_fin_conGrav->getColor();
+
+				if (tipo == TipoPieza::PEON)
+				{
+					Casilla pos = partida.getTablero().buscar_pieza(datos.pieza_fin_conGrav);
+					if ((color == Colorpieza::BLANCO && pos.getfile() == 7) || (color == Colorpieza::NEGRO && pos.getfile() == 0))
+					{
+
+						if (partida.getTablero().comp_coronacion(datos.pieza_fin_conGrav, key_tecla)) //True si puede continuar porque se ha elegido pieza o porque no había coronación
+						{
+							flag = 1;
+
+						}
+						else //False si hay coronación pero no se ha elegido pieza, por tanto, no puede continuar hasta que se elija pieza
+						{
+
+							flag = -1;
+							return true;
+
+						}
+
+					}
+				}
+
+			}
+
+		}
+
+		if (flag == 0 || flag == 1)
+		{
+			if (partida.Progress_Partida_IA(datos, key_tecla))
+			{
+				key_tecla = 0;
+				flag = 1;
+				return true;
+			}
+			else
+			{
+				key_tecla = 0;
+				datos.pieza_fin_conGrav = nullptr;
+				return false; //Fin partida
+
+			}
+		}
+
+		break;
+	}
+
 	}
 }
 

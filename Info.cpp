@@ -11,7 +11,7 @@
 #include "freeglut.h"
 #include "mundo.h"
 
-enum EstadoApp { MENU, SEL_JUG, JUEGO, FIN_JUG};
+enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG};
 EstadoApp estadoActual = MENU;
 
 void OnDraw(void);
@@ -88,8 +88,20 @@ void OnDraw(void)
 		gluOrtho2D(-1, 1, -1, 1);
 		break;
 	}
-	
+	case EstadoApp::SEL_JUG_IA:
+	{
+		// Proyección 2D ortogonal para el menú
+		gluOrtho2D(-1, 1, -1, 1);
+		break;
+	}
 	case EstadoApp::JUEGO:
+	{
+		// Proyección 3D perspectiva para el juego
+		gluPerspective(40.0, 800.0 / 600.0, 0.1, 2000);
+		break;
+	}
+
+	case EstadoApp::JUEGO_VS_IA:
 	{
 		// Proyección 3D perspectiva para el juego
 		gluPerspective(40.0, 800.0 / 600.0, 0.1, 2000);
@@ -113,6 +125,16 @@ void OnDraw(void)
 	{
 		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
 		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
+		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
+		seleccion_jug.dibujarCadena_Caract(0.2f, 0.2f, nomb1);
+		seleccion_jug.dibujarTexto(-0.6f, -0.2f, "Nombre player2 - Piezas NEGRAS");
+		seleccion_jug.dibujarCadena_Caract(0.2f, -0.2f, nomb2);
+		break;
+	}
+	case EstadoApp::SEL_JUG_IA:
+	{
+		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
+		nomb2 = "IA";
 		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
 		seleccion_jug.dibujarCadena_Caract(0.2f, 0.2f, nomb1);
 		seleccion_jug.dibujarTexto(-0.6f, -0.2f, "Nombre player2 - Piezas NEGRAS");
@@ -167,6 +189,56 @@ void OnDraw(void)
 		}
 		break;
 	}
+
+	case EstadoApp::JUEGO_VS_IA:
+	{
+		//Dibujamos el tablero y las piezas
+		mundo.dibuja();
+
+		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
+		if (mundo.partida.getTablero().getPlayer1().get_Turno())
+		{
+			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
+
+		}
+		if (mundo.partida.getTablero().getPlayer2().get_Turno())
+		{
+			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+		}
+
+		//Mensajes evento de jaque
+		if (mundo.partida.get_estado_Jaque())
+		{
+			seleccion_jug.dibujarTexto(16.0f, 12.0f, "JAQUE AL REY");
+			piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
+			piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
+			if (piezas_jaque_p1.size() > 0)
+			{
+				for (auto p1 : piezas_jaque_p1)
+				{
+					mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle());
+				}
+			}
+			if (piezas_jaque_p2.size() > 0)
+			{
+				for (auto p2 : piezas_jaque_p2)
+				{
+					mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle());
+				}
+			}
+
+		}
+
+		if (mundo.getFlag() == -1)
+		{
+			pantalla_juego.dibujarTexto(-20.0, -16.0, "Un peon ha coronado. Escoge la pieza que quieres obtener:");
+			pantalla_juego.dibujarTexto(-20.0, -18.0, "TORRE-2, CABALLO-3, ALFIL-4, REINA-6: ");
+		}
+		break;
+	}
+
 	}
 
 	glutSwapBuffers();
@@ -188,6 +260,11 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 					break;
 				}
 				case '3':
+				{
+					estadoActual = SEL_JUG_IA;
+					break;
+				}
+				case '4':
 				{
 					exit(0);
 					break;
@@ -212,7 +289,24 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				}
 			break;
 		}
+		case EstadoApp::SEL_JUG_IA:
+		{
+			if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
+			{
+				mundo.inicializa();
+				estadoActual = JUEGO_VS_IA;
+			
+			}
+			break;
+		}
 		case EstadoApp::JUEGO:
+		{
+			if (key == 27) exit(0); // ESC
+			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
+			mundo.key_tecla = key;
+			break;
+		}
+		case EstadoApp::JUEGO_VS_IA:
 		{
 			if (key == 27) exit(0); // ESC
 			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
@@ -228,7 +322,6 @@ void OnTimer(int value)
 {
 	/*if (!mundo.update(estadoActual))
 		estadoActual = MENU;*/
-
 	mundo.update(estadoActual);
 	
 	glutPostRedisplay(); // Redibujar la pantalla

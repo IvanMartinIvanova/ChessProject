@@ -65,6 +65,21 @@ bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
 }
 
+bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat, char key)
+{
+	char tecla = key;
+	system("cls");
+	if (tablero.player1.Turno)
+	{
+		cout << "Turno de " << tablero.player1.Nombre << endl;
+	}
+	else
+	{
+		cout << "Turno de " << tablero.player2.Nombre << endl;
+	}
+	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, dat, tablero, tecla);
+}
+
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);
 }

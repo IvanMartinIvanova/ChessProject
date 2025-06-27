@@ -946,9 +946,11 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Table
 
         }
 
-    }
+        estado_JAQUE = jaque;
+        return true; //Termina el turno
 
-    if (player2.Turno) //TURNO IA
+    }
+    else //TURNO IA
     {
         aux = generador_de_movimientos(player1, player2, t, dat,tecla);
 
@@ -964,7 +966,8 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Table
             player2.Turno = false;
         }
 
-        return true;
+        estado_JAQUE = jaque;
+        return true; //Termina el turno
     }
 }
 
@@ -1006,7 +1009,7 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
         {
             bool aux_2 = t.mover(or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, maq, datos);
             Pieza* p = getCasilla(fin_mov_x, fin_mov_y);
-            t.comp_coronacion(p,key);
+            //t.comp_coronacion(p,key);
             aplicarGravedad(t, { fin_mov_x, fin_mov_y }, p);
         }
         return true;
@@ -1077,7 +1080,7 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
 
                                     bool aux = t.mover(cas_ini.row, cas_ini.file, c, d, maq, datos);
                                     Pieza* real_pieza = getCasilla(c, d);
-                                    comp_coronacion(real_pieza, key);
+                                    //comp_coronacion(real_pieza, key);
                                     aplicarGravedad(t, { c, d }, real_pieza);
                                     return true;
                                 }
@@ -1094,7 +1097,7 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
         {
             bool aux = t.mover(pos_inicial_x, pos_inicial_y, pos_caso_extremo_x, pos_caso_extremo_y, maq, datos);
             Pieza* real_pieza = getCasilla(pos_caso_extremo_x, pos_caso_extremo_y);
-            comp_coronacion(real_pieza, key);
+            //comp_coronacion(real_pieza, key);
             aplicarGravedad(t, { pos_caso_extremo_x, pos_caso_extremo_y }, real_pieza);
             return true;
         }

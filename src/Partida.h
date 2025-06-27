@@ -18,6 +18,7 @@ public:
 	Tablero& getTablero();
 	bool get_estado_Jaque();
 	~Partida() = default;
+	bool Progress_Partida_IA(DATOS_DIBUJO& dat, char key);
 	
 };
 
