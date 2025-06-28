@@ -15,6 +15,7 @@ void Partida::inicializar() {
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
+	
 }
 
 void Partida::inicializar_IA() {

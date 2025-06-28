@@ -268,8 +268,8 @@ bool CasillaSelec::torre(Casilla casillap, Casilla casillacheck)
 
 bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 {
-	int xIni = casillap.getfile();
-	int yIni = casillap.getrow();
+	int xIni = casillap.getfile(); //Columnas (File)
+	int yIni = casillap.getrow(); //Filas (Row)
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
 
@@ -286,20 +286,23 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 	int x = xIni + xDirection;
 	int y = yIni + yDirection;
 
-	if (x < 1 || y < 1 || x > 7 || y > 7)
+	if (x < 1 || y < 1 || x > 8 || y > 8)
 		return false;
 
 	while (x != xFin && y != yFin) {
 		if (xFin > 0 && yFin > 0) {
+			
 			if (gettipo(x, y) != "vacio")
-				return false;  // Si hay una pieza en el camino, no se puede mover
+			return false;  // Si hay una pieza en el camino, no se puede mover
+			
+			
 		}
-
 		x += xDirection;
 		y += yDirection;
 
-		if (x < 1 || y < 1 || x > 7 || y > 7)
+		if (x < 1 || y < 1 || x > 8 || y > 8)
 			return false;
+
 	}
 	return true;
 }

@@ -57,8 +57,10 @@ public:
 
     bool gestion_jaque(Jugador defensor, Jugador atacante, DATOS_DIBUJO& datos);
     bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
+    bool comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_DIBUJO& datos);
     bool comp_coronacion(Pieza*& pieza, unsigned char key);
     Casilla buscar_pieza(Pieza* p);
+    Casilla buscar_posRey(Colorpieza c);
     bool guardarPartida(const std::string& nombreArchivo);
     bool cargarPartida(const std::string& nombreArchivo);
 	void mostrarConCursor(int fila_cursor, int col_cursor); //Muestra el tablero con un cursor en la posición indicada

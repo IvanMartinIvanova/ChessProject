@@ -21,6 +21,7 @@ protected:
 	Tiempo temp;
 	string Nombre;
 	bool Turno; //True - si es el turno del jugador / False - si no es el turno del jugador
+	int Movimientos;
 
 public:
 	static int fila_cursor, col_cursor;
@@ -32,6 +33,7 @@ public:
 	string get_Name();
 	bool get_Turno();
 	float get_Punt();
+	int get_nMov();
 	void calc_punt(Colorpieza Color);
 	~Jugador() = default;
 	friend class Tablero;

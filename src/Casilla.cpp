@@ -97,10 +97,10 @@ void Casilla::print()
 	cout << file << " " << row << endl;
 }
 
-void Casilla::dibuja_Jaque(int side, Vector3D org)
+void Casilla::dibuja_Jaque(int side, Vector3D org, Color color)
 {
 	glPushMatrix();
-	glColor3ub(255, 255, 0);
+	glColor3ub(color.r, color.b, color.g);
 	glTranslated((file+1) / 9.0 * side + org.x, (8 - row) / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
 	glutWireCube(1.5);
 	glPopMatrix();
