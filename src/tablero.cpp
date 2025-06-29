@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
+
 using namespace std;
 
 bool Tablero::turno = 0;
@@ -783,78 +785,85 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla)
 }
 
 
-bool Tablero::guardarPartida(const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo);
+bool Tablero::guardarPartida(const std::string& nombreArchivo) {
+    std::ofstream archivo(nombreArchivo);
     if (!archivo.is_open()) return false;
 
-    archivo << "JUGADOR1: " << player1.Nombre << "\n";
-    archivo << "JUGADOR2: " << player2.Nombre << "\n";
-    archivo << "TURNO: " << (player1.Turno ? 1 : 2) << "\n";
-    archivo << "TABLERO:\n";
+    // Guardar nombres y turno
+    archivo << player1.Nombre << "\n";
+    archivo << player2.Nombre << "\n";
+    archivo << (player1.Turno ? 1 : 0) << "\n";
 
+    // Guardar todas las casillas (incluyendo las vacías)
     for (int fila = 0; fila < 8; fila++) {
         for (int col = 0; col < 8; col++) {
-            Pieza* pieza = casillas[fila][col];
-            if (pieza) {
-                archivo << static_cast<int>(pieza->getTipo()) << " "
-                    << static_cast<int>(pieza->getColor()) << " "
-                    << fila << " " << col << "\n";
+            Pieza* p = getCasilla(fila, col);
+            if (p != nullptr) {
+                archivo << fila << " " << col << " "
+                    << static_cast<int>(p->getTipo()) << " "
+                    << static_cast<int>(p->getColor()) << "\n";
+            }
+            else {
+                archivo << fila << " " << col << " "
+                    << static_cast<int>(TipoPieza::VACIA) << " "
+                    << static_cast<int>(Colorpieza::NINGUNO) << "\n";
             }
         }
     }
 
-    archivo.close();
+    archivo << "END_TABLERO\n";
     return true;
 }
 
-bool Tablero::cargarPartida(const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
+bool Tablero::cargarPartida(const std::string& nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) return false;
 
-    string linea;
-    int turno;
-    getline(archivo, linea); player1.Nombre = linea.substr(10);
-    getline(archivo, linea); player2.Nombre = linea.substr(10);
-    getline(archivo, linea); turno = stoi(linea.substr(7));
-    player1.Turno = (turno == 1);
+    // Limpiar tablero
+    for (int fila = 0; fila < 8; fila++)
+        for (int col = 0; col < 8; col++)
+            setCasilla(fila, col, nullptr);
+
+    // Limpiar listas anteriores
+    player1.lista_piezas_actuales.limpiar();
+    player2.lista_piezas_actuales.limpiar();
+    player1.lista_piezas_comidas.limpiar();
+    player2.lista_piezas_comidas.limpiar();
+
+    // Leer nombres
+    std::getline(archivo, player1.Nombre);
+    std::getline(archivo, player2.Nombre);
+
+    // Leer turno
+    std::string linea;
+    std::getline(archivo, linea);
+    int turnoInt = std::stoi(linea);
+    player1.Turno = (turnoInt == 1);
     player2.Turno = !player1.Turno;
 
-    // Limpiar tablero actual
-    for (int f = 0; f < 8; ++f)
-        for (int c = 0; c < 8; ++c)
-            casillas[f][c] = nullptr;
+    // Leer piezas y colocarlas
+    while (std::getline(archivo, linea)) {
+        if (linea == "END_TABLERO") break;
 
-    player1.lista_piezas_actuales = ListaPiezas();
-    player2.lista_piezas_actuales = ListaPiezas();
+        std::istringstream iss(linea);
+        int fila, col, tipo, color;
+        if (!(iss >> fila >> col >> tipo >> color)) continue;
 
-    getline(archivo, linea); // "TABLERO:"
-    int tipo, color, fila, col;
+        Pieza* p = reconstruirPieza(tipo, color);
+        setCasilla(fila, col, p);
 
-    while (archivo >> tipo >> color >> fila >> col) {
-        Pieza* nueva = nullptr;
-        Colorpieza colP = static_cast<Colorpieza>(color);
-
-        switch (static_cast<TipoPieza>(tipo)) {
-        case TipoPieza::PEON: nueva = new Peon(colP); break;
-        case TipoPieza::TORRE: nueva = new Torre(colP); break;
-        case TipoPieza::CABALLO: nueva = new Caballo(colP); break;
-        case TipoPieza::ALFIL: nueva = new Alfil(colP); break;
-        case TipoPieza::REINA: nueva = new Reina(colP); break;
-        case TipoPieza::REY: nueva = new Rey(colP); break;
-        default: break;
-        }
-
-        if (nueva) {
-            casillas[fila][col] = nueva;
-            if (colP == Colorpieza::BLANCO)
-                player1.lista_piezas_actuales.agregar(nueva);
-            else
-                player2.lista_piezas_actuales.agregar(nueva);
+        // Agregar a la lista del jugador correspondiente
+        if (p != nullptr && p->getTipo() != TipoPieza::VACIA) {
+            if (p->getColor() == Colorpieza::BLANCO)
+                player1.lista_piezas_actuales.agregar(p);
+            else if (p->getColor() == Colorpieza::NEGRO)
+                player2.lista_piezas_actuales.agregar(p);
         }
     }
 
     return true;
 }
+
 
 void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
     std::cout << "  ";
@@ -1424,6 +1433,20 @@ Casilla Tablero::buscar_posRey(Colorpieza c)
         }
     }
 
+}
+
+Pieza* Tablero::reconstruirPieza(int tipo, int color) {
+    Colorpieza c = static_cast<Colorpieza>(color);
+    switch (tipo) {
+    case static_cast<int>(TipoPieza::VACIA): return nullptr;
+    case static_cast<int>(TipoPieza::PEON):     return new Peon(c);
+    case static_cast<int>(TipoPieza::TORRE):    return new Torre(c);
+    case static_cast<int>(TipoPieza::CABALLO):  return new Caballo(c);
+    case static_cast<int>(TipoPieza::ALFIL):    return new Alfil(c);
+    case static_cast<int>(TipoPieza::REINA):    return new Reina(c);
+    case static_cast<int>(TipoPieza::REY):      return new Rey(c);
+    default: return nullptr;
+    }
 }
 
     

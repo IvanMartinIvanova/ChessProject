@@ -12,7 +12,7 @@
 #include "freeglut.h"
 #include "mundo.h"
 
-enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG};
+enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG, SEL_SAVE };
 EstadoApp estadoActual = MENU;
 
 void OnDraw(void);
@@ -84,6 +84,12 @@ void OnDraw(void)
 		gluOrtho2D(-1, 1, -1, 1);
 		break;
 	}
+	case EstadoApp::SEL_SAVE:
+	{
+		// Proyección 2D ortogonal para el menú de guardado/carga
+		gluOrtho2D(-1, 1, -1, 1);
+		break;
+	}
 	case EstadoApp::SEL_JUG:
 	{
 		// Proyección 2D ortogonal para el menú
@@ -150,6 +156,15 @@ void OnDraw(void)
 		seleccion_jug.dibujarCadena_Caract(0.2f, 0.2f, nomb1);
 		seleccion_jug.dibujarTexto(-0.6f, -0.2f, "Nombre player2 - Piezas NEGRAS");
 		seleccion_jug.dibujarCadena_Caract(0.2f, -0.2f, nomb2);
+		break;
+	}
+	case EstadoApp::SEL_SAVE:
+	{
+		seleccion_jug.dibujarPantalla();
+		seleccion_jug.dibujarTexto(-0.4f, 0.4f, "MENU DE GUARDADO / CARGA");
+		seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida");
+		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida");
+		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "M. Volver a la partida");
 		break;
 	}
 	case EstadoApp::JUEGO:
@@ -306,6 +321,11 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 					estadoActual = SEL_JUG;
 					break;
 				}
+				case '2':
+				{
+					estadoActual = SEL_SAVE;
+					break;
+				}
 				case '3':
 				{
 					estadoActual = SEL_JUG_IA;
@@ -336,6 +356,22 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				}
 			break;
 		}
+		case EstadoApp::SEL_SAVE:
+		{
+			if (key == 'm') {
+				estadoActual = JUEGO; // o JUEGO_VS_IA si vienes de IA
+			}
+			else if (key == '1') {
+				mundo.partida.guardar_partida();
+				std::cout << "Partida guardada correctamente." << std::endl;
+			}
+			else if (key == '2') {
+				mundo.partida.cargar_partida();
+				std::cout << "Partida cargada correctamente." << std::endl;
+				estadoActual = JUEGO;
+			}
+			break;
+		}
 		case EstadoApp::SEL_JUG_IA:
 		{
 			if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
@@ -351,6 +387,10 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			if (key == 27) exit(0); // ESC
 			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
 			mundo.key_tecla = key;
+			if (key == 'm') {
+				estadoActual = SEL_SAVE;
+				break;
+			}
 			break;
 		}
 		case EstadoApp::JUEGO_VS_IA:

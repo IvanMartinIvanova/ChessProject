@@ -99,3 +99,10 @@ bool Partida::get_estado_Jaque()
 	return this->estado_JAQUE;
 }
 
+bool Partida::guardar_partida() {
+	return tablero.guardarPartida("partida_guardada.txt");
+}
+
+bool Partida::cargar_partida() {
+	return tablero.cargarPartida("partida_guardada.txt");
+}
