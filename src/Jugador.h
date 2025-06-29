@@ -28,11 +28,11 @@ public:
 	static int fila_ini, col_ini;
 	Jugador();
 	Jugador& operator=(const Jugador& player);
-	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key);
+	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key, Jugador& player_turnoInactivo);
 	void actualizar_listas(Jugador& player);
 	string get_Name();
 	bool get_Turno();
-	float get_Punt();
+	Puntuacion get_Punt();
 	int get_nMov();
 	void calc_punt(Colorpieza Color);
 	~Jugador() = default;

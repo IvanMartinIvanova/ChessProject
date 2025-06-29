@@ -47,6 +47,11 @@ int Jugador::get_nMov()
 {
     return this->Movimientos;
 }
+
+Puntuacion Jugador::get_Punt()
+{
+    return this->points;
+}
 void Jugador::actualizar_listas(Jugador& player)
 {
 
@@ -67,7 +72,7 @@ void Jugador::actualizar_listas(Jugador& player)
 
 }
 
-bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key)
+bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key, Jugador& player_turnoInactivo)
 {
     bool continuar = true;
 
@@ -102,7 +107,7 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key)
             }
             else {
                 // DESTINO
-                if (tab.mover(fila_ini, col_ini, fila_cursor, col_cursor, *this, dat)) {
+                if (tab.mover(fila_ini, col_ini, fila_cursor, col_cursor, *this, player_turnoInactivo, dat)) {
                     fila_ini = -1;
                     col_ini = -1;
                     return true;
@@ -182,8 +187,5 @@ void Jugador::calc_punt(Colorpieza Color)
     this->points.Puntos_totales = puntuacion1 + puntuacion2;
 }
 
-float Jugador::get_Punt()
-{
-    return this->points.Puntos_totales;
-}
+
 

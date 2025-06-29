@@ -6,6 +6,7 @@
 #include "tablerogr.h"
 #include "casillaselec.h"
 #include "Partida.h"
+#include "Registros.h"
 #include "Menu.h"
 #include <vector>
 
@@ -42,7 +43,8 @@ public:
 	Partida partida;
 	Menu menu_juego;
 	DATOS_DIBUJO datos;
-	int flag;
+	int flag_juego;
+	bool flag_fin_partida;
 	int opcion_modo;
 	char key_tecla;
 	void mueve();
@@ -53,5 +55,5 @@ public:
 	void tecla(char key);
 	TableroGr& getTablerogr();
 	int getFlag();
-	bool update(int estado);
+	bool update(int estado, Registro& reg);
 };

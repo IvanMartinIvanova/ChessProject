@@ -153,6 +153,7 @@
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\piezagr.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\Registros.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
     <ClCompile Include="src\sprite3D.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\piezagr.h" />
     <ClInclude Include="src\plataforma.h" />
     <ClInclude Include="src\Puntuacion.h" />
+    <ClInclude Include="src\Registros.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
     <ClInclude Include="src\sprite3D.h" />

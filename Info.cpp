@@ -11,8 +11,9 @@
 #include "ETSIDI.h"
 #include "freeglut.h"
 #include "mundo.h"
+#include "Registros.h"
 
-enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG, SEL_SAVE };
+enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG, SEL_SAVE, REGISTROS };
 EstadoApp estadoActual = MENU;
 bool partida_activa = false;
 
@@ -27,12 +28,14 @@ Menu menu;
 Pantalla seleccion_jug{"rc/banner.png"};
 Pantalla pantalla_juego{ "rc/fondo1.png" };
 Pantalla pantalla_fin_partida{ "rc/banner.png" };
+Pantalla pantalla_regis{ "rc/banner.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;
 string nomb1;
 string nomb2;
 vector<Pieza*> piezas_jaque_p1{};
 vector<Pieza*> piezas_jaque_p2{};
+Registro reg;
 
 int main(int argc, char* argv[])
 {
@@ -93,13 +96,13 @@ void OnDraw(void)
 	}
 	case EstadoApp::SEL_JUG:
 	{
-		// Proyección 2D ortogonal para el menú
+		// Proyección 2D ortogonal para pantalla de selección de jugador
 		gluOrtho2D(-1, 1, -1, 1);
 		break;
 	}
 	case EstadoApp::SEL_JUG_IA:
 	{
-		// Proyección 2D ortogonal para el menú
+		// Proyección 2D ortogonal para pantalla de selección de jugador
 		gluOrtho2D(-1, 1, -1, 1);
 		break;
 	}
@@ -109,20 +112,24 @@ void OnDraw(void)
 		gluPerspective(40.0, 800.0 / 600.0, 0.1, 2000);
 		break;
 	}
-
 	case EstadoApp::JUEGO_VS_IA:
 	{
 		// Proyección 3D perspectiva para el juego
 		gluPerspective(40.0, 800.0 / 600.0, 0.1, 2000);
 		break;
 	}
-	case EstadoApp::FIN_JUG:
+	case EstadoApp::REGISTROS:
 	{
-		// Proyección 2D ortogonal para el menú
+		// Proyección 2D ortogonal para pantalla de registros de partidas
 		gluOrtho2D(-1, 1, -1, 1);
 		break;
 	}
-
+	case EstadoApp::FIN_JUG:
+	{
+		// Proyección 2D ortogonal para pantalla de fin de partida
+		gluOrtho2D(-1, 1, -1, 1);
+		break;
+	}
 	}
 	
 
@@ -306,7 +313,25 @@ void OnDraw(void)
 		}
 		break;
 	}
+	case EstadoApp::REGISTROS:
+	{
+		
+		Registro* reg2 = reg.LeeRegistros();
+		float salto_linea = 0;
+		for (int i = 0; i < reg2->getNumReg(); i++)
+		{
+			//std::cout << i + 1 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
+			pantalla_regis.dibujarNumero(-0.8f, 0.8f + salto_linea, (i + 1));
+			pantalla_regis.dibujarTexto(-0.4f, 0.8f + salto_linea, *reg2[i].nombre1);
+			pantalla_regis.dibujarTexto(0.0f, 0.8f + salto_linea, "Puntos: ");
+			pantalla_regis.dibujarNumero(0.2f, 0.8f + salto_linea, reg2[i].p1.Puntos_totales);
+			pantalla_regis.dibujarTexto(0.5f, 0.8f + salto_linea, *reg2[i].nombre2);
+			pantalla_regis.dibujarTexto(0.7f, 0.8f + salto_linea, "Puntos: ");
+			pantalla_regis.dibujarNumero(0.8f, 0.8f + salto_linea, reg2[i].p2.Puntos_totales);
+		}
 
+		break;
+	}
 	case EstadoApp::FIN_JUG:
 	{
 		pantalla_fin_partida.dibujarPantalla();
@@ -329,8 +354,8 @@ void OnDraw(void)
 		pantalla_fin_partida.dibujarCadena_Caract(0.0f, 0.0f, nomb2);
 		pantalla_fin_partida.dibujarTexto(-0.8f, -0.2f, "Puntos: ");
 		pantalla_fin_partida.dibujarTexto(0.0f, -0.2f, "Puntos: ");
-		pantalla_fin_partida.dibujarNumero(-0.4f, -0.2f, mundo.partida.getTablero().getPlayer1().get_Punt());
-		pantalla_fin_partida.dibujarNumero(0.6f, -0.2f, mundo.partida.getTablero().getPlayer2().get_Punt());
+		pantalla_fin_partida.dibujarNumero(-0.4f, -0.2f, mundo.partida.getTablero().getPlayer1().get_Punt().Puntos_totales);
+		pantalla_fin_partida.dibujarNumero(0.6f, -0.2f, mundo.partida.getTablero().getPlayer2().get_Punt().Puntos_totales);
 		pantalla_fin_partida.dibujarTexto(-0.8f, -0.4f, "Movimientos: ");
 		pantalla_fin_partida.dibujarTexto(0.0f, -0.4f, "Movimientos: ");
 		pantalla_fin_partida.dibujarNumero(-0.4f, -0.4f, mundo.partida.getTablero().getPlayer1().get_nMov());
@@ -368,6 +393,11 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 					break;
 				}
 				case '4':
+				{
+					estadoActual = REGISTROS;
+					break;
+				}
+				case '5':
 				{
 					exit(0);
 					break;
@@ -445,6 +475,13 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			mundo.key_tecla = key;
 			break;
 		}
+		case EstadoApp::REGISTROS:
+		{
+			if (key == 27)
+			{
+				estadoActual = MENU;
+			}
+		}
 		case EstadoApp::FIN_JUG:
 		{
 			if (key == 27)
@@ -459,7 +496,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 
 void OnTimer(int value)
 {
-	if (!mundo.update(estadoActual))
+	if (!mundo.update(estadoActual,reg))
 		estadoActual = FIN_JUG;
 	
 	glutPostRedisplay(); // Redibujar la pantalla

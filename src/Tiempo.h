@@ -2,9 +2,9 @@
 
 class Tiempo
 {
+public:
 	int mins;
 	int segs;
-public:
 	Tiempo() = default;
 	Tiempo(int minutos, int segundos) : mins(minutos), segs(segundos) {}
 	friend class Jugador;

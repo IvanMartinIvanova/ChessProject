@@ -23,7 +23,8 @@ Mundo::Mundo()
 	zmira = 0;
 
 	opcion_modo = 0;
-	flag = 0;
+	flag_juego = 0;
+	flag_fin_partida = false;
 	key_tecla = NULL;
 
 
@@ -75,7 +76,7 @@ void Mundo::inicializa()
 	partida.inicializar();
 }
 
-bool Mundo::update(int estado) {
+bool Mundo::update(int estado, Registro& reg) {
 	cout << key_tecla << endl;
 	int opcion = opcion_modo;
 	Tablero tab;
@@ -84,10 +85,8 @@ bool Mundo::update(int estado) {
 	{
 	case 0: // MENU
 	{
-		//opcion_modo = opcion;
-		//partida.inicializar();       //Solo nueva partida lo usa
-		//key_tecla = 0;
-		flag = 0;
+		
+		flag_juego = 0;
 		break;
 	}
 	
@@ -95,7 +94,7 @@ bool Mundo::update(int estado) {
 	{
 		tablerogr.mueve(key_tecla);
 
-		if (flag == 1 || flag == -1)
+		if (flag_juego == 1 || flag_juego == -1)
 		{
 			if (datos.pieza_fin_conGrav != nullptr)
 			{
@@ -110,13 +109,13 @@ bool Mundo::update(int estado) {
 
 						if (partida.getTablero().comp_coronacion(datos.pieza_fin_conGrav, key_tecla)) //True si puede continuar porque se ha elegido pieza o porque no había coronación
 						{
-							flag = 1;
+							flag_juego = 1;
 
 						}
 						else //False si hay coronación pero no se ha elegido pieza, por tanto, no puede continuar hasta que se elija pieza
 						{
 
-							flag = -1;
+							flag_juego = -1;
 							return true;
 
 						}
@@ -128,12 +127,12 @@ bool Mundo::update(int estado) {
 
 		}
 		
-		if (flag == 0 || flag == 1)
+		if (flag_juego == 0 || flag_juego == 1)
 		{
 			if (partida.Progress_Partida(datos, key_tecla))
 			{
 				key_tecla = 0;
-				flag = 1;
+				flag_juego = 1;
 				return true;
 			}
 			else
@@ -154,7 +153,7 @@ bool Mundo::update(int estado) {
 	{
 		tablerogr.mueve(key_tecla);
 
-		if (flag == 1 || flag == -1)
+		if (flag_juego == 1 || flag_juego == -1)
 		{
 			if (datos.pieza_fin_conGrav != nullptr)
 			{
@@ -169,13 +168,13 @@ bool Mundo::update(int estado) {
 
 						if (partida.getTablero().comp_coronacion(datos.pieza_fin_conGrav, key_tecla)) //True si puede continuar porque se ha elegido pieza o porque no había coronación
 						{
-							flag = 1;
+							flag_juego = 1;
 
 						}
 						else //False si hay coronación pero no se ha elegido pieza, por tanto, no puede continuar hasta que se elija pieza
 						{
 
-							flag = -1;
+							flag_juego = -1;
 							return true;
 
 						}
@@ -187,12 +186,12 @@ bool Mundo::update(int estado) {
 
 		}
 
-		if (flag == 0 || flag == 1)
+		if (flag_juego == 0 || flag_juego == 1)
 		{
 			if (partida.Progress_Partida_IA(datos, key_tecla))
 			{
 				key_tecla = 0;
-				flag = 1;
+				flag_juego = 1;
 				return true;
 			}
 			else
@@ -213,6 +212,24 @@ bool Mundo::update(int estado) {
 		//Calculamos la puntuacion final de cada jugador
 		partida.getTablero().getPlayer1().calc_punt(Colorpieza::BLANCO);
 		partida.getTablero().getPlayer2().calc_punt(Colorpieza::NEGRO);
+		//Guardamos el registro de la partida
+		const char* nomb_player1;
+		const char* nomb_player2;
+		string nomb1;
+		string nomb2;
+		Jugador player1;
+		Jugador player2;
+		player1 = partida.getTablero().getPlayer1();
+		player2 = partida.getTablero().getPlayer2();
+		nomb1 = player1.get_Name();
+		nomb2 = player2.get_Name();
+		nomb_player1 = nomb1.c_str();
+		nomb_player2 = nomb2.c_str();
+		if (!flag_fin_partida)
+		{
+			reg.CreaRegistro(reg.getNumReg(), nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
+			flag_fin_partida = true;
+		}
 
 	}
 	}
@@ -236,7 +253,7 @@ TableroGr& Mundo::getTablerogr()
 
 int Mundo::getFlag()
 {
-	return this->flag;
+	return this->flag_juego;
 }
 
 

@@ -19,9 +19,10 @@ void Menu::dibujarPantalla()
     dibujarTexto(-0.2f, 0.2f, "1. Nueva partida");
     dibujarTexto(-0.2f, 0.0f, "2. Cargar partida");
     dibujarTexto(-0.2f, -0.2f, "3. Jugar contra el ordenador");
-    dibujarTexto(-0.2f, -0.4f, "4. Salir");
+    dibujarTexto(-0.2f, -0.4f, "4. Registros");
+    dibujarTexto(-0.2f, -0.6f, "5. Salir");
 
-    dibujarTexto(-0.3f, -0.6f, "Pulsa 1, 2, 3 o 4 para elegir.");
+    dibujarTexto(-0.3f, -0.8f, "Pulsa 1, 2, 3, 4 o 5 para elegir.");
     glTranslatef(0, 0, -0.1);
 }
 

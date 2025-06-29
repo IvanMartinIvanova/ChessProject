@@ -34,7 +34,7 @@ public:
     void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
 
-    bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player, DATOS_DIBUJO& dat);
+    bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player_turnoActivo, Jugador& player_turnoInactivo, DATOS_DIBUJO& dat);
     bool aplicarGravedad(Tablero& tab,Casilla destin0_sinGravedad, Pieza*& posPieza_final_conGrav); //primer intento de gravedad
 
     Pieza* getCasilla(int x, int y) const 
@@ -55,8 +55,8 @@ public:
     bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
     bool gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t, char tecla);
 
-    bool gestion_jaque(Jugador defensor, Jugador atacante, DATOS_DIBUJO& datos);
-    bool comprobacion_jaque(Jugador turno_activo, Jugador turno_inactivo);
+    bool gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& datos);
+    bool comprobacion_jaque(Jugador& turno_activo, Jugador& turno_inactivo);
     bool comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_DIBUJO& datos);
     bool comp_coronacion(Pieza*& pieza, unsigned char key);
     Casilla buscar_pieza(Pieza* p);
