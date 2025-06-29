@@ -3,6 +3,10 @@
 void TableroGr::dibuja(Pieza* (*tableroin)[8])
 {
     settablero(tableroin);
+    Vector3D posActual = idle();
+    fondoTablero.setPos(posActual.x+10, posActual.y+10);
+    fondoJuego.setPos(posActual.x, posActual.y);
+    fondoTablero.draw();
     casillas.dibuja(TableroGr::idle(), side);
 }
 

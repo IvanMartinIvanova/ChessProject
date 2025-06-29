@@ -61,7 +61,6 @@ void Mundo::dibuja()
 	//glutSolidSphere(1, 10, 10);
 	//fondo.dibuja();
 	tablero.counter += 0.05;
-
 	//fondo.dibujaxy();
 	glEnd();
 	//	glEnable(GL_LIGHTING);

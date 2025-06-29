@@ -28,7 +28,7 @@ private:
 	//Bonus bonus;
 	Plataforma tablero{ { -10,10,-5},{10,-10,-6},{255,255,255} };
 	Plataforma piezas1{ {-15,-5,0},{-13,-6,-5},{180,0,240} };
-	Plataforma piezas2{ {13,-5,0},{15,-6,-5},{180,0,240} };
+	Plataforma piezas2{ {13,-5,0},{15,-6,-5},{0,0,240} };
 	TableroGr tablerogr;
 
 

@@ -38,8 +38,8 @@ void Pantalla::dibujarPantalla()
     glLoadIdentity();
 
     // Dibuja fondo y banner
-   // fondo->draw();
-    banner->draw();
+    //espacio->draw();
+    imagen->draw();
     glTranslatef(0, 0, 0.1);
 }
 
@@ -60,7 +60,7 @@ Pantalla::Pantalla(const char* png)
 {
     instancia = this;
     // fondo = new ETSIDI::Sprite("rc/fondo.png", 0, 0, .0f, 2.0f);
-    banner = new ETSIDI::Sprite(png, 0, 0, 2, 2);
+    imagen = new ETSIDI::Sprite(png, 0, 0, 2, 2);
 }
 
 

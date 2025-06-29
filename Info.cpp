@@ -25,7 +25,7 @@ Partida partida;
 Mundo mundo;
 Menu menu;
 Pantalla seleccion_jug{"rc/banner.png"};
-Pantalla pantalla_juego{ "rc/banner.png" };
+Pantalla pantalla_juego{ "rc/fondo1.png" };
 Pantalla pantalla_fin_partida{ "rc/banner.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;

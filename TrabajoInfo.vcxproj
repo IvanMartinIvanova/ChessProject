@@ -205,7 +205,6 @@
     <Image Include="bin\rc\board.png" />
     <Image Include="bin\rc\fondo1.png" />
     <Image Include="bin\rc\fondo2.jpg" />
-    <Image Include="bin\rc\fondo3.jpg" />
     <Image Include="bin\rc\Horse_Black.png" />
     <Image Include="bin\rc\Horse_White.png" />
     <Image Include="bin\rc\indicators.png" />

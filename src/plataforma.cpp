@@ -53,12 +53,12 @@ void Plataforma::calcidle()
 
 	estela.setorg({ (limite1.x + limite2.x) / 2,limite2.y,(limite1.z + limite2.z) / 2 });
 
-	cara1.setpos({ limite1.x, limite1.y, limite1.z }, { limite2.x, limite1.y, limite2.z }, { 200,0,0 });
-	cara2.setpos({ limite1.x, limite2.y, limite1.z }, { limite2.x, limite2.y, limite2.z }, { 0,200,0 });
-	cara3.setpos({ limite1.x, limite1.y, limite1.z }, { limite2.x, limite2.y, limite1.z }, { 0,0,200 });
-	cara4.setpos({ limite1.x, limite1.y, limite2.z }, { limite2.x, limite2.y, limite2.z }, { 200,200,0 });
-	cara5.setpos({ limite2.x, limite1.y, limite1.z }, { limite2.x, limite2.y, limite2.z }, { 200,0,200 });
-	cara6.setpos({ limite1.x, limite1.y, limite1.z }, { limite1.x, limite2.y, limite2.z }, { 0,200,200 });
+	cara1.setpos({ limite1.x, limite1.y, limite1.z }, { limite2.x, limite1.y, limite2.z }, { color.r,color.g,color.b });
+	cara2.setpos({ limite1.x, limite2.y, limite1.z }, { limite2.x, limite2.y, limite2.z }, { color.r,color.g,color.b });
+	cara3.setpos({ limite1.x, limite1.y, limite1.z }, { limite2.x, limite2.y, limite1.z }, { color.r,color.g,color.b });
+	cara4.setpos({ limite1.x, limite1.y, limite2.z }, { limite2.x, limite2.y, limite2.z }, { color.r,color.g,color.b });
+	cara5.setpos({ limite2.x, limite1.y, limite1.z }, { limite2.x, limite2.y, limite2.z }, { color.r,color.g,color.b });
+	cara6.setpos({ limite1.x, limite1.y, limite1.z }, { limite1.x, limite2.y, limite2.z }, { color.r,color.g,color.b });
 
 	/*cara1 = { {limite1.x, limite1.y, limite1.z}, {limite2.x, limite1.y, limite2.z}, {200,0,0} };
 	cara2 = { {limite1.x, limite2.y, limite1.z}, {limite2.x, limite2.y, limite2.z }, { 0,200,0 }};
@@ -68,3 +68,9 @@ void Plataforma::calcidle()
 	cara6 = { limite1.x, limite1.y, limite1.z, limite1.x, limite2.y, limite2.z, {0,200,200} };*/
 
 }
+/*
+Plataforma::setpos(Vector3D lim1in, Vector3D lim2in)
+{
+	limite1 = lim1in;
+	limite2  = lim2in;
+}*/

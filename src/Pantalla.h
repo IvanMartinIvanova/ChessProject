@@ -6,8 +6,8 @@
 class Pantalla
 {
 protected:
-    ETSIDI::Sprite* fondo;
-    ETSIDI::Sprite* banner;
+   // ETSIDI::Sprite* espacio;
+    ETSIDI::Sprite* imagen;
     int opcionSeleccionada = 0;
 
     static Pantalla* instancia;
