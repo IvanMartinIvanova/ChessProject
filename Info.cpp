@@ -14,6 +14,7 @@
 
 enum EstadoApp { MENU, SEL_JUG, SEL_JUG_IA, JUEGO, JUEGO_VS_IA, FIN_JUG, SEL_SAVE };
 EstadoApp estadoActual = MENU;
+bool partida_activa = false;
 
 void OnDraw(void);
 void OnTimer(int value);
@@ -162,16 +163,36 @@ void OnDraw(void)
 	{
 		seleccion_jug.dibujarPantalla();
 		seleccion_jug.dibujarTexto(-0.4f, 0.4f, "MENU DE GUARDADO / CARGA");
-		seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida");
+
+		if (partida_activa)
+			seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida");
+
 		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida");
-		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "M. Volver a la partida");
+		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "M. Volver al menu principal");
 		break;
 	}
+
 	case EstadoApp::JUEGO:
 	{
 		//Dibujamos el tablero y las piezas
 		pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
+		// Cambiar temporalmente a proyección 2D para dibujar el texto informativo
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		gluOrtho2D(-1, 1, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		seleccion_jug.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
+
+		// Restaurar proyección 3D
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
 
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
 		if (mundo.partida.getTablero().getPlayer1().get_Turno())
@@ -224,6 +245,21 @@ void OnDraw(void)
 		//Dibujamos el tablero y las piezas
 		pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
+		// Mostrar mensaje de guardado (igual que en modo normal)
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		gluOrtho2D(-1, 1, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		seleccion_jug.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
+
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
 
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
 		if (mundo.partida.getTablero().getPlayer1().get_Turno())
@@ -352,6 +388,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer2()))
 				{
 					mundo.inicializa();
+					partida_activa = true;
 					estadoActual = JUEGO;
 				}
 			break;
@@ -359,15 +396,22 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		case EstadoApp::SEL_SAVE:
 		{
 			if (key == 'm') {
-				estadoActual = JUEGO; // o JUEGO_VS_IA si vienes de IA
+				partida_activa = false;   // Al volver al menú, desactivamos la flag
+				estadoActual = MENU;
 			}
 			else if (key == '1') {
-				mundo.partida.guardar_partida();
-				std::cout << "Partida guardada correctamente." << std::endl;
+				if (partida_activa) {
+					mundo.partida.guardar_partida();
+					std::cout << "Partida guardada correctamente." << std::endl;
+				}
+				else {
+					std::cout << "No se puede guardar sin partida activa." << std::endl;
+				}
 			}
 			else if (key == '2') {
 				mundo.partida.cargar_partida();
 				std::cout << "Partida cargada correctamente." << std::endl;
+				partida_activa = true;  // Activamos la flag tras cargar
 				estadoActual = JUEGO;
 			}
 			break;
@@ -377,6 +421,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
 			{
 				mundo.inicializa();
+				partida_activa = true;
 				estadoActual = JUEGO_VS_IA;
 			
 			}
