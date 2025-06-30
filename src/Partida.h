@@ -20,7 +20,8 @@ public:
 	~Partida() = default;
 	bool Progress_Partida_IA(DATOS_DIBUJO& dat, char key);
 	bool guardar_partida();
-	bool cargar_partida();
+	bool guardar_partida(const std::string& nombreArchivo);
+	bool cargar_partida(const std::string& nombreArchivo);
 
 	
 };

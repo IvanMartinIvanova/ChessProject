@@ -1,7 +1,8 @@
 #include "Pantalla.h"
 #include <iostream>
 #include "freeglut.h"
-
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -28,8 +29,9 @@ void Pantalla::dibujarCadena_Caract(float x, float y, const std::string& texto)
 void Pantalla::dibujarNumero(float x, float y, float numero)
 {
     string num;
-    num = to_string(numero);
-    dibujarCadena_Caract(x, y, num);
+    ostringstream stream;
+    stream << std::fixed << std::setprecision(2) << numero; //Ajustamos el número de decimales del float
+    dibujarCadena_Caract(x, y, stream.str()); //Pasamos el número con los decimales ajustados convertido a una string
 }
 
 void Pantalla::dibujarPantalla()
