@@ -85,11 +85,11 @@ bool Mundo::update(int estado, Registro& reg) {
 	{
 	case 0: // MENU
 	{
-		
+
 		flag_juego = 0;
 		break;
 	}
-	
+
 	case 3: // JUEGO 1 VS 1
 	{
 		tablerogr.mueve(key_tecla);
@@ -122,11 +122,11 @@ bool Mundo::update(int estado, Registro& reg) {
 
 					}
 				}
-				
+
 			}
 
 		}
-		
+
 		if (flag_juego == 0 || flag_juego == 1)
 		{
 			if (partida.Progress_Partida(datos, key_tecla))
@@ -143,8 +143,8 @@ bool Mundo::update(int estado, Registro& reg) {
 
 			}
 		}
-		
-		
+
+
 		break;
 	}
 
@@ -227,10 +227,9 @@ bool Mundo::update(int estado, Registro& reg) {
 		nomb_player2 = nomb2.c_str();
 		if (!flag_fin_partida)
 		{
-			reg.CreaRegistro(reg.getNumReg(), nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
+			reg.CreaRegistro(nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
 			flag_fin_partida = true;
 		}
-
 	}
 	}
 }

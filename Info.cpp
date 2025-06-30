@@ -28,14 +28,16 @@ Menu menu;
 Pantalla seleccion_jug{"rc/banner.png"};
 Pantalla pantalla_juego{ "rc/fondo1.png" };
 Pantalla pantalla_fin_partida{ "rc/banner.png" };
-Pantalla pantalla_regis{ "rc/banner.png" };
+Pantalla pantalla_regis{ "rc/fondo2.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;
+bool flag_regis = false;
 string nomb1;
 string nomb2;
 vector<Pieza*> piezas_jaque_p1{};
 vector<Pieza*> piezas_jaque_p2{};
 Registro reg;
+Registro* reg2 = nullptr;
 
 int main(int argc, char* argv[])
 {
@@ -316,19 +318,36 @@ void OnDraw(void)
 	case EstadoApp::REGISTROS:
 	{
 		
-		Registro* reg2 = reg.LeeRegistros();
-		float salto_linea = 0;
-		for (int i = 0; i < reg2->getNumReg(); i++)
+		
+		if (!flag_regis && reg2 == nullptr)
 		{
-			//std::cout << i + 1 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
-			pantalla_regis.dibujarNumero(-0.8f, 0.8f + salto_linea, (i + 1));
-			pantalla_regis.dibujarTexto(-0.4f, 0.8f + salto_linea, *reg2[i].nombre1);
-			pantalla_regis.dibujarTexto(0.0f, 0.8f + salto_linea, "Puntos: ");
-			pantalla_regis.dibujarNumero(0.2f, 0.8f + salto_linea, reg2[i].p1.Puntos_totales);
-			pantalla_regis.dibujarTexto(0.5f, 0.8f + salto_linea, *reg2[i].nombre2);
-			pantalla_regis.dibujarTexto(0.7f, 0.8f + salto_linea, "Puntos: ");
-			pantalla_regis.dibujarNumero(0.8f, 0.8f + salto_linea, reg2[i].p2.Puntos_totales);
+			reg2 = reg.LeeRegistros();
+			flag_regis = true;
 		}
+
+		if (reg2 != nullptr)
+		{
+			pantalla_regis.dibujarPantalla();
+			float salto_linea = 0;
+			for (int i = 0; i < reg2->getNumReg(); i++)
+			{
+				const char* nombre1 = reg2[i].nombre1;
+				const char* nombre2 = reg2[i].nombre2;
+				//std::cout << i + 1 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
+				pantalla_regis.dibujarNumero(-0.9f, 0.8f - salto_linea, (i + 1));
+				pantalla_regis.dibujarTexto(-0.6f, 0.8f - salto_linea, nombre1);
+				pantalla_regis.dibujarTexto(-0.5f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(-0.3f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
+				pantalla_regis.dibujarTexto(-0.15f, 0.8f - salto_linea, ")   VS");
+				pantalla_regis.dibujarTexto(0.1f, 0.8f - salto_linea, nombre2);
+				pantalla_regis.dibujarTexto(0.2f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(0.4f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
+				pantalla_regis.dibujarTexto(0.55f, 0.8f - salto_linea, ")");
+				salto_linea += 0.2;
+			}
+
+		}
+		
 
 		break;
 	}
@@ -480,6 +499,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			if (key == 27)
 			{
 				estadoActual = MENU;
+				flag_regis = false;
 			}
 		}
 		case EstadoApp::FIN_JUG:

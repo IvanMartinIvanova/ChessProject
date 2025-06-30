@@ -21,16 +21,16 @@ void Registro::setNumReg(int nReg)
 {
 	nRegistros = nReg;
 }
-int Registro::CreaRegistro(const int& numReg, const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2, const Tiempo& temp)
+int Registro::CreaRegistro(const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2, const Tiempo& temp)
 {
 	FILE* Reg;
-	int n = numReg;
+	int n = this->getNumReg();
 	Reg = fopen("Registros.txt", "a"); //Abrimos el fichero en modo adición
 	if (Reg == nullptr) //Comprobamos si ha podido abrir correctamente el fichero
 		perror("No se ha encontrado el fichero de registros\n");
 	else
 	{
-		fprintf(Reg, " %d . ", numReg + 1); //Escribimos el nº de registro (empezando por 1, por eso el numReg+1)
+		fprintf(Reg, " %d . ", n + 1); //Escribimos el nº de registro (empezando por 1, por eso el numReg+1)
 		int i = 0;
 		while (nom1[i] != '\0') //Escribimos el nombre del ganador
 		{
@@ -40,13 +40,15 @@ int Registro::CreaRegistro(const int& numReg, const char* nom1, const char* nom2
 		fprintf(Reg, "  (Puntos: %f)", pt1.Puntos_totales); //Escribimos los puntos
 		fprintf(Reg, " VS ");
 		int j = 0;
-		while (nom2[i] != '\0') //Escribimos el nombre del ganador
+		while (nom2[j] != '\0') //Escribimos el nombre del ganador
 		{
 			fprintf(Reg, "%c", nom2[j]);
 			j++;
 		}
 		fprintf(Reg, " (Puntos: %f)", pt2.Puntos_totales); //Escribimos los puntos
-
+		fprintf(Reg, "\n");
+		n++;
+		this->setNumReg(n);
 		//fprintf(Reg, " %d min :%d seg\n", temp.min, temp.sec); //Escribimos el tiempo de la partida
 		if (fclose(Reg) != 0)
 		{
@@ -73,16 +75,11 @@ Registro* Registro::LeeRegistros()
 	int capacidadInicial = 100;  // o cualquier número máximo esperado
 	regis = new Registro[capacidadInicial];
 	FILE* Reg;
-	int num = 0;
+	int num = this->getNumReg();
 	int j = 0;
-	char texto[250];
 	char basura[250];
-	char espacio;
-	char salto;
-	int numero = 0;
-	int peso = 0;
+	char salto = 0;
 	int flag = 0;
-	num = 0;
 	Reg = fopen("Registros.txt", "r"); //Abrimos el fichero en modo adición
 	if (Reg == nullptr) //Comprobamos si ha podido abrir correctamente el fichero
 		perror("No se ha encontrado el fichero de registros\n");
@@ -95,14 +92,16 @@ Registro* Registro::LeeRegistros()
 				fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con el número de registro
 				if (fscanf_s(Reg, "%d", &regis[num].nRegistros) == 1) //Lee el número de registro
 				{
-					fscanf_s(Reg, "%[A-Za-z]", basura,250);
-					fscanf_s(Reg, "%s", regis[num].nombre1, 250); //Lee la cadena de caracteres que se corresponde con el nombre del ganador
+					fscanf_s(Reg, "%[^A-Za-z]", basura,250);
+					fscanf_s(Reg, "%[A-Za-z]", regis[num].nombre1, 50); //Lee la cadena de caracteres que se corresponde con el nombre del player1
 					fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con la puntuación
-					fscanf_s(Reg, "%f", &regis[num].p1); //Lee la puntuación
-					fscanf_s(Reg, "%[A-Za-z]", basura, 250); //Hace un skip hasta la primera letra
-					fscanf_s(Reg, "%s", regis[num].nombre2, 250); //Lee la cadena de caracteres que se corresponde con el nombre del ganador
+					fscanf_s(Reg, "%f", &regis[num].p1); //Lee la puntuación del player1
+					fscanf_s(Reg, "%[^A-Za-z]", basura, 250); //Hace un skip hasta la primera letra
+					fscanf_s(Reg, "%[A-Za-z]", basura, 250); //Leemos el VS
+					fscanf_s(Reg, "%[^A-Za-z]", basura, 250); //Hace un skip hasta la primera letra
+					fscanf_s(Reg, "%[A-Za-z]", regis[num].nombre2, 50); //Lee la cadena de caracteres que se corresponde con el nombre del player2
 					fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con la puntuación
-					fscanf_s(Reg, "%f", &regis[num].p2); //Lee la puntuación
+					fscanf_s(Reg, "%f", &regis[num].p2); //Lee la puntuación del player2
 					//fscanf_s(Reg, "%d", &regis[num].t.mins); //Lee los minutos de partida
 					//fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con los segundos de partida
 					//fscanf_s(Reg, "%d", &regis[num].t.segs); //Lee los minutos de partida
@@ -118,6 +117,7 @@ Registro* Registro::LeeRegistros()
 		{
 			perror("No se ha podido cerrar correctamente el fichero");
 		}
+		this->setNumReg(num);
 		return regis; //Devolvemos la lista de registros
 	}
 }
