@@ -174,12 +174,16 @@ void OnDraw(void)
 		seleccion_jug.dibujarTexto(-0.4f, 0.4f, "MENU DE GUARDADO / CARGA");
 
 		if (partida_activa)
-			seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida");
+			seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida actual");
 
-		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida");
-		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "M. Volver al menu principal");
+		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida 1 vs 1");
+		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "3. Cargar partida vs IA");
+		seleccion_jug.dibujarTexto(-0.4f, -0.4f, "M. Volver al menu principal");
+		seleccion_jug.dibujarTexto(-0.95f, -0.8f, "Nota: Solo se guarda la partida que estas jugando actualmente");
+
 		break;
 	}
+
 
 	case EstadoApp::JUEGO:
 	{
@@ -347,8 +351,8 @@ void OnDraw(void)
 			}
 
 		}
-		
 
+		pantalla_regis.dibujarTexto(-0.9f, -0.9f, "Presione ESC para volver al menu principal");
 		break;
 	}
 	case EstadoApp::FIN_JUG:
@@ -380,6 +384,7 @@ void OnDraw(void)
 		pantalla_fin_partida.dibujarNumero(-0.4f, -0.4f, mundo.partida.getTablero().getPlayer1().get_nMov());
 		pantalla_fin_partida.dibujarNumero(0.6f, -0.4f, mundo.partida.getTablero().getPlayer2().get_nMov());
 	}
+	pantalla_fin_partida.dibujarTexto(-0.9f, -0.9f, "Presione ESC para volver al menu principal");
 
 	}
 
@@ -445,26 +450,38 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		case EstadoApp::SEL_SAVE:
 		{
 			if (key == 'm') {
-				partida_activa = false;   // Al volver al menú, desactivamos la flag
+				partida_activa = false;
 				estadoActual = MENU;
 			}
 			else if (key == '1') {
 				if (partida_activa) {
-					mundo.partida.guardar_partida();
-					std::cout << "Partida guardada correctamente." << std::endl;
+					std::string archivo =
+						(mundo.partida.getTablero().getPlayer2().get_Name() == "IA")
+						? "partida_ia.txt" : "partida_1v1.txt";
+
+					mundo.partida.guardar_partida(archivo);
+					std::cout << "Partida guardada correctamente en: " << archivo << std::endl;
 				}
 				else {
 					std::cout << "No se puede guardar sin partida activa." << std::endl;
 				}
 			}
-			else if (key == '2') {
-				mundo.partida.cargar_partida();
-				std::cout << "Partida cargada correctamente." << std::endl;
-				partida_activa = true;  // Activamos la flag tras cargar
+
+			else if (key == '2') {  // cargar 1v1
+				mundo.partida.cargar_partida("partida_1v1.txt");
+				std::cout << "Partida 1 vs 1 cargada correctamente." << std::endl;
+				partida_activa = true;
 				estadoActual = JUEGO;
+			}
+			else if (key == '3') {  // cargar IA
+				mundo.partida.cargar_partida("partida_ia.txt");
+				std::cout << "Partida contra IA cargada correctamente." << std::endl;
+				partida_activa = true;
+				estadoActual = JUEGO_VS_IA;
 			}
 			break;
 		}
+
 		case EstadoApp::SEL_JUG_IA:
 		{
 			if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
@@ -472,7 +489,6 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				mundo.inicializa();
 				partida_activa = true;
 				estadoActual = JUEGO_VS_IA;
-			
 			}
 			break;
 		}
@@ -490,10 +506,17 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		case EstadoApp::JUEGO_VS_IA:
 		{
 			if (key == 27) exit(0); // ESC
-			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
+
+			if (key == 'm') {
+				estadoActual = SEL_SAVE;
+				break;
+			}
+
+			mundo.tecla(key);
 			mundo.key_tecla = key;
 			break;
 		}
+
 		case EstadoApp::REGISTROS:
 		{
 			if (key == 27)
