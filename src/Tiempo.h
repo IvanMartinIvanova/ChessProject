@@ -2,10 +2,10 @@
 
 class Tiempo
 {
-	int min;
-	int seg;
 public:
+	int mins;
+	int segs;
 	Tiempo() = default;
-	Tiempo(int minutos, int segundos) : min(minutos), seg(segundos) 
-	{};
+	Tiempo(int minutos, int segundos) : mins(minutos), segs(segundos) {}
+	friend class Jugador;
 };

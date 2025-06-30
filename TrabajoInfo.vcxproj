@@ -145,6 +145,7 @@
     <ClCompile Include="src\ListaPiezas.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\mundo.cpp" />
+    <ClCompile Include="src\Pantalla.cpp" />
     <ClCompile Include="src\pared.cpp" />
     <ClCompile Include="src\particulas.cpp" />
     <ClCompile Include="src\Partida.cpp" />
@@ -152,9 +153,9 @@
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\piezagr.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\Registros.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
-    <ClCompile Include="src\sprite.cpp" />
     <ClCompile Include="src\sprite3D.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\tablerogr.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="src\ListaPiezas.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\mundo.h" />
+    <ClInclude Include="src\Pantalla.h" />
     <ClInclude Include="src\pared.h" />
     <ClInclude Include="src\particulas.h" />
     <ClInclude Include="src\Partida.h" />
@@ -186,9 +188,9 @@
     <ClInclude Include="src\piezagr.h" />
     <ClInclude Include="src\plataforma.h" />
     <ClInclude Include="src\Puntuacion.h" />
+    <ClInclude Include="src\Registros.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
-    <ClInclude Include="src\sprite.h" />
     <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\tablerogr.h" />
@@ -199,24 +201,24 @@
     <ClInclude Include="src\Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bin\rc\bizop.png" />
+    <Image Include="bin\rc\banner.png" />
+    <Image Include="bin\rc\Bizhop_Black.png" />
+    <Image Include="bin\rc\Bizhop_White.png" />
     <Image Include="bin\rc\board.png" />
-    <Image Include="bin\rc\far-clouds.png" />
-    <Image Include="bin\rc\far-mountains.png" />
-    <Image Include="bin\rc\fondo.png" />
-    <Image Include="bin\rc\horsey.png" />
+    <Image Include="bin\rc\fondo1.png" />
+    <Image Include="bin\rc\fondo2.jpg" />
+    <Image Include="bin\rc\Horse_Black.png" />
+    <Image Include="bin\rc\Horse_White.png" />
     <Image Include="bin\rc\indicators.png" />
-    <Image Include="bin\rc\king.png" />
-    <Image Include="bin\rc\mountains.png" />
-    <Image Include="bin\rc\near-clouds.png" />
+    <Image Include="bin\rc\King_Black.png" />
+    <Image Include="bin\rc\King_White.png" />
+    <Image Include="bin\rc\Pawn_Black.png" />
+    <Image Include="bin\rc\Pawn_White.png" />
     <Image Include="bin\rc\pieces.png" />
-    <Image Include="bin\rc\pwaun.png" />
-    <Image Include="bin\rc\qween.png" />
-    <Image Include="bin\rc\sky.png" />
-    <Image Include="bin\rc\sprite_prueba.png" />
-    <Image Include="bin\rc\titulo.png" />
-    <Image Include="bin\rc\tower.png" />
-    <Image Include="bin\rc\trees.png" />
+    <Image Include="bin\rc\Queen_Black.png" />
+    <Image Include="bin\rc\Queen_White.png" />
+    <Image Include="bin\rc\Tower_Black.png" />
+    <Image Include="bin\rc\Tower_White.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

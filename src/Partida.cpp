@@ -1,5 +1,7 @@
 #include "Partida.h"
 #include <iostream>
+#include <conio.h>
+#include <string>
 
 using namespace std;
 
@@ -9,30 +11,80 @@ Partida::Partida() {
 
 void Partida::inicializar() {
 	tablero.inicializar();
-	tablero.mostrar();
+	//tablero.mostrar();
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
+	
 }
 
-void Partida::escoger_player()
-{
-	char intro;
-	cout << "Jugador 1 (Blancas) inserte su nombre:" << endl;
-	getline(cin, tablero.player1.Nombre);
+void Partida::inicializar_IA() {
 
-	cout << "Jugador 2 (Negras) inserte su nombre:" << endl;
-	getline(cin, tablero.player2.Nombre);
-}
-
-bool Partida::Progress_Partida(DATOS_DIBUJO& dat)
-{
+	tablero.inicializar();
 	tablero.mostrar();
-	return tablero.gestion_turnos(this->estado_JAQUE, dat);
+	estado_JAQUE = false;
+	bool turnoIA = false, turno_jug = true;
+	Jugador& jug_hum = tablero.getPlayer1();
+	Jugador& IA = tablero.getPlayer2();
 }
+
+
+bool Partida::escoger_player(char key, Jugador& player)
+{
+	char tecla = key;
+	
+		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z'))
+		{
+			player.Nombre.push_back(key);
+		}
+		else if (key == '\b')
+		{
+			if (player.Nombre.size() > 0)
+			player.Nombre.pop_back(); //Para eliminar el último caracter de la cadena
+		}
+		else if (key == '\r')
+		{
+		return true;
+		}
+		
+		return false;
+			
+}
+
+bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
+{
+	char tecla = key;
+	system("cls");
+	if (tablero.player1.Turno)
+	{
+		cout << "Turno de " << tablero.player1.Nombre << endl;
+	}
+	else
+	{
+		cout << "Turno de " << tablero.player2.Nombre << endl;
+	}
+	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
+}
+
+bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat, char key)
+{
+	char tecla = key;
+	system("cls");
+	if (tablero.player1.Turno)
+	{
+		cout << "Turno de " << tablero.player1.Nombre << endl;
+	}
+	else
+	{
+		cout << "Turno de " << tablero.player2.Nombre << endl;
+	}
+	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, dat, tablero, tecla);
+}
+
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
 	return tablero.cargarPartida(nombreArchivo);
 }
+
 void Partida::mostrarTablero() {
 	tablero.mostrar();
 }
@@ -42,3 +94,15 @@ Tablero& Partida::getTablero()
 	return this->tablero;
 }
 
+bool Partida::get_estado_Jaque()
+{
+	return this->estado_JAQUE;
+}
+
+bool Partida::guardar_partida() {
+	return tablero.guardarPartida("partida_guardada.txt");
+}
+
+bool Partida::cargar_partida() {
+	return tablero.cargarPartida("partida_guardada.txt");
+}

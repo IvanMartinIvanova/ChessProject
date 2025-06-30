@@ -2,7 +2,9 @@
 #include "casilla.h"
 #include "ETSIDI.h"
 #include "freeglut.h"
+#include "tablero.h"
 #include "Vector3D.h"
+#include "Jugador.h"
 
 class CasillaSelec
 {
@@ -12,6 +14,7 @@ class CasillaSelec
 
 public:
 	CasillaSelec();
+	void cambiocolor();
 	void move(unsigned char tecla);
 	void resalta(int side, Vector3D org);
 	void draw(float side, Vector3D org);

@@ -1,23 +1,25 @@
+
+
 #pragma once
-#include <iostream>
+#include "ETSIDI.h"
+#include "Pantalla.h"
+#include <freeglut.h>
 #include <string>
-#include "Menu.h"
-#include "Partida.h"
-#include "DATOS_DIBUJO.h"
-#include "tablero.h"
-#include <iostream>
+class Menu : public Pantalla{
+private:
 
-    class Menu {
+    ETSIDI::Sprite* fondo;
+    ETSIDI::Sprite* banner;
+    int opcionSeleccionada = 0;
 
-        char tecla_key;
-    public:
-        void mostrarPrincipal();
-        int obtenerOpcion();
-        void limpiarPantalla();
-        void Menu_Progress();
-        std::string Conversor(const TipoPieza& tipo);
-        std::string Conversor2(const Colorpieza& color);
-        void tecla(char key);
-    };
+   public:
+    void dibujarPantalla() override;
+    Menu();
+
+    /*void iniciar(int argc, char* argv[]);
+    int obtenerOpcion();*/
+
+};
+
 
 

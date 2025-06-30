@@ -16,12 +16,12 @@ ListaCasillas::ListaCasillas()
     for (auto i = 0; listacasillas.size() > i; i++)
     {
         bool color;
-        if (listacasillas[i].getrow() < 4)
+        if (listacasillas[i].getfile() < 4)
             color = 1;
         else
             color = 0;
 
-        listacasillas[i].setpieza(new VacioGr(color));
+        listacasillas[i].setpieza(new VacioGr());
 
         if (listacasillas[i].getfile() == 2 || listacasillas[i].getfile() == 7)
         {

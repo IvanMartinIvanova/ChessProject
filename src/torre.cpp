@@ -3,10 +3,14 @@
 
 
 bool Torre::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) {
-    if (xIni != xFin && yIni != yFin) return false;
+    //En caso de que se seleccione como casilla final la misma casilla que la inicial -> movimiento no válido
+    if (xIni == xFin && yIni == yFin) return false;
 
     int dx = (xFin > xIni) ? 1 : (xFin < xIni) ? -1 : 0;
     int dy = (yFin > yIni) ? 1 : (yFin < yIni) ? -1 : 0;
+
+    //No puede moverse en diagonal
+    if (dx != 0 && dy != 0) return false;
 
     int x = xIni + dx;
     int y = yIni + dy;

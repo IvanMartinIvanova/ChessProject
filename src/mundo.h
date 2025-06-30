@@ -5,8 +5,14 @@
 #include "ETSIDI.h"
 #include "tablerogr.h"
 #include "casillaselec.h"
+#include "Partida.h"
+#include "Registros.h"
+#include "Menu.h"
+#include <vector>
 
 using uchar = unsigned char;
+
+//enum class EstadoJuego { MENU, JUGANDO, ESPERANDO_INPUT, FIN_PARTIDA};
 
 class Mundo
 {
@@ -23,7 +29,7 @@ private:
 	//Bonus bonus;
 	Plataforma tablero{ { -10,10,-5},{10,-10,-6},{255,255,255} };
 	Plataforma piezas1{ {-15,-5,0},{-13,-6,-5},{180,0,240} };
-	Plataforma piezas2{ {13,-5,0},{15,-6,-5},{180,0,240} };
+	Plataforma piezas2{ {13,-5,0},{15,-6,-5},{0,0,240} };
 	TableroGr tablerogr;
 
 
@@ -32,10 +38,22 @@ private:
 
 
 public:
+	Jugador player1;
+	Jugador player2;
+	Partida partida;
+	Menu menu_juego;
+	DATOS_DIBUJO datos;
+	int flag_juego;
+	bool flag_fin_partida;
+	int opcion_modo;
+	char key_tecla;
 	void mueve();
 	void dibuja();
 	Mundo();
 	void rotarOjo();
 	void inicializa();
 	void tecla(char key);
+	TableroGr& getTablerogr();
+	int getFlag();
+	bool update(int estado, Registro& reg);
 };

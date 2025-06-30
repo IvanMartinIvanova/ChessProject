@@ -6,10 +6,20 @@
 
 using namespace std;
 
-Jugador::Jugador(): points({0.0,0.0,0.0,0.0}), temp({0,0}), Turno(false)
+
+
+
+int Jugador::fila_cursor = 0;
+int Jugador::col_cursor = 0;
+int Jugador::fila_ini = -1;
+int Jugador::col_ini = -1;
+
+
+Jugador::Jugador(): points({0.0,0.0,0.0,0.0}), temp({0,0}), Turno{false}, Movimientos{0}
 {
 
 }
+
 Jugador& Jugador::operator=(const Jugador& player) {
     if (this != &player)
     {
@@ -22,82 +32,26 @@ Jugador& Jugador::operator=(const Jugador& player) {
     }
     return *this;
 }
-//bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
-//{
-//    string entrada;
-//    while (true)
-//    {
-//        cout << "Introduce el movimiento (Por ejemplo: b2 b3): ";
-//        getline(cin, entrada);
-//        // NUEVO BLOQUE: permitir guardar
-//        if (entrada == "guardar") {
-//            if (tab.guardarPartida("partida_guardada.txt")) {
-//                cout << "Partida guardada exitosamente.\n";
-//            }
-//            else {
-//                cout << "Error al guardar la partida.\n";
-//            }
-//            continue; // vuelve a pedir un movimiento
-//        }
-//        if (entrada == "guardar y salir") {
-//            if (tab.guardarPartida("partida_guardada.txt")) {
-//                cout << "Partida guardada exitosamente. Cerrando el juego...\n";
-//            }
-//            else {
-//                cout << "Error al guardar la partida. Cerrando de todos modos.\n";
-//            }
-//            exit(0); // termina el programa
-//        }
-//
-//
-//        if (entrada.length() != 5 || entrada[2] != ' ')
-//        {
-//            cout << "Formato inválido. Usa: b2 b4" << endl;
-//
-//        }
-//        else
-//        {
-//            int ColumnaIni = entrada[1] - '1'; //Quitamos 1 al numero que introducimos ya que el jugador ve filas/columnas del (1-8) pero el vector de filas/columnas es de (0-7)
-//            int FilaIni = entrada[0] - 'a';
-//            int ColumnaFin = entrada[4] - '1';
-//            int FilaFin = entrada[3] - 'a';
-//
-//
-//            if (FilaIni < 0 || FilaIni >= 8 || ColumnaIni < 0 || ColumnaIni >= 8 ||
-//                FilaFin < 0 || FilaFin >= 8 || ColumnaFin < 0 || ColumnaFin >= 8) 
-//            {
-//                cout << "Coordenadas fuera de rango" << endl;
-//
-//            }
-//            else
-//            {
-//
-//                if (!tab.getCasilla(FilaIni, ColumnaIni)) { //Comprueba si en la casilla seleccionada para mover hay o no una pieza
-//                    cout << "No hay pieza en la casilla de origen.\n";
-//                }
-//                else
-//                {
-//
-//                    for (int i = 0; i < lista_piezas_actuales.lista_piezas.size(); i++)
-//                    {
-//                        if (lista_piezas_actuales.lista_piezas[i] == tab.getCasilla(FilaIni, ColumnaIni)) //Comprobamos si la casilla que ha seleccionado el jugador para mover hay una pieza suya
-//                        {
-//                            if (tab.mover(FilaIni, ColumnaIni, FilaFin, ColumnaFin,*this,dat)) //Si se ha realizado correctamente el movimiento, entonces la función mover devuelve true
-//                            {
-//                                return true;
-//                            }
-//                           
-//                        }
-//                    }
-//                    cout << "La pieza seleccionada no es del Jugador que tiene el turno" << endl;
-//                }
-//            }
-//      
-//        }
-//    }
-//
-//}
 
+string Jugador::get_Name()
+{
+    return this->Nombre;
+}
+
+bool Jugador::get_Turno()
+{
+    return this->Turno;
+}
+
+int Jugador::get_nMov()
+{
+    return this->Movimientos;
+}
+
+Puntuacion Jugador::get_Punt()
+{
+    return this->points;
+}
 void Jugador::actualizar_listas(Jugador& player)
 {
 
@@ -111,7 +65,6 @@ void Jugador::actualizar_listas(Jugador& player)
             if (pieza_comida == lista_piezas_actuales.obtener_pieza(j))
             {
                 this->lista_piezas_actuales.eliminar(pieza_comida); //Eliminamos la pieza del jugador que llama a la función que hayan sido comidas por el jugador que se pasa como argumento
-                return;
             }
         }
     }
@@ -119,79 +72,26 @@ void Jugador::actualizar_listas(Jugador& player)
 
 }
 
-bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
+bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key, Jugador& player_turnoInactivo)
 {
-    int fila_cursor = 0, col_cursor = 0;
-    int fila_ini = -1, col_ini = -1;
     bool continuar = true;
 
    // while (continuar)
    // {
-        system("cls");
+        /*system("cls");
         std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
-        std::cout << "Turno de " << this->Nombre << endl;
-        tab.mostrarConCursor(fila_cursor, col_cursor);
+        std::cout << "Turno de " << this->Nombre << endl;*/
+        //tab.mostrarConCursor(fila_cursor, col_cursor);
 
-        char tecla = _getch();
 
-        switch (tecla)
+        switch (key)
         {
         case 'w': if (fila_cursor > 0) fila_cursor--; break;
         case 's': if (fila_cursor < 7) fila_cursor++; break;
         case 'a': if (col_cursor > 0) col_cursor--; break;
         case 'd': if (col_cursor < 7) col_cursor++; break;
 
-        case 'g': {
-            if (tab.guardarPartida("partida_guardada.txt"))
-                std::cout << "Partida guardada.\n";
-            else
-                std::cout << "Error al guardar la partida.\n";
-            _getch();
-            break;
-        }
-
-        case 'q': {
-            if (tab.guardarPartida("partida_guardada.txt"))
-                std::cout << "Guardado y salida exitosa.\n";
-            else
-                std::cout << "Guardado fallido. Cerrando de todos modos.\n";
-            exit(0);
-        }
-
-        case 't': {  //  modo texto
-            std::string entrada;
-            std::cout << "\nIntroduce el movimiento (Ej: b2 b3): ";
-            std::getline(std::cin, entrada);
-
-            if (entrada == "guardar") {
-                tab.guardarPartida("partida_guardada.txt");
-                std::cout << "Partida guardada.\n";
-                _getch();
-                break;
-            }
-            if (entrada == "guardar y salir") {
-                tab.guardarPartida("partida_guardada.txt");
-                std::cout << "Partida guardada. Cerrando...\n";
-                exit(0);
-            }
-
-            if (entrada.length() == 5 && entrada[2] == ' ') {
-                int col_ini = entrada[0] - 'a';
-                int fila_ini = entrada[1] - '1';
-                int col_fin = entrada[3] - 'a';
-                int fila_fin = entrada[4] - '1';
-
-                if (tab.mover(fila_ini, col_ini, fila_fin, col_fin, *this, dat))
-                    return true;
-                else {
-                    std::cout << "Movimiento inválido.\n";
-                    _getch();
-                }
-            }
-            break;
-        }
-
-        case '\r':  // ENTER para seleccionar
+        case ' ':  // ESPACIO para seleccionar
             if (fila_ini == -1) {
                 // ORIGEN
                 Pieza* seleccion = tab.getCasilla(fila_cursor, col_cursor);
@@ -207,12 +107,14 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
             }
             else {
                 // DESTINO
-                if (tab.mover(fila_ini, col_ini, fila_cursor, col_cursor, *this, dat)) {
+                if (tab.mover(fila_ini, col_ini, fila_cursor, col_cursor, *this, player_turnoInactivo, dat)) {
+                    fila_ini = -1;
+                    col_ini = -1;
                     return true;
                 }
                 else {
                     std::cout << "Movimiento inválido.\n";
-                    _getch();
+                    //_getch();
                 }
                 fila_ini = -1;
                 col_ini = -1;
@@ -222,8 +124,68 @@ bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat)
         default: break;
         }
    // }
-
+    tab.mostrarConCursor(fila_cursor, col_cursor);
     return false;
 }
+
+void Jugador::calc_punt(Colorpieza Color)
+{
+    float puntuacion1 = 0.0;
+    float puntuacion2 = 0.0;
+    for (int i = 0; i < this->lista_piezas_actuales.lista_piezas.size(); i++)
+    {
+        if (this->lista_piezas_actuales.lista_piezas[i]->color == Color)
+        {
+            switch (this->lista_piezas_actuales.lista_piezas[i]->getTipo())
+            {
+            case TipoPieza::PEON:
+                puntuacion1 += 1.0;
+                break;
+            case TipoPieza::ALFIL:
+                puntuacion1 += 3.0;
+                break;
+            case TipoPieza::CABALLO:
+                puntuacion1 += 3.0;
+                break;
+            case TipoPieza::TORRE:
+                puntuacion1 += 5.0;
+                break;
+            case TipoPieza::REINA:
+                puntuacion1 += 9.0;
+                break;
+            }
+        }
+    }
+    this->points.Puntos_remaining_piezas = puntuacion1;
+
+    for (int i = 0; i < this->lista_piezas_comidas.lista_piezas.size(); i++)
+    {
+        if (this->lista_piezas_comidas.lista_piezas[i]->color != Color) //No se tiene en cuenta para la puntuación las piezas del mismo color comidas, solo las piezas del otro jugador
+        {
+            switch (this->lista_piezas_comidas.lista_piezas[i]->getTipo())
+            {
+            case TipoPieza::PEON:
+                puntuacion2 += 1.0;
+                break;
+            case TipoPieza::ALFIL:
+                puntuacion2 += 3.0;
+                break;
+            case TipoPieza::CABALLO:
+                puntuacion2 += 3.0;
+                break;
+            case TipoPieza::TORRE:
+                puntuacion2 += 5.0;
+                break;
+            case TipoPieza::REINA:
+                puntuacion2 += 9.0;
+                break;
+            }
+        }
+    }
+    this->points.Puntos_piezas_comidas = puntuacion2;
+
+    this->points.Puntos_totales = puntuacion1 + puntuacion2;
+}
+
 
 

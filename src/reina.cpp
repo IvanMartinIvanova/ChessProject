@@ -7,6 +7,10 @@
 // Implementación de movimientoValido, con Tablero
 bool Reina::movimientoValido(int xIni, int yIni, int xFin, int yFin, Tablero& tablero) 
 {
+
+    //En caso de que se seleccione como casilla final la misma casilla que la inicial -> movimiento no válido
+    if (xIni == xFin && yIni == yFin) return false;
+   
     // La reina puede moverse en línea recta o diagonal
     int dx = abs(xFin - xIni);
     int dy = abs(yFin - yIni);

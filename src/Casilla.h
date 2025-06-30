@@ -1,18 +1,12 @@
-//#pragma once
-//
-//struct Casilla{
-//
-//	int fila;
-//	int columna;
-//};
-
 #pragma once
 #include <map>
 #include <vector>
 #include <string>
 #include <iostream>
 #include <Vector3D.h>
+#include "tablero.h"
 #include "piezagr.h"
+#include "Color.h"
 #include "freeglut.h"
 
 using namespace std;
@@ -38,7 +32,8 @@ public:
 	string gettipo();
 	void drawselec(int side, Vector3D org);
 	void drawposibl(int side, Vector3D org);
-
+	void print();
+	void dibuja_Jaque(int side, Vector3D org, Color color);
 
 	virtual void draw();
 	friend class Tablero;

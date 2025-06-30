@@ -19,6 +19,7 @@ public:
 
 	virtual void draw() = 0;
 	void dibuja() { this->draw(); }
+	bool getcolor() { return color; }
 	std::string gettipo();
 	//virtual void drawmov() = 0;
 
@@ -31,8 +32,14 @@ public:
 
 	PeonGr(bool colorin) : PiezaGr(colorin)
 	{
-		sprite = new ETSIDI::Sprite("rc/pwaun.png", 0, 0, tamano, tamano);
-		tipo = "peon";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/Pawn_Black.png", 0, 0, tamano, tamano);
+			tipo = "peon";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/Pawn_White.png", 0, 0, tamano, tamano);
+			tipo = "peon";
+		}
 	};
 
 	void draw() override { sprite->draw(); }
@@ -42,8 +49,14 @@ class CaballoGr : public PiezaGr
 {
 public:
 	CaballoGr(bool colorin) : PiezaGr(colorin) {
-		sprite = new ETSIDI::Sprite("rc/horsey.png", 0, 0, tamano, tamano);
-		tipo = "caballo";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/Horse_Black.png", 0, 0, tamano, tamano);
+			tipo = "caballo";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/Horse_White.png", 0, 0, tamano, tamano);
+			tipo = "caballo";
+		}
 	}
 
 	void draw() override { sprite->draw(); };
@@ -53,10 +66,15 @@ class AlfilGr : public PiezaGr
 {
 public:
 	AlfilGr(bool colorin) : PiezaGr(colorin) {
-		sprite = new ETSIDI::Sprite("rc/bizop.png", 0, 0, tamano, tamano);
-		tipo = "alfil";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/Bizhop_Black.png", 0, 0, tamano, tamano);
+			tipo = "alfil";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/Bizhop_White.png", 0, 0, tamano, tamano);
+			tipo = "alfil";
+		}
 	}
-
 	void draw() override { sprite->draw(); }
 };
 
@@ -64,8 +82,14 @@ class TorreGr : public PiezaGr
 {
 public:
 	TorreGr(bool colorin) : PiezaGr(colorin) {
-		sprite = new ETSIDI::Sprite("rc/tower.png", 0, 0, tamano, tamano);
-		tipo = "torre";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/Tower_Black.png", 0, 0, tamano, tamano);
+			tipo = "torre";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/Tower_White.png", 0, 0, tamano, tamano);
+			tipo = "torre";
+		}
 	}
 
 	void draw() override { sprite->draw(); }
@@ -75,11 +99,17 @@ class ReyGr : public PiezaGr
 {
 public:
 	ReyGr(bool colorin) : PiezaGr(colorin) {
-		sprite = new ETSIDI::Sprite("rc/king.png", 0, 0, tamano, tamano);
-		tipo = "rey";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/King_Black.png", 0, 0, tamano, tamano);
+			tipo = "rey";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/King_White.png", 0, 0, tamano, tamano);
+			tipo = "rey";
+		}
 	}
 
-	using PiezaGr::PiezaGr;
+
 
 	void draw() override { sprite->draw(); }
 };
@@ -88,8 +118,14 @@ class ReinaGr : public PiezaGr
 {
 public:
 	ReinaGr(bool colorin) : PiezaGr(colorin) {
-		sprite = new ETSIDI::Sprite("rc/qween.png", 0, 0, tamano, tamano);
-		tipo = "reina";
+		if (colorin == 0) {
+			sprite = new ETSIDI::Sprite("rc/Queen_Black.png", 0, 0, tamano, tamano);
+			tipo = "reina";
+		}
+		else if (colorin == 1) {
+			sprite = new ETSIDI::Sprite("rc/Queen_White.png", 0, 0, tamano, tamano);
+			tipo = "reina";
+		}
 	}
 
 	void draw() override { sprite->draw(); }
@@ -98,12 +134,11 @@ public:
 class VacioGr : public PiezaGr
 {
 public:
-	VacioGr(bool colorin) : PiezaGr(colorin) {
+	VacioGr() {
+		color = NULL;
 		sprite = nullptr;
 		tipo = "vacio";
 	}
 
 	void draw() override {  }
 };
-
-

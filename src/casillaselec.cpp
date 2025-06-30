@@ -2,36 +2,42 @@
 
 CasillaSelec::CasillaSelec()
 {
-	file = 3;
-	row = 3;
-	filein = 3;
-	rowin = 3;
+	row = 8;
+	file = 1;
+	rowin = 8;
+	filein = 1;
 }
 
 void CasillaSelec::move(unsigned char tecla)
 {
-	if ((tecla == 'w') && (filein < 8))
-		filein += 1;
-	if (tecla == 's' && filein > 1)
-		filein -= 1;
-	if (tecla == 'd' && rowin < 8)
-		rowin += 1;
-	if (tecla == 'a' && rowin > 1)
-		rowin -= 1;
 	if (tecla == ' ')
 	{
 		file = filein;
 		row = rowin;
 	}
+	else
+	{
+		if (tecla == 'w' && rowin < 8)
+			rowin += 1;
+		if (tecla == 's' && rowin > 1)
+			rowin -= 1;
+		if (tecla == 'd' && filein < 8)
+			filein += 1;
+		if (tecla == 'a' && filein > 1)
+			filein -= 1;
+	}
+	//if (tecla == '\r')
+	
 
-	std::cout << row << " " << file << std::endl;
-	std::cout << CasillaSelec::gettipo(rowin, file) << std::endl;
+	//std::cout << row << " " << file << std::endl;
+	//std::cout << CasillaSelec::gettipo(rowin, file) << std::endl;
 }
 
 
 void CasillaSelec::draw(float side, Vector3D org)
 {
-	getcasilla(rowin, filein).drawselec(side, org);
+	getcasilla(filein, rowin).drawselec(side, org);
+	getcasilla(filein, rowin).print();
 	//std::cout << file << " " << row << " " << endl;
 }
 
@@ -40,107 +46,134 @@ void CasillaSelec::getlista(vector<Casilla>* listain)
 	lista = listain;
 }
 
-PiezaGr* CasillaSelec::getpieza(int rowin, int filein)
+PiezaGr* CasillaSelec::getpieza(int filein, int rowin)
 {
-	Casilla casilla = (*lista)[(rowin - 1) * 8 + (filein - 1)];
-	return casilla.getpieza();
+	if (filein > 0 && rowin > 0 && filein < 9 && rowin < 9)
+		return (*lista)[(filein - 1) * 8 + (rowin - 1)].getpieza();
+
+	else 
+	{
+		std::cerr << "Error: coordenadas inválidas (getpieza) (" << filein << ", " << rowin << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
 
-string CasillaSelec::gettipo(int rowin, int filein)
+string CasillaSelec::gettipo(int filein, int rowin)
 {
-	return getpieza(rowin, filein)->gettipo();
+	if (filein > 0 && rowin > 0 && filein < 9 && rowin < 9)
+		return getpieza(filein, rowin)->gettipo();
+
+	else
+	{
+		std::cerr << "Error: coordenadas inválidas (gettipo) (" << filein << ", " << rowin << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
 
 Casilla CasillaSelec::getcasilla()
 {
-	return (*lista)[(row - 1) * 8 + (file - 1)];
+	return (*lista)[(file - 1) * 8 + (row - 1)];
 }
 
-Casilla CasillaSelec::getcasilla(int row, int file)
+Casilla CasillaSelec::getcasilla(int file, int row)
 {
-	return (*lista)[(row - 1) * 8 + (file - 1)];
+	if (file > 0 && row > 0 && file < 9 && row < 9)
+		return (*lista)[(file - 1) * 8 + (row - 1)];
+
+	else 
+	{
+		std::cerr << "Error: coordenadas inválidas (getcasilla) (" << file << ", " << row << ")\n";
+		std::exit(EXIT_FAILURE);  // Termina el programa con código de error
+	}
 }
+
 
 void CasillaSelec::resalta(int side, Vector3D org)
 {
-	std::string tipo = getcasilla(file, row).gettipo();
-
-	if (tipo == "reina")
+	std::string tipo = gettipo(file, row);
+	bool color = getpieza(file, row)->getcolor();
+	cout << file << " " << row << endl;
+	if (color == Tablero::turno)
 	{
-		for (auto i = 0; (*lista).size() > i; i++)
+		if (tipo == "reina")
 		{
-			if (reina(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
+			for (auto i = 0; (*lista).size() > i; i++)
 			{
-				(*lista)[i].drawposibl(side, org);
+				if (reina(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
+			}
+		}
+		if (tipo == "peon")
+		{
+			for (auto i = 0; (*lista).size() > i; i++)
+			{
+				if (peon(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
+			}
+		}
+		if (tipo == "torre")
+		{
+			for (auto i = 0; (*lista).size() > i; i++)
+			{
+				if (torre(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
+			}
+		}
+		if (tipo == "alfil")
+		{
+			for (auto i = 0; (*lista).size() > i; i++)
+			{
+				if (alfil(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
+			}
+		}
+		if (tipo == "caballo")
+		{
+			for (auto i = 0; (*lista).size() > i; i++)
+			{
+				if (caballo(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
+			}
+		}
+		if (tipo == "rey")
+		{
+			for (auto i = 0; (*lista).size() > i; i++)
+			{
+				if (rey(CasillaSelec::getcasilla(file, row), (*lista)[i]) == 1)
+				{
+					(*lista)[i].drawposibl(side, org);
+				}
 			}
 		}
 	}
-	if (tipo == "peon")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
-		{
-			if (peon(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
-			{
-				(*lista)[i].drawposibl(side, org);
-			}
-		}
-	}
-	if (tipo == "torre")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
-		{
-			if (torre(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
-			{
-				(*lista)[i].drawposibl(side, org);
-			}
-		}
-	}
-	if (tipo == "alfil")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
-		{
-			if (alfil(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
-			{
-				(*lista)[i].drawposibl(side, org);
-			}
-		}
-	}
-	if (tipo == "caballo")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
-		{
-			if (caballo(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
-			{
-				(*lista)[i].drawposibl(side, org);
-			}
-		}
-	}
-	if (tipo == "rey")
-	{
-		for (auto i = 0; (*lista).size() > i; i++)
-		{
-			if (rey(CasillaSelec::getcasilla(row, file), (*lista)[i]) == 1)
-			{
-				(*lista)[i].drawposibl(side, org);
-			}
-		}
-	}
-
-
 }
 
 bool CasillaSelec::reina(Casilla casillap, Casilla casillacheck)
 {
+
+
 	// La reina puede moverse en l�nea recta o diagonal
 	int xIni = casillap.getfile();
 	int yIni = casillap.getrow();
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
 
+
+
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
 
-	std::cout << "balls" << std::endl;
+	//std::cout << "balls" << std::endl;
 
 	// Verificamos si el movimiento es en l�nea recta o en diagonal
 	if (dx == 0 || dy == 0 || dx == dy) {
@@ -176,28 +209,29 @@ bool CasillaSelec::peon(Casilla casillap, Casilla casillacheck) {
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
 
+
 	int x1in = xIni, y1in = yIni, x2in = xFin, y2in = yFin;
 	if (casillap.getfile() < 9 && casillap.getfile() > 0)
 	{
 		if (casillap.getpieza()->color == 1) {
-			if (xIni == xFin && yFin == yIni + 1 && gettipo(xFin, yFin) == "vacio") {
+			if (xFin == xIni + 1 && yFin == yIni && gettipo(xFin, yFin) == "vacio") {
 				return true;  // Avance de una casilla hacia adelante
 			}
-			if (xIni == xFin && yIni == 2 && yFin == 4 && gettipo(xFin, yFin) == "vacio" && gettipo(xIni, yIni + 1) == "vacio") {
+			if (xIni == 2 && xFin == 4 && yIni == yFin && gettipo(xFin, yFin) == "vacio" && gettipo(xIni + 1, yIni) == "vacio") {
 				return true;  // Avance de dos casillas hacia adelante
 			}
-			if (abs(xFin - xIni) == 1 && yFin == yIni + 1 && gettipo(xFin, yFin) != "vacio") {
+			if (abs(yFin - yIni) == 1 && xFin == xIni + 1 && gettipo(xFin, yFin) != "vacio") {
 				return true;  // Captura en diagonal
 			}
 		}
 		else if (casillap.getpieza()->color == 0) {
-			if (xIni == xFin && yFin == yIni - 1 && gettipo(xFin, yFin) == "vacio") {
+			if (xFin == xIni - 1 && yFin == yIni && gettipo(xFin, yFin) == "vacio") {
 				return true;  // Avance de una casilla hacia adelante
 			}
-			if (xIni == xFin && yIni == 7 && yFin == 5 && gettipo(xFin, yFin) == "vacio" && gettipo(xIni, yIni - 1) == "vacio") {
+			if (xIni == 7 && xFin == 5 && yIni == yFin && gettipo(xFin, yFin) == "vacio" && gettipo(xIni - 1, yIni) == "vacio") {
 				return true;  // Avance de dos casillas hacia adelante
 			}
-			if (abs(xFin - xIni) == 1 && yFin == yIni - 1 && gettipo(xFin, yFin) != "vacio") {
+			if (abs(yFin - yIni) == 1 && xFin == xIni - 1 && gettipo(xFin, yFin) != "vacio") {
 				return true;  // Captura en diagonal
 			}
 		}
@@ -211,10 +245,13 @@ bool CasillaSelec::torre(Casilla casillap, Casilla casillacheck)
 	int yIni = casillap.getrow();
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
+	
+	//Para evitar que se seleccionen las diagonales
 	if (xIni != xFin && yIni != yFin) return false;
 
 	int dx = (xFin > xIni) ? 1 : (xFin < xIni) ? -1 : 0;
 	int dy = (yFin > yIni) ? 1 : (yFin < yIni) ? -1 : 0;
+
 
 	int x = xIni + dx;
 	int y = yIni + dy;
@@ -231,10 +268,11 @@ bool CasillaSelec::torre(Casilla casillap, Casilla casillacheck)
 
 bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 {
-	int xIni = casillap.getfile();
-	int yIni = casillap.getrow();
+	int xIni = casillap.getfile(); //Columnas (File)
+	int yIni = casillap.getrow(); //Filas (Row)
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
+
 
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
@@ -248,14 +286,24 @@ bool CasillaSelec::alfil(Casilla casillap, Casilla casillacheck)
 	int x = xIni + xDirection;
 	int y = yIni + yDirection;
 
+	if (x < 1 || y < 1 || x > 8 || y > 8)
+		return false;
+
 	while (x != xFin && y != yFin) {
-		if (gettipo(x, y) != "vacio") {
+		if (xFin > 0 && yFin > 0) {
+			
+			if (gettipo(x, y) != "vacio")
 			return false;  // Si hay una pieza en el camino, no se puede mover
+			
+			
 		}
 		x += xDirection;
 		y += yDirection;
-	}
 
+		if (x < 1 || y < 1 || x > 8 || y > 8)
+			return false;
+
+	}
 	return true;
 }
 
@@ -265,6 +313,8 @@ bool CasillaSelec::caballo(Casilla casillap, Casilla casillacheck)
 	int yIni = casillap.getrow();
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
+
+	
 
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);
@@ -277,6 +327,7 @@ bool CasillaSelec::rey(Casilla casillap, Casilla casillacheck)
 	int yIni = casillap.getrow();
 	int xFin = casillacheck.getfile();
 	int yFin = casillacheck.getrow();
+
 
 	int dx = abs(xFin - xIni);
 	int dy = abs(yFin - yIni);

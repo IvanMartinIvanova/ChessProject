@@ -9,6 +9,7 @@ void ListaPiezas::dibuja()
 		p->dibuja(); //Dibujamos cada una de las piezas del jugador
 	}
 }
+
 void ListaPiezas::agregar(Pieza* p)
 {
 	if (lista_piezas.size() <= MAX_PIEZAS)
@@ -22,19 +23,17 @@ Pieza* ListaPiezas::obtener_pieza(int index) const
 {
 	return lista_piezas.at(index); //.at devuelve el elemento de la posición index de la lista verificando antes el rango
 }
+
 using namespace std;
 void ListaPiezas::eliminar(Pieza* p)
 {
 	int count = 0;
-	for (auto it = this->lista_piezas.begin(); it != this->lista_piezas.end(); it++)
+	for (int i = 0; i < this->lista_piezas.size(); i++)
 	{
-		count++;
-		if (*it == p)
+		if (p == lista_piezas[i])
 		{
-			delete *it;
-			lista_piezas.erase(it);
-			return;
-			
+			lista_piezas.erase(lista_piezas.begin() + i);
+			break;
 		}
 
 	}
