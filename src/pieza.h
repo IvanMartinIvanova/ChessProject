@@ -13,16 +13,18 @@ class Pieza {
 protected:
     TipoPieza tipo;
     Colorpieza color;
+    int Skin_Pieza;
     std::vector<Casilla>* lista;
    
 public:
-    Pieza(TipoPieza t) : tipo(t) {};
-    Pieza(TipoPieza tipo, Colorpieza color) : tipo(tipo), color(color), lista{ nullptr } {}
-    Pieza(const Pieza& otra) : tipo(otra.tipo), color(otra.color){} //Constructor Copia
+    Pieza(TipoPieza t) : tipo(t), Skin_Pieza(1) {};
+    Pieza(TipoPieza tipo, Colorpieza color) : tipo(tipo), color(color), Skin_Pieza(1), lista{nullptr} {}
+    Pieza(const Pieza& otra) : tipo(otra.tipo), color(otra.color), Skin_Pieza(1){} //Constructor Copia
     virtual ~Pieza() = default;
     virtual Pieza* clonar() const = 0; //Para clonar piezas
     TipoPieza& getTipo()  { return tipo;  }
     Colorpieza& getColor()  { return color; }
+    void setSkin(int skin) { this->Skin_Pieza = skin; }
     bool getColorBool() const;
     void getlista(vector<Casilla>* listain) { lista = listain; }
     void dibuja();

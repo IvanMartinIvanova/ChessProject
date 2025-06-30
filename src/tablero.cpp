@@ -83,7 +83,7 @@ Tablero::~Tablero() {
             }
 }
 
-void Tablero::inicializar() {
+void Tablero::inicializar(int skin_player1, int skin_player2 = 1) {
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
             casillas[fila][col] = nullptr;
@@ -98,7 +98,15 @@ void Tablero::inicializar() {
     casillas[6][7] = new Caballo(Colorpieza::NEGRO);
     casillas[7][7] = new Torre(Colorpieza::NEGRO);
     for (int i = 0; i < 8; i++)
+    {
+        casillas[i][7]->setSkin(skin_player2);
+    }
+
+    for (int i = 0; i < 8; i++)
+    {
         casillas[i][6] = new Peon(Colorpieza::NEGRO);
+        casillas[i][6]->setSkin(skin_player2);
+    }
 
     for (int i = 7; i >= 6; i--) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
     {
@@ -108,7 +116,10 @@ void Tablero::inicializar() {
 
     // Blancas izquierda (columna 0 y 1)
     for (int i = 0; i < 8; i++)
+    {
         casillas[i][1] = new Peon(Colorpieza::BLANCO);
+        casillas[i][1]->setSkin(skin_player1);
+    }
 
     casillas[0][0] = new Torre(Colorpieza::BLANCO);
     casillas[1][0] = new Caballo(Colorpieza::BLANCO);
@@ -118,6 +129,10 @@ void Tablero::inicializar() {
     casillas[5][0] = new Alfil(Colorpieza::BLANCO);
     casillas[6][0] = new Caballo(Colorpieza::BLANCO);
     casillas[7][0] = new Torre(Colorpieza::BLANCO);
+    for (int i = 0; i < 8; i++)
+    {
+        casillas[i][0]->setSkin(skin_player1);
+    }
 
     for (int i = 0; i <= 1; i++) //Agregamos las piezas del player 2 a la lista de sus piezas sobre el tablero (Guarda primero la columna de figuras y luego la de peones)
     {
@@ -264,6 +279,7 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
     Casilla piezas_atacantes2;
     Casilla piezas_defensoras;
     int escape_rey = 0;
+    bool flag_control = false;
     Tablero backup;
     backup = *this;
     //Detectamos la posicion del rey en la lista de piezas sobre el tablero del jugador defensor
@@ -328,6 +344,7 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
             else
             {
                 *this = backup;
+                flag = 0;
                 /*if (defensor.Nombre == this->player1.Nombre && atacante.Nombre == this->player2.Nombre)
                 {
                     defensor.lista_piezas_actuales = player1.lista_piezas_actuales;
@@ -342,8 +359,8 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
             if (flag == -1)
                 break;
         }
-        if (flag == -1)
-            break;
+        /*if (flag == -1)
+            break;*/
     }
 
     if (escape_rey == 0)
@@ -376,25 +393,37 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
                                         {
                                             resetCasilla(f, c); //El defensor no ha podido proteger al rey
                                             escape_rey = 0;
+                                            flag_control = true; //Hay que pasar al siguiente defensor ya que hay al menos un atacante que sigue dando jaque (el defensor no lo ha bloqueado)
+                                            break;
+
                                         }
-                                        else
+                                        else //El defensor ha podido bloquear al atacante, asique probamos otro atacante
                                         {
-                                            resetCasilla(f, c);
-                                            escape_rey = 1;
+                                            resetCasilla(f, c); 
                                             *this = backup;
-                                            return true; //El defensor puede proteger al rey
+                                            flag_control = false;
+                                            escape_rey = 1;
+              
                                         }
+                                       
                                     }
 
                                 }
+                                if (flag_control) //Salimos de los bucles for para pasar al siguiente defensor
+                                    break;
+
                             }
 
 
                         }
+                        if (flag_control) //Salimos de los bucles for para pasar al siguiente defensor
+                            break;
                     }
+                   
                 }
             }
         }
+
     }
     if (escape_rey == 0)
         return false; //Jaque mate
@@ -1371,7 +1400,7 @@ bool Tablero::comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_
                     if (comprobacion_jaque(turno_inactivo, turno_activo))
                     {
                         *this = backup; //No vale el movimiento, retornamos al estado anterior del tablero
-                        if (turno_inactivo.Nombre == this->player1.Nombre && turno_activo.Nombre == this->player2.Nombre)
+                        /*if (turno_inactivo.Nombre == this->player1.Nombre && turno_activo.Nombre == this->player2.Nombre)
                         {
                             turno_inactivo.lista_piezas_actuales = player1.lista_piezas_actuales;
                             turno_activo.lista_piezas_actuales = player2.lista_piezas_actuales;
@@ -1380,7 +1409,7 @@ bool Tablero::comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_
                         {
                             turno_activo.lista_piezas_actuales = player1.lista_piezas_actuales;
                             turno_inactivo.lista_piezas_actuales = player2.lista_piezas_actuales;
-                        }
+                        }*/
 
                     }
                     else //Hay al menos un movimiento legal

@@ -31,6 +31,8 @@ Pantalla pantalla_fin_partida{ "rc/banner.png" };
 Pantalla pantalla_regis{ "rc/fondo2.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;
+bool nombre_Player2ok = false;
+bool num_skin_player1ok = false;
 bool flag_regis = false;
 string nomb1;
 string nomb2;
@@ -38,6 +40,8 @@ vector<Pieza*> piezas_jaque_p1{};
 vector<Pieza*> piezas_jaque_p2{};
 Registro reg;
 Registro* reg2 = nullptr;
+int skin_player1 = 0;
+int skin_player2 = 0;
 
 int main(int argc, char* argv[])
 {
@@ -151,10 +155,14 @@ void OnDraw(void)
 		seleccion_jug.dibujarPantalla();
 		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
 		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
-		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
-		seleccion_jug.dibujarCadena_Caract(0.2f, 0.2f, nomb1);
-		seleccion_jug.dibujarTexto(-0.6f, -0.2f, "Nombre player2 - Piezas NEGRAS");
-		seleccion_jug.dibujarCadena_Caract(0.2f, -0.2f, nomb2);
+		seleccion_jug.dibujarTexto(-0.4f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
+		seleccion_jug.dibujarCadena_Caract(0.4f, 0.2f, nomb1);
+		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "Elija la skin para las piezas (1, 2 o 3): ");
+		seleccion_jug.dibujarNumero(0.4f, 0.0f, skin_player1);
+		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "Nombre player2 - Piezas NEGRAS");
+		seleccion_jug.dibujarCadena_Caract(0.4f, -0.2f, nomb2);
+		seleccion_jug.dibujarTexto(-0.4f, -0.4f, "Elija la skin para las piezas (1, 2 o 3): ");
+		seleccion_jug.dibujarNumero(0.4f, -0.4f, skin_player2);
 		break;
 	}
 	case EstadoApp::SEL_JUG_IA:
@@ -162,10 +170,15 @@ void OnDraw(void)
 		seleccion_jug.dibujarPantalla();
 		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
 		nomb2 = "IA";
-		seleccion_jug.dibujarTexto(-0.6f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
-		seleccion_jug.dibujarCadena_Caract(0.2f, 0.2f, nomb1);
-		seleccion_jug.dibujarTexto(-0.6f, -0.2f, "Nombre player2 - Piezas NEGRAS");
-		seleccion_jug.dibujarCadena_Caract(0.2f, -0.2f, nomb2);
+		skin_player2 = 1;
+		seleccion_jug.dibujarTexto(-0.4f, 0.2f, "Nombre player1 - Piezas BLANCAS: ");
+		seleccion_jug.dibujarCadena_Caract(0.6f, 0.2f, nomb1);
+		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "Elija la skin para las piezas (1, 2 o 3): ");
+		seleccion_jug.dibujarNumero(0.6f, 0.0f, skin_player1);
+		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "Nombre player2 - Piezas NEGRAS");
+		seleccion_jug.dibujarCadena_Caract(0.6f, -0.2f, nomb2);
+		seleccion_jug.dibujarTexto(-0.4f, -0.4f, "Elija la skin para las piezas (1, 2 o 3): ");
+		seleccion_jug.dibujarNumero(0.6f, -0.4f, skin_player2);
 		break;
 	}
 	case EstadoApp::SEL_SAVE:
@@ -431,6 +444,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		}
 		case EstadoApp::SEL_JUG:
 		{
+			
 			if (!nombre_Player1ok)
 			{
 				if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
@@ -439,12 +453,41 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				}
 			}
 			else
-				if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer2()))
+			{
+				if (!num_skin_player1ok)
 				{
-					mundo.inicializa();
-					partida_activa = true;
-					estadoActual = JUEGO;
+					if (mundo.partida.escoger_skin(key, skin_player1))
+					{
+						num_skin_player1ok = true;
+					}
 				}
+				else
+				{
+					if (!nombre_Player2ok)
+					{
+						if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer2()))
+						{
+							nombre_Player2ok = true;
+						}
+					}
+					else
+					{
+						if (mundo.partida.escoger_skin(key, skin_player2))
+						{
+							mundo.inicializa(skin_player1, skin_player2);
+							partida_activa = true;
+							nombre_Player1ok = false;
+							nombre_Player2ok = false;
+							num_skin_player1ok = false;
+							skin_player1 = 0;
+							skin_player2 = 0;
+							estadoActual = JUEGO;
+
+						}
+					}
+
+				}
+			}
 			break;
 		}
 		case EstadoApp::SEL_SAVE:
@@ -484,16 +527,30 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 
 		case EstadoApp::SEL_JUG_IA:
 		{
-			if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
+			if (!nombre_Player1ok)
 			{
-				mundo.inicializa();
-				partida_activa = true;
-				estadoActual = JUEGO_VS_IA;
+				if (mundo.partida.escoger_player(key, mundo.partida.getTablero().getPlayer1()))
+				{
+					nombre_Player1ok = true;
+				}
+				
+			}
+			else
+			{
+				if (mundo.partida.escoger_skin(key, skin_player1))
+				{
+					mundo.inicializa(skin_player1, 1);
+					partida_activa = true;
+					nombre_Player1ok = false;
+					skin_player1 = 0;
+					estadoActual = JUEGO_VS_IA;
+				}
 			}
 			break;
 		}
 		case EstadoApp::JUEGO:
 		{
+			
 			if (key == 27) exit(0); // ESC
 			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
 			mundo.key_tecla = key;

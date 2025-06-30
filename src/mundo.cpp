@@ -71,9 +71,9 @@ void Mundo::mueve()
 {
 }
 
-void Mundo::inicializa()
+void Mundo::inicializa(const int& skin_player1, const int& skin_player2)
 {
-	partida.inicializar();
+	partida.inicializar(skin_player1, skin_player2);
 }
 
 bool Mundo::update(int estado, Registro& reg) {

@@ -31,7 +31,7 @@ public:
 
     Tablero& operator=(const Tablero& tab); //Constructor copia
     ~Tablero();//destructor
-    void inicializar(); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
+    void inicializar(int skin_player1, int skin_player2); //se usará para poner las piezas en la posición incial, luego si queremos guardar una partida podremos modificar esta función
     void mostrar(); // solo consola
 
     bool mover(int FilIni, int ColIni, int FilFin, int ColFin, Jugador& player_turnoActivo, Jugador& player_turnoInactivo, DATOS_DIBUJO& dat);
