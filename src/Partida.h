@@ -18,6 +18,7 @@ public:
 	void mostrarTablero();  // Nuevo método
 	Tablero& getTablero();
 	bool get_estado_Jaque();
+	void set_estado_Jaque(bool jaque);
 	~Partida() = default;
 	bool Progress_Partida_IA(DATOS_DIBUJO& dat, char key);
 	bool guardar_partida();

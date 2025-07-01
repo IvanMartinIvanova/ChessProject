@@ -58,11 +58,11 @@ int Registro::CreaRegistro(const char* nom1, const char* nom2, const Puntuacion&
 	}
 }
 
-void Registro::BorraRegistros(const int& numReg, Registro* list) //Elimina todos los registros (Proxima mejora poner esta funcion como independiente y poner una función miembro para borrar registros especificos)
+void Registro::BorraRegistros(Registro* list) //Elimina todos los registros 
 {
-	for (int i = 0; i < numReg; i++)
+	for (int i = 0; i < this->nRegistros; i++)
 	{
-		list[i].~Registro();
+		this[i].~Registro();
 	}
 	list = nullptr;
 	std::ofstream archivo("Registros.txt", std::ios::trunc); //Abrimos el fichero de texto en modo truncado, borrando su contenido pero sin elimar el fichero
@@ -75,7 +75,7 @@ Registro* Registro::LeeRegistros()
 	int capacidadInicial = 100;  // o cualquier número máximo esperado
 	regis = new Registro[capacidadInicial];
 	FILE* Reg;
-	int num = this->getNumReg();
+	int num = 0;
 	int j = 0;
 	char basura[250];
 	char salto = 0;

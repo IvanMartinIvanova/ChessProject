@@ -14,8 +14,8 @@ void Partida::inicializar(const int& skin_p1, const int& skin_p2) {
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
-	tablero.player1.Nombre.clear();
-	tablero.player2.Nombre.clear();
+	/*tablero.player1.Nombre.clear();
+	tablero.player2.Nombre.clear();*/
 	
 }
 
@@ -110,6 +110,11 @@ Tablero& Partida::getTablero()
 bool Partida::get_estado_Jaque()
 {
 	return this->estado_JAQUE;
+}
+
+void Partida::set_estado_Jaque(bool jaque)
+{
+	this->estado_JAQUE = jaque;
 }
 
 bool Partida::guardar_partida(const std::string& nombreArchivo) {

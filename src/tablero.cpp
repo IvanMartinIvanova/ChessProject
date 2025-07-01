@@ -272,14 +272,14 @@ Casilla Tablero::buscar_pieza(Pieza* p)
 bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& datos) //Devuelve TRUE - Si hay forma d escapar del JAQUE y FALSE si es JAQUE MATE
 {
     int pos_listaRey = 0;
-    int flag = 0;
+    
     Casilla casillaRey1;
     Casilla casillaRey2;
     Casilla piezas_atacantes;
     Casilla piezas_atacantes2;
     Casilla piezas_defensoras;
     int escape_rey = 0;
-    bool flag_control = false;
+    
     Tablero backup;
     backup = *this;
     //Detectamos la posicion del rey en la lista de piezas sobre el tablero del jugador defensor
@@ -294,7 +294,7 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
     {
         for (int columna = 0; columna <= 7; columna++)
         {
-            /*if (rey->movimientoValido(casillaRey.row, casillaRey.file, fila, columna, *this))*/
+           
             if (this->mover(casillaRey1.row, casillaRey1.file, fila, columna, defensor, atacante, datos)) //Movemos el rey a una posición válida y comprobamos después si sigue en jaque o no
             {
                 for (int i = 0; i < defensor.lista_piezas_actuales.size(); i++)
@@ -315,17 +315,6 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
                             //Cancelamos el movimiento del rey
                             escape_rey = 0;
                             *this = backup;
-                           /* if (defensor.Nombre == this->player1.Nombre && atacante.Nombre == this->player2.Nombre)
-                            {
-                                defensor.lista_piezas_actuales = player1.lista_piezas_actuales;
-                                atacante.lista_piezas_actuales = player2.lista_piezas_actuales;
-                            }
-                            else
-                            {
-                                atacante.lista_piezas_actuales = player1.lista_piezas_actuales;
-                                defensor.lista_piezas_actuales = player2.lista_piezas_actuales;
-                            }*/
-                            flag = -1;
                             break;
                             
                         }
@@ -344,23 +333,11 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
             else
             {
                 *this = backup;
-                flag = 0;
-                /*if (defensor.Nombre == this->player1.Nombre && atacante.Nombre == this->player2.Nombre)
-                {
-                    defensor.lista_piezas_actuales = player1.lista_piezas_actuales;
-                    atacante.lista_piezas_actuales = player2.lista_piezas_actuales;
-                }
-                else
-                {
-                    atacante.lista_piezas_actuales = player1.lista_piezas_actuales;
-                    defensor.lista_piezas_actuales = player2.lista_piezas_actuales;
-                }*/
+                
             }
-            if (flag == -1)
-                break;
+            
         }
-        /*if (flag == -1)
-            break;*/
+        
     }
 
     if (escape_rey == 0)
@@ -374,15 +351,15 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
 
                 if (piezas_defensoras.row != -1)
                 {
-                    Pieza* defensor = getCasilla(piezas_defensoras.row, piezas_defensoras.file);
+                    Pieza* defensor1 = getCasilla(piezas_defensoras.row, piezas_defensoras.file);
 
                     for (int f = 0; f <= 7; f++)
                     {
                         for (int c = 0; c <= 7; c++)
                         {
-                            if (defensor->movimientoValido(piezas_defensoras.row, piezas_defensoras.file, f, c, *this))
+                            if (this->mover(piezas_defensoras.row, piezas_defensoras.file, f, c, defensor, atacante, datos))
                             {
-                                setCasilla(f, c, defensor);
+                                
                                 for (int k = 0; k < atacante.lista_piezas_actuales.size(); k++) //Comprobamos si la posicíón a la que se puede mover está amenazada por otra pieza atacante
                                 {
                                     piezas_atacantes2 = buscar_pieza(atacante.lista_piezas_actuales.lista_piezas[k]);
@@ -391,17 +368,15 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
                                         Pieza* atacante2 = getCasilla(piezas_atacantes2.row, piezas_atacantes2.file);
                                         if (atacante2->movimientoValido(piezas_atacantes2.row, piezas_atacantes2.file, casillaRey1.row, casillaRey1.file, *this)) //Comprobamos si la pieza defensora consigue bloquear al rey (Usamos la posición inicial del rey, ya que hemos cancelado su movimiento)
                                         {
-                                            resetCasilla(f, c); //El defensor no ha podido proteger al rey
+                                            //El defensor no ha podido proteger al rey
+                                            *this = backup;
                                             escape_rey = 0;
-                                            flag_control = true; //Hay que pasar al siguiente defensor ya que hay al menos un atacante que sigue dando jaque (el defensor no lo ha bloqueado)
                                             break;
 
                                         }
                                         else //El defensor ha podido bloquear al atacante, asique probamos otro atacante
                                         {
-                                            resetCasilla(f, c); 
-                                            *this = backup;
-                                            flag_control = false;
+                                            
                                             escape_rey = 1;
               
                                         }
@@ -409,15 +384,17 @@ bool Tablero::gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& 
                                     }
 
                                 }
-                                if (flag_control) //Salimos de los bucles for para pasar al siguiente defensor
-                                    break;
+                               
 
+                            }
+                            else
+                            {
+                                *this = backup;
                             }
 
 
                         }
-                        if (flag_control) //Salimos de los bucles for para pasar al siguiente defensor
-                            break;
+                       
                     }
                    
                 }
@@ -1030,28 +1007,48 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
     bool aux = false;
     bool comp_pieza_comida = false, hay_jaque_a_IA;
     bool provoca_jaque;
+    int or_mov_x, or_mov_y, fin_mov_x, fin_mov_y;
 
     Tablero t_pruebas;
     Colorpieza color_p_destino;
     t_pruebas = t;
 
-    bool provoca_jaque_mate = t_pruebas.gestion_jaque(t_pruebas.player2, t_pruebas.player1,datos);
+    //bool provoca_jaque_mate = t_pruebas.gestion_jaque(t_pruebas.player2, t_pruebas.player1,datos);
+    hay_jaque_a_IA = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
 
-
-    if (provoca_jaque_mate == false)
+    if (hay_jaque_a_IA == true)
     {
-        cout << "Jaque mate" << endl;
-        datos.jaqueMate = true; //Ganan las blancas
-        return false;
+
+        bool provoca_jaque_mate = t_pruebas.gestion_jaque(t_pruebas.player2, t_pruebas.player1, datos);
+
+        if (provoca_jaque_mate == false)
+        {
+            cout << "Jaque mate" << endl;
+            datos.jaqueMate = true; //Ganan las blancas
+            return false;
+        }
+        else
+        {
+            bool aux = gestion_jaque_IA(t, or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, datos);
+            if (aux == true)
+            {
+                bool aux_2 = t.mover(or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, maq, jug_humano, datos);
+                Pieza* p = getCasilla(fin_mov_x, fin_mov_y);
+                //t.comp_coronacion(p,key);
+                aplicarGravedad(t, { fin_mov_x, fin_mov_y }, p);
+            }
+            return true;
+        }
+
 
     }
 
     t_pruebas = t;
-    hay_jaque_a_IA = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
-    
-    int or_mov_x, or_mov_y, fin_mov_x, fin_mov_y;
-    t_pruebas = t;
+    //hay_jaque_a_IA = t_pruebas.comprobacion_jaque(t_pruebas.player1, t_pruebas.player2);
 
+    //int or_mov_x, or_mov_y, fin_mov_x, fin_mov_y;
+    //t_pruebas = t;
+    /*
     if (hay_jaque_a_IA == true)
     {
         bool aux = gestion_jaque_IA(t, or_mov_x, or_mov_y, fin_mov_x, fin_mov_y, datos);
@@ -1064,6 +1061,7 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
         }
         return true;
     }
+    */
 
 
     if (hay_jaque_a_IA == false)
@@ -1096,7 +1094,7 @@ bool Tablero::generador_de_movimientos(Jugador& jug_humano, Jugador& maq, Tabler
                                 if (p_destino != nullptr)
                                     color_p_destino = p_destino->getColor();
 
-                                bool aux = t_pruebas.mover(cas_ini.row ,cas_ini.file, c, d, t_pruebas.player2, t_pruebas.player1, datos);
+                                bool aux = t_pruebas.mover(cas_ini.row, cas_ini.file, c, d, t_pruebas.player2, t_pruebas.player1, datos);
 
                                 aplicarGravedad(t_pruebas, { c, d }, pieza_a_mover);
 
@@ -1254,7 +1252,7 @@ bool Tablero::gestion_jaque_IA(Tablero& t, int& or_mov_x, int& or_mov_y, int& fi
         }
 
     }
-
+    
     return false;
 
 }
@@ -1340,8 +1338,13 @@ bool Tablero::comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_
             p1 = turno_activo.lista_piezas_actuales.lista_piezas[0];
             p2 = turno_activo.lista_piezas_actuales.lista_piezas[1];
             p3 = turno_inactivo.lista_piezas_actuales.lista_piezas[0];
+
             if ((p1->getTipo() == TipoPieza::REY && p2->getTipo() == TipoPieza::CABALLO) || (p2->getTipo() == TipoPieza::REY && p1->getTipo() == TipoPieza::CABALLO))
                 return true; //Tablas debido a imposibilidad de jaque mate (Rey + Caballo vs Rey)
+
+            if ((p1->getTipo() == TipoPieza::REY && p2->getTipo() == TipoPieza::ALFIL) || (p2->getTipo() == TipoPieza::REY && p1->getTipo() == TipoPieza::ALFIL))
+                return true; //Tablas debido a imposibilidad de jaque mate (Rey + Alfil vs Rey)
+
 
         }
         else if (tam_list_player_activo == 1 && tam_list_player_inactivo == 2)
@@ -1349,8 +1352,12 @@ bool Tablero::comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_
             p1 = turno_activo.lista_piezas_actuales.lista_piezas[0];
             p3 = turno_inactivo.lista_piezas_actuales.lista_piezas[0];
             p4 = turno_inactivo.lista_piezas_actuales.lista_piezas[1];
+
             if ((p3->getTipo() == TipoPieza::REY && p4->getTipo() == TipoPieza::CABALLO) || (p4->getTipo() == TipoPieza::REY && p3->getTipo() == TipoPieza::CABALLO))
                 return true; //Tablas debido a imposibilidad de jaque mate (Rey vs Rey + Caballo)
+
+            if ((p3->getTipo() == TipoPieza::REY && p4->getTipo() == TipoPieza::ALFIL) || (p4->getTipo() == TipoPieza::REY && p3->getTipo() == TipoPieza::ALFIL))
+                return true; //Tablas debido a imposibilidad de jaque mate (Rey vs Rey + Alfil)
         }
         else if (tam_list_player_activo == 2 && tam_list_player_inactivo == 2)
         {
@@ -1358,30 +1365,14 @@ bool Tablero::comp_tablas(Jugador& turno_activo, Jugador& turno_inactivo, DATOS_
             p2 = turno_activo.lista_piezas_actuales.lista_piezas[1];
             p3 = turno_inactivo.lista_piezas_actuales.lista_piezas[0];
             p4 = turno_inactivo.lista_piezas_actuales.lista_piezas[1];
+
             if ((p1->getTipo() == TipoPieza::REY && p2->getTipo() == TipoPieza::CABALLO) || (p1->getTipo() == TipoPieza::CABALLO && p2->getTipo() == TipoPieza::REY))
             {
                 if ((p3->getTipo() == TipoPieza::REY && p4->getTipo() == TipoPieza::CABALLO) || (p3->getTipo() == TipoPieza::CABALLO && p4->getTipo() == TipoPieza::REY))
                     return true; //Tablas debido a imposibilidad de jaque mate (Rey + Caballo vs Rey + Caballo)
             }
         }
-        else if (tam_list_player_activo == 2 && tam_list_player_inactivo == 1)
-        {
-            p1 = turno_activo.lista_piezas_actuales.lista_piezas[0];
-            p2 = turno_activo.lista_piezas_actuales.lista_piezas[1];
-            p3 = turno_inactivo.lista_piezas_actuales.lista_piezas[0];
-            if ((p1->getTipo() == TipoPieza::REY && p2->getTipo() == TipoPieza::ALFIL) || (p2->getTipo() == TipoPieza::REY && p1->getTipo() == TipoPieza::ALFIL))
-                return true; //Tablas debido a imposibilidad de jaque mate (Rey + Alfil vs Rey)
-
-        }
-        else if (tam_list_player_activo == 1 && tam_list_player_inactivo == 2)
-        {
-            p1 = turno_activo.lista_piezas_actuales.lista_piezas[0];
-            p3 = turno_inactivo.lista_piezas_actuales.lista_piezas[0];
-            p4 = turno_inactivo.lista_piezas_actuales.lista_piezas[1];
-            if ((p3->getTipo() == TipoPieza::REY && p4->getTipo() == TipoPieza::ALFIL) || (p4->getTipo() == TipoPieza::REY && p3->getTipo() == TipoPieza::ALFIL))
-                return true; //Tablas debido a imposibilidad de jaque mate (Rey vs Rey + Alfil)
-        }
-
+      
     }
 
     //No se ha cumplido ningun caso específico, verificamos si el jugador que tiene el turno puede mover al menos una pieza a una posicion legal

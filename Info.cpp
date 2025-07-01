@@ -352,19 +352,21 @@ void OnDraw(void)
 				const char* nombre2 = reg2[i].nombre2;
 				//std::cout << i + 1 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
 				pantalla_regis.dibujarNumero(-0.9f, 0.8f - salto_linea, (i + 1));
-				pantalla_regis.dibujarTexto(-0.6f, 0.8f - salto_linea, nombre1);
-				pantalla_regis.dibujarTexto(-0.5f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(-0.3f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
-				pantalla_regis.dibujarTexto(-0.15f, 0.8f - salto_linea, ")   VS");
-				pantalla_regis.dibujarTexto(0.1f, 0.8f - salto_linea, nombre2);
-				pantalla_regis.dibujarTexto(0.2f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(0.4f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
-				pantalla_regis.dibujarTexto(0.55f, 0.8f - salto_linea, ")");
+				pantalla_regis.dibujarTexto(-0.75f, 0.8f - salto_linea, nombre1);
+				pantalla_regis.dibujarTexto(-0.6f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(-0.4f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
+				pantalla_regis.dibujarTexto(-0.25f, 0.8f - salto_linea, ")   VS");
+				pantalla_regis.dibujarTexto(-0.1f, 0.8f - salto_linea, nombre2);
+				pantalla_regis.dibujarTexto(0.1f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(0.3f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
+				pantalla_regis.dibujarTexto(0.45f, 0.8f - salto_linea, ")");
+
+				if(salto_linea <= 1.4)
 				salto_linea += 0.2;
 			}
 
 		}
-
+		pantalla_regis.dibujarTexto(-0.9f, -0.8f, "Presione B para borrar todos los registros");
 		pantalla_regis.dibujarTexto(-0.9f, -0.9f, "Presione ESC para volver al menu principal");
 		break;
 	}
@@ -412,6 +414,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 	{
 		case EstadoApp::MENU: 
 		{
+			
 			switch (key)
 			{
 				case '1':
@@ -580,7 +583,13 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			{
 				estadoActual = MENU;
 				flag_regis = false;
+				reg2 = nullptr;
 			}
+			if (key == 'B')
+			{
+				reg.BorraRegistros(&reg);
+			}
+			break;
 		}
 		case EstadoApp::FIN_JUG:
 		{

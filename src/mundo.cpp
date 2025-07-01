@@ -87,6 +87,7 @@ bool Mundo::update(int estado, Registro& reg) {
 	{
 
 		flag_juego = 0;
+		flag_fin_partida = false;
 		break;
 	}
 
@@ -110,6 +111,10 @@ bool Mundo::update(int estado, Registro& reg) {
 						if (partida.getTablero().comp_coronacion(datos.pieza_fin_conGrav, key_tecla)) //True si puede continuar porque se ha elegido pieza o porque no había coronación
 						{
 							flag_juego = 1;
+							if ((partida.getTablero().comprobacion_jaque(partida.getTablero().getPlayer1(), partida.getTablero().getPlayer2()) || (partida.getTablero().comprobacion_jaque(partida.getTablero().getPlayer2(), partida.getTablero().getPlayer1()))))
+							{
+								partida.set_estado_Jaque(true);
+							}
 
 						}
 						else //False si hay coronación pero no se ha elegido pieza, por tanto, no puede continuar hasta que se elija pieza
@@ -230,6 +235,9 @@ bool Mundo::update(int estado, Registro& reg) {
 			reg.CreaRegistro(nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
 			flag_fin_partida = true;
 		}
+		partida.getTablero().getPlayer1().get_Name().clear();
+		partida.getTablero().getPlayer2().get_Name().clear();
+		
 	}
 	}
 }
