@@ -26,7 +26,7 @@ Partida partida;
 Mundo mundo;
 Menu menu;
 Pantalla seleccion_jug{"rc/banner.png"};
-Pantalla pantalla_juego{ "rc/fondo1.png" };
+Pantalla pantalla_juego{"rc/space.png"};
 Pantalla pantalla_fin_partida{ "rc/banner.png" };
 Pantalla pantalla_regis{ "rc/fondo2.png" };
 unsigned char tecla_;
@@ -201,7 +201,7 @@ void OnDraw(void)
 	case EstadoApp::JUEGO:
 	{
 		//Dibujamos el tablero y las piezas
-		pantalla_juego.dibujarPantalla();
+		//pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 		// Cambiar temporalmente a proyección 2D para dibujar el texto informativo
 		glMatrixMode(GL_PROJECTION);
@@ -269,7 +269,7 @@ void OnDraw(void)
 	case EstadoApp::JUEGO_VS_IA:
 	{
 		//Dibujamos el tablero y las piezas
-		pantalla_juego.dibujarPantalla();
+		//pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 		// Mostrar mensaje de guardado (igual que en modo normal)
 		glMatrixMode(GL_PROJECTION);

@@ -5,8 +5,11 @@ void TableroGr::dibuja(Pieza* (*tableroin)[8])
     settablero(tableroin);
     Vector3D posActual = idle();
     fondoTablero.setPos(posActual.x+10, posActual.y+10);
-    fondoJuego.setPos(posActual.x, posActual.y);
+    fondoJuego.setPos(-10,-10);
     fondoTablero.draw();
+    glTranslatef(0, 0, -10);
+    fondoJuego.draw();
+    glTranslatef(0, 0, +10);
     casillas.dibuja(TableroGr::idle(), side);
 }
 
