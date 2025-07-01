@@ -36,22 +36,22 @@ void TableroGr::settablero(Pieza* (*tableroin)[8])
             if (!pieza) continue;
 
             if (tableroin[i][j]->getTipo() == TipoPieza::PEON)
-                casillas.listacasillas[index].setpieza(new PeonGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new PeonGr(tableroin[i][j]->getColorBool(),tableroin[i][j]->getSkin()));
           
             if (tableroin[i][j]->getTipo() == TipoPieza::CABALLO)
-                    casillas.listacasillas[index].setpieza(new CaballoGr(tableroin[i][j]->getColorBool()));
+                    casillas.listacasillas[index].setpieza(new CaballoGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
              
             if (tableroin[i][j]->getTipo() == TipoPieza::TORRE)
-                casillas.listacasillas[index].setpieza(new TorreGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new TorreGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                     
             if (tableroin[i][j]->getTipo() == TipoPieza::ALFIL)
-                casillas.listacasillas[index].setpieza(new AlfilGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new AlfilGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                        
             if (tableroin[i][j]->getTipo() == TipoPieza::REY)
-                casillas.listacasillas[index].setpieza(new ReyGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new ReyGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                            
             if (tableroin[i][j]->getTipo() == TipoPieza::REINA)
-                casillas.listacasillas[index].setpieza(new ReinaGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new ReinaGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                          
         }
     }

@@ -25,6 +25,7 @@ public:
     TipoPieza& getTipo()  { return tipo;  }
     Colorpieza& getColor()  { return color; }
     void setSkin(int skin) { this->Skin_Pieza = skin; }
+    int getSkin()  const { return Skin_Pieza; }
     bool getColorBool() const;
     void getlista(vector<Casilla>* listain) { lista = listain; }
     void dibuja();

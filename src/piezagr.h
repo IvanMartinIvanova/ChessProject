@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include<vector>
 
 constexpr float tamano = 2.0f;
 
@@ -12,34 +13,30 @@ public:
 	bool color; //1->blanco 0->negro
 	std::string tipo;
 	ETSIDI::Sprite* sprite;
+	int skin;
+
+	static std::map<int, std::map<std::string, std::map<bool, std::string>>> direcciones;
 
 	virtual ~PiezaGr();
 	PiezaGr() = default;
-	PiezaGr(bool colorin) :sprite{ nullptr }, color{ colorin }, tipo{ NULL } {}
+	PiezaGr(bool colorin, int skinin = 1) :sprite{ nullptr }, color{ colorin }, tipo{ NULL }, skin{ skinin } {}
+
+	std::string getdirecciones(int skin, std::string tipo, bool color);
 
 	virtual void draw() = 0;
 	void dibuja() { this->draw(); }
 	bool getcolor() { return color; }
 	std::string gettipo();
-	//virtual void drawmov() = 0;
-
-
 };
 
 class PeonGr : public PiezaGr
 {
 public:
 
-	PeonGr(bool colorin) : PiezaGr(colorin)
+	PeonGr(bool colorin, int skinin) : PiezaGr(colorin, skinin)
 	{
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/Pawn_Black.png", 0, 0, tamano, tamano);
-			tipo = "peon";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/Pawn_White.png", 0, 0, tamano, tamano);
-			tipo = "peon";
-		}
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "peon", colorin).c_str(), 0, 0, tamano, tamano);
+		tipo = "peon";
 	};
 
 	void draw() override { sprite->draw(); }
@@ -48,15 +45,10 @@ public:
 class CaballoGr : public PiezaGr
 {
 public:
-	CaballoGr(bool colorin) : PiezaGr(colorin) {
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/Horse_Black.png", 0, 0, tamano, tamano);
-			tipo = "caballo";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/Horse_White.png", 0, 0, tamano, tamano);
-			tipo = "caballo";
-		}
+	CaballoGr(bool colorin, int skinin) : PiezaGr(colorin, skinin)
+	{
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "caballo", color).c_str(), 0, 0, tamano, tamano);
+		tipo = "caballo";
 	}
 
 	void draw() override { sprite->draw(); };
@@ -65,15 +57,10 @@ public:
 class AlfilGr : public PiezaGr
 {
 public:
-	AlfilGr(bool colorin) : PiezaGr(colorin) {
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/Bizhop_Black.png", 0, 0, tamano, tamano);
-			tipo = "alfil";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/Bizhop_White.png", 0, 0, tamano, tamano);
-			tipo = "alfil";
-		}
+	AlfilGr(bool colorin, int skinin) : PiezaGr(colorin, skinin) {
+
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "alfil", color).c_str(), 0, 0, tamano, tamano);
+		tipo = "alfil";
 	}
 	void draw() override { sprite->draw(); }
 };
@@ -81,15 +68,10 @@ public:
 class TorreGr : public PiezaGr
 {
 public:
-	TorreGr(bool colorin) : PiezaGr(colorin) {
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/Tower_Black.png", 0, 0, tamano, tamano);
-			tipo = "torre";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/Tower_White.png", 0, 0, tamano, tamano);
-			tipo = "torre";
-		}
+	TorreGr(bool colorin, int skinin) : PiezaGr(colorin, skinin) {
+
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "torre", color).c_str(), 0, 0, tamano, tamano);
+		tipo = "torre";
 	}
 
 	void draw() override { sprite->draw(); }
@@ -98,15 +80,10 @@ public:
 class ReyGr : public PiezaGr
 {
 public:
-	ReyGr(bool colorin) : PiezaGr(colorin) {
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/King_Black.png", 0, 0, tamano, tamano);
-			tipo = "rey";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/King_White.png", 0, 0, tamano, tamano);
-			tipo = "rey";
-		}
+	ReyGr(bool colorin, int skinin) : PiezaGr(colorin, skinin) {
+
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "rey", color).c_str(), 0, 0, tamano, tamano);
+		tipo = "rey";
 	}
 
 
@@ -117,15 +94,10 @@ public:
 class ReinaGr : public PiezaGr
 {
 public:
-	ReinaGr(bool colorin) : PiezaGr(colorin) {
-		if (colorin == 0) {
-			sprite = new ETSIDI::Sprite("rc/Queen_Black.png", 0, 0, tamano, tamano);
-			tipo = "reina";
-		}
-		else if (colorin == 1) {
-			sprite = new ETSIDI::Sprite("rc/Queen_White.png", 0, 0, tamano, tamano);
-			tipo = "reina";
-		}
+	ReinaGr(bool colorin, int skinin) : PiezaGr(colorin, skinin) {
+
+		sprite = new ETSIDI::Sprite(getdirecciones(skin, "reina", color).c_str(), 0, 0, tamano, tamano);
+		tipo = "reina";
 	}
 
 	void draw() override { sprite->draw(); }

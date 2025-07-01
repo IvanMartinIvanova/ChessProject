@@ -13,7 +13,7 @@ ListaCasillas::ListaCasillas()
         }
     }
 
-    for (auto i = 0; listacasillas.size() > i; i++)
+   /* for (auto i = 0; listacasillas.size() > i; i++)
     {
         bool color;
         if (listacasillas[i].getfile() < 4)
@@ -41,7 +41,7 @@ ListaCasillas::ListaCasillas()
             if (listacasillas[i].getrow() == 5)
                 listacasillas[i].setpieza(new ReinaGr(color));
         }
-    }
+    }*/
 }
 
 void ListaCasillas::dibuja(Vector3D org, float side)
