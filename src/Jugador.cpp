@@ -38,6 +38,11 @@ string Jugador::get_Name()
     return this->Nombre;
 }
 
+void Jugador::reset_Name()
+{
+    this->Nombre = "";
+}
+
 bool Jugador::get_Turno()
 {
     return this->Turno;

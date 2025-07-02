@@ -235,8 +235,8 @@ bool Mundo::update(int estado, Registro& reg) {
 			reg.CreaRegistro(nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
 			flag_fin_partida = true;
 		}
-		partida.getTablero().getPlayer1().get_Name().clear();
-		partida.getTablero().getPlayer2().get_Name().clear();
+		partida.getTablero().getPlayer1().reset_Name();
+		partida.getTablero().getPlayer2().reset_Name();
 		
 	}
 	}

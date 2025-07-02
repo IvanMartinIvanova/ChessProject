@@ -31,6 +31,7 @@ public:
 	bool seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key, Jugador& player_turnoInactivo);
 	void actualizar_listas(Jugador& player);
 	string get_Name();
+	void reset_Name();
 	bool get_Turno();
 	Puntuacion get_Punt();
 	int get_nMov();
