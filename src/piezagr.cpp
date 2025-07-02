@@ -78,6 +78,25 @@ std::string PiezaGr::getdirecciones(int skin, std::string tipo, bool color)
             if (tipo == "rey") { return "rc/king.png"; }
             if (tipo == "reina") { return "rc/qween.png"; }
         }
+    case 3:
+        if (color)
+        {
+            if (tipo == "peon") { return "rc/Ewok.png"; }
+            if (tipo == "caballo") { return "rc/Cheewbacca.png"; }
+            if (tipo == "alfil") { return "rc/Han_Solo.png"; }
+            if (tipo == "torre") { return "rc/R2D2.png"; }
+            if (tipo == "rey") { return "rc/Leia.png"; }
+            if (tipo == "reina") { return "rc/Luke.png"; }
+        }
+        else
+        {
+            if (tipo == "peon") { return "rc/Stormtrooper.png"; }
+            if (tipo == "caballo") { return "rc/Jabba.png"; }
+            if (tipo == "alfil") { return "rc/Royal_Guard.png"; }
+            if (tipo == "torre") { return "rc/Darth_Maul.png"; }
+            if (tipo == "rey") { return "rc/Palpatine.png"; }
+            if (tipo == "reina") { return "rc/Darth_Vader.png"; }
+        }
 
     }
 }
