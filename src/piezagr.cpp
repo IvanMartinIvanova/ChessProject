@@ -12,7 +12,7 @@ PiezaGr::~PiezaGr()
 
 std::string PiezaGr::gettipo()
 {
-    return tipo;
+	return tipo;
 }
 
 std::map<int, std::map < std::string, std::map<bool, std::string >> > PiezaGr::direcciones = {
@@ -80,7 +80,5 @@ std::string PiezaGr::getdirecciones(int skin, std::string tipo, bool color)
         }
 
     }
-
-
-
 }
+
