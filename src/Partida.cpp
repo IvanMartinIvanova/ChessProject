@@ -9,24 +9,25 @@ Partida::Partida() {
 	// no inicializo para el guardado de partidas
 }
 
-void Partida::inicializar() {
-	tablero.inicializar();
-	//tablero.mostrar();
+void Partida::inicializar(const int& skin_p1, const int& skin_p2) {
+	tablero.inicializar(skin_p1, skin_p2);
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
+	/*tablero.player1.Nombre.clear();
+	tablero.player2.Nombre.clear();*/
 	
 }
 
-void Partida::inicializar_IA() {
-
-	tablero.inicializar();
-	tablero.mostrar();
-	estado_JAQUE = false;
-	bool turnoIA = false, turno_jug = true;
-	Jugador& jug_hum = tablero.getPlayer1();
-	Jugador& IA = tablero.getPlayer2();
-}
+//void Partida::inicializar_IA() {
+//
+//	tablero.inicializar();
+//	tablero.mostrar();
+//	estado_JAQUE = false;
+//	bool turnoIA = false, turno_jug = true;
+//	Jugador& jug_hum = tablero.getPlayer1();
+//	Jugador& IA = tablero.getPlayer2();
+//}
 
 
 bool Partida::escoger_player(char key, Jugador& player)
@@ -50,6 +51,18 @@ bool Partida::escoger_player(char key, Jugador& player)
 		return false;
 			
 }
+
+bool Partida::escoger_skin(char key, int& skin)
+{
+	char tecla = key;
+	if (key >= '1' && key <= '3')
+	{
+			skin = key - '0';
+			return true;
+	}
+	return false;
+}
+
 
 bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 {
@@ -97,6 +110,11 @@ Tablero& Partida::getTablero()
 bool Partida::get_estado_Jaque()
 {
 	return this->estado_JAQUE;
+}
+
+void Partida::set_estado_Jaque(bool jaque)
+{
+	this->estado_JAQUE = jaque;
 }
 
 bool Partida::guardar_partida(const std::string& nombreArchivo) {

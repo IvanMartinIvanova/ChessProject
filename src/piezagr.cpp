@@ -7,7 +7,7 @@
 
 PiezaGr::~PiezaGr()
 {
-	delete sprite;
+    delete sprite;
 }
 
 std::string PiezaGr::gettipo()
@@ -80,7 +80,5 @@ std::string PiezaGr::getdirecciones(int skin, std::string tipo, bool color)
         }
 
     }
-
-
-
 }
+

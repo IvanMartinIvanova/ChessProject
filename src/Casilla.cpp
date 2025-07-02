@@ -63,15 +63,21 @@ string Casilla::gettipo()
 void Casilla::drawselec(int side, Vector3D  org)
 {
 	glPushMatrix();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	if (Tablero::turno)
-		glColor3ub(255,255,255);
+		glColor4f(0.392f, 0.0f, 1.0f, 0.5f);
 	if (!Tablero::turno)
-		glColor3ub(0, 0, 0);
+		glColor4f(0.392f, 0.588f, 1.0f, 0.5f);
 
 	glTranslated(file / 9.0 * side + org.x, row / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
-	glutWireCube(1.5);
+	glutSolidCube(1.5);
 	glPopMatrix();
+
+
+
+
 }
 
 void Casilla::drawposibl(int side, Vector3D  org)

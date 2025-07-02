@@ -51,7 +51,7 @@ public:
 	void dibuja();
 	Mundo();
 	void rotarOjo();
-	void inicializa();
+	void inicializa(const int& skin_player1, const int& skin_player2);
 	void tecla(char key);
 	TableroGr& getTablerogr();
 	int getFlag();

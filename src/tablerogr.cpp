@@ -5,8 +5,11 @@ void TableroGr::dibuja(Pieza* (*tableroin)[8])
     settablero(tableroin);
     Vector3D posActual = idle();
     fondoTablero.setPos(posActual.x+10, posActual.y+10);
-    fondoJuego.setPos(posActual.x, posActual.y);
+    fondoJuego.setPos(-10,-10);
     fondoTablero.draw();
+    glTranslatef(0, 0, -10);
+    fondoJuego.draw();
+    glTranslatef(0, 0, +10);
     casillas.dibuja(TableroGr::idle(), side);
 }
 
@@ -36,22 +39,22 @@ void TableroGr::settablero(Pieza* (*tableroin)[8])
             if (!pieza) continue;
 
             if (tableroin[i][j]->getTipo() == TipoPieza::PEON)
-                casillas.listacasillas[index].setpieza(new PeonGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new PeonGr(tableroin[i][j]->getColorBool(),tableroin[i][j]->getSkin()));
           
             if (tableroin[i][j]->getTipo() == TipoPieza::CABALLO)
-                    casillas.listacasillas[index].setpieza(new CaballoGr(tableroin[i][j]->getColorBool()));
+                    casillas.listacasillas[index].setpieza(new CaballoGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
              
             if (tableroin[i][j]->getTipo() == TipoPieza::TORRE)
-                casillas.listacasillas[index].setpieza(new TorreGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new TorreGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                     
             if (tableroin[i][j]->getTipo() == TipoPieza::ALFIL)
-                casillas.listacasillas[index].setpieza(new AlfilGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new AlfilGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                        
             if (tableroin[i][j]->getTipo() == TipoPieza::REY)
-                casillas.listacasillas[index].setpieza(new ReyGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new ReyGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                            
             if (tableroin[i][j]->getTipo() == TipoPieza::REINA)
-                casillas.listacasillas[index].setpieza(new ReinaGr(tableroin[i][j]->getColorBool()));
+                casillas.listacasillas[index].setpieza(new ReinaGr(tableroin[i][j]->getColorBool(), tableroin[i][j]->getSkin()));
                          
         }
     }
