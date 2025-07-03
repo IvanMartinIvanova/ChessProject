@@ -14,20 +14,10 @@ void Partida::inicializar(const int& skin_p1, const int& skin_p2) {
 	estado_JAQUE = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
-	/*tablero.player1.Nombre.clear();
-	tablero.player2.Nombre.clear();*/
+
 	
 }
 
-//void Partida::inicializar_IA() {
-//
-//	tablero.inicializar();
-//	tablero.mostrar();
-//	estado_JAQUE = false;
-//	bool turnoIA = false, turno_jug = true;
-//	Jugador& jug_hum = tablero.getPlayer1();
-//	Jugador& IA = tablero.getPlayer2();
-//}
 
 
 bool Partida::escoger_player(char key, Jugador& player)
@@ -58,8 +48,16 @@ bool Partida::escoger_skin(char key, int& skin)
 	if (key >= '1' && key <= '3')
 	{
 			skin = key - '0';
-			return true;
+			
 	}
+	else
+	{
+		if (key == '\r')
+		{
+			return true;
+		}
+	}
+
 	return false;
 }
 

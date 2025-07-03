@@ -25,10 +25,11 @@ void OnKeyboardDown(unsigned char key, int x, int y);
 Partida partida;
 Mundo mundo;
 Menu menu;
-Pantalla seleccion_jug{"rc/banner.png"};
+Pantalla seleccion_jug{"rc/Seleccion_Jugador.png"};
 Pantalla pantalla_juego{"rc/space.png"};
 Pantalla pantalla_fin_partida{ "rc/banner.png" };
-Pantalla pantalla_regis{ "rc/fondo2.png" };
+Pantalla pantalla_regis{ "rc/fondo.png" };
+Pantalla seleccion_op{ "rc/banner.png" };
 unsigned char tecla_;
 bool nombre_Player1ok = false;
 bool nombre_Player2ok = false;
@@ -183,16 +184,16 @@ void OnDraw(void)
 	}
 	case EstadoApp::SEL_SAVE:
 	{
-		seleccion_jug.dibujarPantalla();
-		seleccion_jug.dibujarTexto(-0.4f, 0.4f, "MENU DE GUARDADO / CARGA");
+		seleccion_op.dibujarPantalla();
+		seleccion_op.dibujarTexto(-0.4f, 0.4f, "MENU DE GUARDADO / CARGA");
 
 		if (partida_activa)
-			seleccion_jug.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida actual");
+			seleccion_op.dibujarTexto(-0.4f, 0.2f, "1. Guardar partida actual");
 
-		seleccion_jug.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida 1 vs 1");
-		seleccion_jug.dibujarTexto(-0.4f, -0.2f, "3. Cargar partida vs IA");
-		seleccion_jug.dibujarTexto(-0.4f, -0.4f, "M. Volver al menu principal");
-		seleccion_jug.dibujarTexto(-0.95f, -0.8f, "Nota: Solo se guarda la partida que estas jugando actualmente");
+		seleccion_op.dibujarTexto(-0.4f, 0.0f, "2. Cargar partida 1 vs 1");
+		seleccion_op.dibujarTexto(-0.4f, -0.2f, "3. Cargar partida vs IA");
+		seleccion_op.dibujarTexto(-0.4f, -0.4f, "M. Volver al menu principal");
+		seleccion_op.dibujarTexto(-0.95f, -0.8f, "Nota: Solo se guarda la partida que estas jugando actualmente");
 
 		break;
 	}
