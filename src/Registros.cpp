@@ -21,7 +21,7 @@ void Registro::setNumReg(int nReg)
 {
 	nRegistros = nReg;
 }
-int Registro::CreaRegistro(const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2, const Tiempo& temp)
+int Registro::CreaRegistro(const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2)
 {
 	FILE* Reg;
 	int n = this->getNumReg();
@@ -102,9 +102,6 @@ Registro* Registro::LeeRegistros()
 					fscanf_s(Reg, "%[A-Za-z]", regis[num].nombre2, 50); //Lee la cadena de caracteres que se corresponde con el nombre del player2
 					fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con la puntuación
 					fscanf_s(Reg, "%f", &regis[num].p2); //Lee la puntuación del player2
-					//fscanf_s(Reg, "%d", &regis[num].t.mins); //Lee los minutos de partida
-					//fscanf_s(Reg, "%[^0123456789]s", basura, 250); //Hace un skip hasta el primer número que se corresponde con los segundos de partida
-					//fscanf_s(Reg, "%d", &regis[num].t.segs); //Lee los minutos de partida
 					fscanf_s(Reg, "%[^\n]s", basura, 250); //Hace un skip hasta justo antes del salto de línea
 					fscanf_s(Reg, "%c", &salto); //Se come el caracter de salto línea
 					num++; //Incrementamos el número de registros leídos
@@ -127,24 +124,10 @@ void Registro::ImprimeRegistro(Registro* list, const int& nReg) const
 	float salto = 0;
 		for (int i = 0; i < nReg; i++)
 		{
-			std::cout << i + 1 << ". Nombre: " << list[i].nombre1 << " Puntuacion: " << list[i].p1.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
+			std::cout << i + 1 << ". PLAYER1: " << list[i].nombre1 << " Puntuacion: " << list[i].p1.Puntos_totales <<  " VS " << "PLAYER2: " << list[i].nombre2 << " Puntuacion: " << list[i].p2.Puntos_totales << std::endl;
 		}
 	
-	/*case 2:
-		std::cout << "Introduce el numero del registro que quieres ver: ";
-		std::cin >> opcion2;
-		for (int i = 0; i < nReg; i++)
-		{
-			if (opcion2 == i + 1)
-			{
-				std::cout << opcion2 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
-			}
-		}
-		break;
-	case 3:
-		break;
-	default: std::cout << "Opcion Incorrecta";
-	}*/
+	
 }
 Registro::~Registro()
 {

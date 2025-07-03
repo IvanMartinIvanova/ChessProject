@@ -194,7 +194,6 @@
     <ClInclude Include="src\sprite3D.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\tablerogr.h" />
-    <ClInclude Include="src\Tiempo.h" />
     <ClInclude Include="src\torre.h" />
     <ClInclude Include="src\vectabl.h" />
     <ClInclude Include="src\Vector2D.h" />

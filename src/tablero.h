@@ -52,8 +52,8 @@ public:
     {
         casillas[x][y] = nullptr;
     }
-    bool gestion_turnos(bool& estado_JAQUE, DATOS_DIBUJO& dat, char tecla);
-    bool gestion_turnos_con_IA(bool& estado_JAQUE, DATOS_DIBUJO& dat, Tablero& t, char tecla);
+    bool gestion_turnos(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2,  DATOS_DIBUJO& dat, char tecla);
+    bool gestion_turnos_con_IA(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2, DATOS_DIBUJO& dat, Tablero& t, char tecla);
 
     bool gestion_jaque(Jugador& defensor, Jugador& atacante, DATOS_DIBUJO& datos);
     bool comprobacion_jaque(Jugador& turno_activo, Jugador& turno_inactivo);

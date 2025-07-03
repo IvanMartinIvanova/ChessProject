@@ -17,7 +17,7 @@ public:
 	int getNumReg();
 	void setNumReg(int nReg);
 	//Acciones con los registros
-	int CreaRegistro(const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2, const Tiempo& temp);
+	int CreaRegistro(const char* nom1, const char* nom2, const Puntuacion& pt1, const Puntuacion& pt2);
 	void BorraRegistros(Registro* list);
 	Registro* LeeRegistros();
 	void ImprimeRegistro(Registro* list, const int& nReg) const;

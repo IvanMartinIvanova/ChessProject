@@ -46,6 +46,6 @@ void ListaPiezas::limpiar()
 
 ListaPiezas::~ListaPiezas()
 {
-	//std::cout << "Destruyendo lista de piezas en: " << this << std::endl;
+	
 	limpiar();
 }

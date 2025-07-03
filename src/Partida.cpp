@@ -12,6 +12,8 @@ Partida::Partida() {
 void Partida::inicializar(const int& skin_p1, const int& skin_p2) {
 	tablero.inicializar(skin_p1, skin_p2);
 	estado_JAQUE = false;
+	gana_player1 = false;
+	gana_player2 = false;
 	tablero.player1.Turno = true;
 	tablero.player2.Turno = false;
 
@@ -74,7 +76,7 @@ bool Partida::Progress_Partida(DATOS_DIBUJO& dat, char key)
 	{
 		cout << "Turno de " << tablero.player2.Nombre << endl;
 	}
-	return tablero.gestion_turnos(this->estado_JAQUE, dat, tecla);
+	return tablero.gestion_turnos(this->estado_JAQUE, gana_player1, gana_player2, dat, tecla);
 }
 
 bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat, char key)
@@ -89,7 +91,7 @@ bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat, char key)
 	{
 		cout << "Turno de " << tablero.player2.Nombre << endl;
 	}
-	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, dat, tablero, tecla);
+	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, gana_player1, gana_player2, dat, tablero, tecla);
 }
 
 bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
@@ -108,6 +110,16 @@ Tablero& Partida::getTablero()
 bool Partida::get_estado_Jaque()
 {
 	return this->estado_JAQUE;
+}
+
+bool Partida::get_gana_p1()
+{
+	return this->gana_player1;
+}
+
+bool Partida::get_gana_p2()
+{
+	return this->gana_player2;
 }
 
 void Partida::set_estado_Jaque(bool jaque)

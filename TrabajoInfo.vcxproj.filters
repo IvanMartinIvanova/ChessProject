@@ -28,9 +28,6 @@
     <ClCompile Include="src\ListaPiezas.cpp">
       <Filter>Archivos de origen\Mecanicas</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
     <ClCompile Include="src\mundo.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
@@ -76,17 +73,30 @@
     <ClCompile Include="src\Vector3D.cpp">
       <Filter>Archivos de origen\Globales</Filter>
     </ClCompile>
-    <ClCompile Include="src\Casilla.cpp" />
-    <ClCompile Include="src\casillaselec.cpp" />
-    <ClCompile Include="src\listacasillas.cpp" />
     <ClCompile Include="src\piezagr.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
     <ClCompile Include="src\tablerogr.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
-    <ClCompile Include="src\Pantalla.cpp" />
-    <ClCompile Include="src\Registros.cpp" />
+    <ClCompile Include="src\Registros.cpp">
+      <Filter>Archivos de origen\Mecanicas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pantalla.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Casilla.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\casillaselec.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\listacasillas.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\alfil.h">
@@ -158,9 +168,6 @@
     <ClInclude Include="src\torre.h">
       <Filter>Archivos de encabezado\Mecanicas</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tiempo.h">
-      <Filter>Archivos de encabezado\Globales</Filter>
-    </ClInclude>
     <ClInclude Include="src\vectabl.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
@@ -170,8 +177,6 @@
     <ClInclude Include="src\Vector3D.h">
       <Filter>Archivos de encabezado\Globales</Filter>
     </ClInclude>
-    <ClInclude Include="src\casillaselec.h" />
-    <ClInclude Include="src\listacasillas.h" />
     <ClInclude Include="src\piezagr.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
@@ -181,8 +186,18 @@
     <ClInclude Include="src\Casilla.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\Pantalla.h" />
-    <ClInclude Include="src\Registros.h" />
+    <ClInclude Include="src\casillaselec.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\listacasillas.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pantalla.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Registros.h">
+      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

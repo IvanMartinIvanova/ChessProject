@@ -15,8 +15,7 @@ Mundo::Mundo()
 	y_ojo = 0;
 	z_ojo = 50;
 
-	//y_ojo = 20;
-	//z_ojo = 40;
+	
 
 	xmira = 0.0;
 	ymira = 0;
@@ -27,9 +26,6 @@ Mundo::Mundo()
 	flag_fin_partida = false;
 	key_tecla = NULL;
 
-
-	/*sprite = new Sprite("imagenes/Bubble_Big.png", 0.05, 0.05, 10, 10);
-	Sprite(const char *texturePath, float x=0, float y=0, float width = ‐1, float height = ‐1);*/
 }
 
 void Mundo::rotarOjo()
@@ -48,7 +44,6 @@ void Mundo::dibuja()
 		0.0, 1.0, 0.0);
 	//aqui es donde hay que poner el codigo de dibujo
 	//dibujo del suelo
-	//glDisable(GL_LIGHTING);
 
 
 	tablero.dibuja();
@@ -58,13 +53,8 @@ void Mundo::dibuja()
 	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
 	tablerogr.dibuja(partida.getTablero().getVectorCasillas());
 	
-	//glTranslated(0, 0, 0);
-	//glutSolidSphere(1, 10, 10);
-	//fondo.dibuja();
 	tablero.counter += 0.05;
-	//fondo.dibujaxy();
 	glEnd();
-	//	glEnable(GL_LIGHTING);
 }
 
 void Mundo::mueve()
@@ -232,7 +222,7 @@ bool Mundo::update(int estado, Registro& reg) {
 		nomb_player2 = nomb2.c_str();
 		if (!flag_fin_partida)
 		{
-			reg.CreaRegistro(nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt(), { 0,0 });
+			reg.CreaRegistro(nomb_player1, nomb_player2, player1.get_Punt(), player2.get_Punt());
 			flag_fin_partida = true;
 		}
 		partida.getTablero().getPlayer1().reset_Name();
