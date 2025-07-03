@@ -798,19 +798,34 @@ bool Tablero::guardarPartida(const std::string& nombreArchivo) {
     archivo << player2.Nombre << "\n";
     archivo << (player1.Turno ? 1 : 0) << "\n";
 
-    // Guardar todas las casillas (incluyendo las vacías)
+    // Guardar puntuaciones
+    archivo << player1.Movimientos << " "
+        << player1.points.Puntos_totales << " "
+        << player1.points.Puntos_remaining_piezas << " "
+        << player1.points.Puntos_piezas_comidas << " "
+        << player1.points.Puntos_remaining_tiempo << "\n";
+
+    archivo << player2.Movimientos << " "
+        << player2.points.Puntos_totales << " "
+        << player2.points.Puntos_remaining_piezas << " "
+        << player2.points.Puntos_piezas_comidas << " "
+        << player2.points.Puntos_remaining_tiempo << "\n";
+
+    // Guardar todas las casillas
     for (int fila = 0; fila < 8; fila++) {
         for (int col = 0; col < 8; col++) {
             Pieza* p = getCasilla(fila, col);
             if (p != nullptr) {
                 archivo << fila << " " << col << " "
                     << static_cast<int>(p->getTipo()) << " "
-                    << static_cast<int>(p->getColor()) << "\n";
+                    << static_cast<int>(p->getColor()) << " "
+                    << p->getSkin() << "\n";
             }
             else {
                 archivo << fila << " " << col << " "
                     << static_cast<int>(TipoPieza::VACIA) << " "
-                    << static_cast<int>(Colorpieza::NINGUNO) << "\n";
+                    << static_cast<int>(Colorpieza::NINGUNO) << " "
+                    << 0 << "\n";
             }
         }
     }
@@ -819,44 +834,60 @@ bool Tablero::guardarPartida(const std::string& nombreArchivo) {
     return true;
 }
 
+
+
 bool Tablero::cargarPartida(const std::string& nombreArchivo) {
     std::ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) return false;
 
-    // Limpiar tablero
+    // Limpiar tablero y listas
     for (int fila = 0; fila < 8; fila++)
         for (int col = 0; col < 8; col++)
             setCasilla(fila, col, nullptr);
 
-    // Limpiar listas anteriores
     player1.lista_piezas_actuales.limpiar();
     player2.lista_piezas_actuales.limpiar();
     player1.lista_piezas_comidas.limpiar();
     player2.lista_piezas_comidas.limpiar();
 
-    // Leer nombres
+    // Leer nombres y turno
     std::getline(archivo, player1.Nombre);
     std::getline(archivo, player2.Nombre);
-
-    // Leer turno
     std::string linea;
     std::getline(archivo, linea);
     int turnoInt = std::stoi(linea);
     player1.Turno = (turnoInt == 1);
     player2.Turno = !player1.Turno;
 
-    // Leer piezas y colocarlas
+    // Leer puntuaciones y movimientos
+    std::getline(archivo, linea);
+    std::istringstream iss1(linea);
+    iss1 >> player1.Movimientos
+        >> player1.points.Puntos_totales
+        >> player1.points.Puntos_remaining_piezas
+        >> player1.points.Puntos_piezas_comidas
+        >> player1.points.Puntos_remaining_tiempo;
+
+    std::getline(archivo, linea);
+    std::istringstream iss2(linea);
+    iss2 >> player2.Movimientos
+        >> player2.points.Puntos_totales
+        >> player2.points.Puntos_remaining_piezas
+        >> player2.points.Puntos_piezas_comidas
+        >> player2.points.Puntos_remaining_tiempo;
+
+    // Leer piezas
     while (std::getline(archivo, linea)) {
         if (linea == "END_TABLERO") break;
 
         std::istringstream iss(linea);
-        int fila, col, tipo, color;
-        if (!(iss >> fila >> col >> tipo >> color)) continue;
+        int fila, col, tipo, color, skin;
+        if (!(iss >> fila >> col >> tipo >> color >> skin)) continue;
 
         Pieza* p = reconstruirPieza(tipo, color);
+        if (p != nullptr) p->setSkin(skin);
         setCasilla(fila, col, p);
 
-        // Agregar a la lista del jugador correspondiente
         if (p != nullptr && p->getTipo() != TipoPieza::VACIA) {
             if (p->getColor() == Colorpieza::BLANCO)
                 player1.lista_piezas_actuales.agregar(p);
@@ -867,6 +898,9 @@ bool Tablero::cargarPartida(const std::string& nombreArchivo) {
 
     return true;
 }
+
+
+
 
 
 void Tablero::mostrarConCursor(int fila_cursor, int col_cursor) {
