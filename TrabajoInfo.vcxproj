@@ -150,9 +150,11 @@
     <ClCompile Include="src\particulas.cpp" />
     <ClCompile Include="src\Partida.cpp" />
     <ClCompile Include="src\peon.cpp" />
+    <ClCompile Include="src\personaje.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\piezagr.cpp" />
     <ClCompile Include="src\plataforma.cpp" />
+    <ClCompile Include="src\plataformaper.cpp" />
     <ClCompile Include="src\Registros.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
@@ -184,9 +186,11 @@
     <ClInclude Include="src\particulas.h" />
     <ClInclude Include="src\Partida.h" />
     <ClInclude Include="src\peon.h" />
+    <ClInclude Include="src\personaje.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\piezagr.h" />
     <ClInclude Include="src\plataforma.h" />
+    <ClInclude Include="src\plataformaper.h" />
     <ClInclude Include="src\Puntuacion.h" />
     <ClInclude Include="src\Registros.h" />
     <ClInclude Include="src\reina.h" />

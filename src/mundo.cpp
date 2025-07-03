@@ -47,8 +47,8 @@ void Mundo::dibuja()
 
 
 	tablero.dibuja();
-	piezas1.dibuja();
-	piezas2.dibuja();
+	blanco.dibuja();
+	negro.dibuja();
 
 	//dibuja el tablero hay q pasarle el *Pieza[8][8] contenido en tablero para que se dibuje EN CADA ITERACION IMPORTANTE
 	tablerogr.dibuja(partida.getTablero().getVectorCasillas());

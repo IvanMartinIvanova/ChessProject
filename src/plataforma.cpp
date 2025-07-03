@@ -35,6 +35,10 @@ void Plataforma::dibuja()
 	estela.dibuja();
 }
 
+Vector3D Plataforma::getcentro()
+{
+	return { (limite1.x + limite2.x) / 2, limite1.y, (limite1.z + limite2.z) / 2 };
+}
 
 void Plataforma::set_color(Color& col)
 {

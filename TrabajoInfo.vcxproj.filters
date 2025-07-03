@@ -79,15 +79,8 @@
     <ClCompile Include="src\tablerogr.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
-    <ClCompile Include="src\Registros.cpp">
-      <Filter>Archivos de origen\Mecanicas</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Pantalla.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>Archivos de origen\Graficos</Filter>
-    </ClCompile>
+    <ClCompile Include="src\Pantalla.cpp" />
+    <ClCompile Include="src\Registros.cpp" />
     <ClCompile Include="src\Casilla.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
@@ -95,6 +88,12 @@
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
     <ClCompile Include="src\listacasillas.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\personaje.cpp">
+      <Filter>Archivos de origen\Graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plataformaper.cpp">
       <Filter>Archivos de origen\Graficos</Filter>
     </ClCompile>
   </ItemGroup>
@@ -186,17 +185,19 @@
     <ClInclude Include="src\Casilla.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\casillaselec.h">
-      <Filter>Archivos de encabezado\Graficos</Filter>
-    </ClInclude>
+    <ClInclude Include="src\Pantalla.h" />
+    <ClInclude Include="src\Registros.h" />
     <ClInclude Include="src\listacasillas.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\Pantalla.h">
+    <ClInclude Include="src\casillaselec.h">
       <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
-    <ClInclude Include="src\Registros.h">
-      <Filter>Archivos de encabezado\Mecanicas</Filter>
+    <ClInclude Include="src\personaje.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plataformaper.h">
+      <Filter>Archivos de encabezado\Graficos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
