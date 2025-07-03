@@ -8,6 +8,7 @@
 #include "Partida.h"
 #include "Registros.h"
 #include "Menu.h"
+#include "gestionpers.h"
 #include "plataformaper.h"
 #include <vector>
 
@@ -29,8 +30,7 @@ private:
 	//Caja caja;
 	//Bonus bonus;
 	Plataforma tablero{ { -10,10,-5},{10,-10,-6},{255,255,255} };
-	PlataformaPer blanco{1, {-15,-5,0},{-13,-6,-5},{180,0,240} };
-	PlataformaPer negro{0, {13,-5,0},{15,-6,-5},{0,0,240} };
+	GestionPers personajes;
 	TableroGr tablerogr;
 
 

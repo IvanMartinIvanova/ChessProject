@@ -74,10 +74,6 @@ void Casilla::drawselec(int side, Vector3D  org)
 	glTranslated(file / 9.0 * side + org.x, row / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
 	glutSolidCube(1.5);
 	glPopMatrix();
-
-
-
-
 }
 
 void Casilla::drawposibl(int side, Vector3D  org)
@@ -106,8 +102,9 @@ void Casilla::print()
 void Casilla::dibuja_Jaque(int side, Vector3D org, Color color)
 {
 	glPushMatrix();
-	glColor3ub(color.r, color.b, color.g);
+	//glColor3ub(color.r, color.b, color.g);
+	glColor4f(1, 0, 0, 0.5);
 	glTranslated((file+1) / 9.0 * side + org.x, (8 - row) / 9.0 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
-	glutWireCube(1.5);
+	glutSolidCube(1.5);
 	glPopMatrix();
 }

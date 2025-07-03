@@ -10,6 +10,9 @@
 using namespace std;
 
 bool Tablero::turno = 0;
+bool Tablero::wwins = 0;
+bool Tablero::bwins = 0;
+
 
 Tablero::Tablero(){
     for (int fila = 0; fila < 8; fila++)
@@ -680,6 +683,10 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2, D
                     //JAQUE MATE - TERMINA LA PARTIDA
                     gana_p2 = true;
                     gana_p1 = false;
+
+                    wwins = false;
+                    bwins = true;
+
                     system("clc");
                     cout << "JAQUE MATE - PARTIDA TERMINADA" << endl;
 
@@ -698,6 +705,9 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2, D
                     //Tablas - Partida Empatada
                     gana_p1 = true;
                     gana_p2 = true;
+
+                    wwins = true;
+                    bwins = true;
                 }
             }
 
@@ -785,6 +795,10 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2, D
                     //JAQUE MATE - TERMINA LA PARTIDA
                     gana_p1 = true;
                     gana_p2 = false;
+
+                    wwins = true;
+                    bwins = false;
+
                     system("clc");
                     cout << "JAQUE MATE - PARTIDA TERMINADA" << endl;
                 }
@@ -801,15 +815,14 @@ bool Tablero::gestion_turnos(bool& estado_JAQUE, bool& gana_p1, bool& gana_p2, D
                     //Tablas - Partida Empatada
                     gana_p1 = true;
                     gana_p2 = true;
+
+                    wwins = true;
+                    bwins = true;
                 }
             }
-
-
             return true; //Termina el turno
         }
     }
-
-
 }
 
 

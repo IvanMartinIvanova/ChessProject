@@ -1,6 +1,8 @@
 #pragma once
 #include "Vector3D.h"
 #include "ETSIDI.h"
+#include "Partida.h"
+#include "piezagr.h"
 
 class Personaje
 {
@@ -9,11 +11,14 @@ public:
 
 	bool color; //1->blanco 0->negro
 	ETSIDI::SpriteSequence* sprite;
+	string state;
 
 	Personaje() :sprite{ nullptr }, color{ NULL } {}
-	Personaje(bool colorin) : color{ colorin }, sprite{ nullptr } {}
+	Personaje(bool colorin) : color{ colorin }, sprite{ nullptr }, state{ NULL } {}
 
 	void draw() { dibuja(); }
+	int getstage() { return sprite->getState(); }
+	string getstate() { return state; }
 private:
 	virtual void dibuja() = 0;
 };
@@ -24,7 +29,7 @@ public:
 	Idle(bool colorin) : Personaje(colorin)
 	{
 		sprite = new ETSIDI::SpriteSequence("rc/idle.png", 2, 1, 50, true, 0, 0, 4, 4, 0);
-		//sprite->setState(0, false);
+		state = "idle";
 
 		if (!color)
 			sprite->flip(1, 0);
@@ -42,6 +47,7 @@ public:
 	Active(bool colorin) : Personaje(colorin)
 	{
 		sprite = new ETSIDI::SpriteSequence("rc/active.png", 8, 1, 50, true, 0, 0, 4, 4, 0);
+		state = "active";
 
 		if (!color)
 			sprite->flip(1, 0);
@@ -60,7 +66,8 @@ class Finalblow : public Personaje
 public:
 	Finalblow(bool colorin) : Personaje(colorin)
 	{
-		sprite = new ETSIDI::SpriteSequence("rc/finalblow.png", 8, false);
+		sprite = new ETSIDI::SpriteSequence("rc/finalblow.png", 12, 1, 50, false, 0, 0, 4, 4, 0);
+		state = "finalblow";
 
 		if (!color)
 			sprite->flip(1, 0);
@@ -69,8 +76,7 @@ public:
 	void dibuja() override
 	{
 		sprite->draw();
-		if (sprite->getState() == 8)
-			sprite = new ETSIDI::SpriteSequence("rc/vanish.png", 4, false);
+		sprite->loop();
 	}
 };
 
@@ -79,7 +85,8 @@ class Death : public Personaje
 public:
 	Death(bool colorin) : Personaje(colorin)
 	{
-		sprite = new ETSIDI::SpriteSequence("rc/idle.png", 8, false);
+		sprite = new ETSIDI::SpriteSequence("rc/death.png", 8, 1, 50, false, 0, 0, 4, 4, 0);
+		state = "death";
 
 		if (!color)
 			sprite->flip(1, 0);
@@ -88,7 +95,6 @@ public:
 	void dibuja() override
 	{
 		sprite->draw();
-		if (sprite->getState() == 8)
-			sprite->setState(8, true);
+		sprite->loop();
 	}
 };

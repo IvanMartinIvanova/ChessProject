@@ -140,6 +140,7 @@
     <ClCompile Include="src\circulos.cpp" />
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\estela.cpp" />
+    <ClCompile Include="src\gestionpers.cpp" />
     <ClCompile Include="src\Jugador.cpp" />
     <ClCompile Include="src\listacasillas.cpp" />
     <ClCompile Include="src\ListaPiezas.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\DATOS_DIBUJO.h" />
     <ClInclude Include="src\estela.h" />
+    <ClInclude Include="src\gestionpers.h" />
     <ClInclude Include="src\Jugador.h" />
     <ClInclude Include="src\listacasillas.h" />
     <ClInclude Include="src\ListaPiezas.h" />

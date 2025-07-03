@@ -17,3 +17,12 @@ void PlataformaPer::dibuja()
 	personaje->draw();
 	glTranslated(-getcentro().x, -getcentro().y - 2, -getcentro().z);
 }
+
+void PlataformaPer::setstate(Personaje* statein)
+{
+	if (statein->getstate() != personaje->getstate()) 
+	{
+		delete personaje;
+		personaje = statein;
+	}
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "tablero.h"
 #include "DATOS_DIBUJO.h"
+#include "personaje.h"
 
 class Partida
 {
@@ -8,6 +9,7 @@ class Partida
 	bool estado_JAQUE;
 	bool gana_player1;
 	bool gana_player2;
+
 public:
 	Partida();
 	void inicializar(const int& skin_p1, const int& skin_p2);  // Método para nueva partida

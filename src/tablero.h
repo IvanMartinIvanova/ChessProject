@@ -18,6 +18,7 @@
 class Tablero {
 
     friend class CasillaSelec;
+    friend class GestionPers;
     friend class Casilla;
 
 private:
@@ -26,7 +27,11 @@ private:
     Jugador player2; //Piezas negras
 
 public:
+
     static bool turno;
+    static bool wwins;
+    static bool bwins;
+
     Tablero(); //constructor
 
     Tablero& operator=(const Tablero& tab); //Constructor copia
