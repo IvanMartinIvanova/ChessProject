@@ -1086,6 +1086,9 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, bool& gana_p1, bool& gan
                 {
                     gana_p2 = true;
                     gana_p1 = false;
+
+                    wwins = false;
+                    bwins = true;
                     system("clc");
                     cout << "JAQUE MATE - PARTIDA TERMINADA" << endl;
                 }
@@ -1102,6 +1105,9 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, bool& gana_p1, bool& gan
                     //TABLAS
                     gana_p1 = true;
                     gana_p2 = true;
+
+                    wwins = true;
+                    bwins = true;
                 }
             }
 
@@ -1118,6 +1124,9 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, bool& gana_p1, bool& gan
                 //JAQUE MATE, Ganan las blancas
                 gana_p1 = true;
                 gana_p2 = false;
+
+                wwins = true;
+                bwins = false;
             }
 
             if (aux == true)
@@ -1138,6 +1147,9 @@ bool Tablero::gestion_turnos_con_IA(bool& estado_JAQUE, bool& gana_p1, bool& gan
                     //TABLAS
                     gana_p1 = true;
                     gana_p2 = true;
+
+                    wwins = true;
+                    bwins = true;
                 }
             }
 

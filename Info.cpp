@@ -210,13 +210,16 @@ void OnDraw(void)
 		glPushMatrix();
 		glLoadIdentity();
 
-		seleccion_jug.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
+		pantalla_juego.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
 
 		// Restaurar proyección 3D
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
+
+		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
+		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
 
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
 		if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
@@ -305,6 +308,9 @@ void OnDraw(void)
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 
+		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
+		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
+
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
 		if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
 		{
@@ -390,14 +396,14 @@ void OnDraw(void)
 				const char* nombre2 = reg2[i].nombre2;
 				
 				pantalla_regis.dibujarNumero(-0.9f, 0.8f - salto_linea, (i + 1));
-				pantalla_regis.dibujarTexto(-0.75f, 0.8f - salto_linea, nombre1);
-				pantalla_regis.dibujarTexto(-0.6f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(-0.4f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
-				pantalla_regis.dibujarTexto(-0.25f, 0.8f - salto_linea, ")   VS");
-				pantalla_regis.dibujarTexto(-0.1f, 0.8f - salto_linea, nombre2);
-				pantalla_regis.dibujarTexto(0.1f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(0.3f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
-				pantalla_regis.dibujarTexto(0.45f, 0.8f - salto_linea, ")");
+				pantalla_regis.dibujarTexto(-0.7f, 0.8f - salto_linea, nombre1);
+				pantalla_regis.dibujarTexto(-0.55f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(-0.35f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
+				pantalla_regis.dibujarTexto(-0.2f, 0.8f - salto_linea, ")   VS");
+				pantalla_regis.dibujarTexto(-0.05f, 0.8f - salto_linea, nombre2);
+				pantalla_regis.dibujarTexto(0.15f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(0.35f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
+				pantalla_regis.dibujarTexto(0.50f, 0.8f - salto_linea, ")");
 
 				if(salto_linea <= 1.4)
 				salto_linea += 0.2;
@@ -536,7 +542,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		}
 		case EstadoApp::SEL_SAVE:
 		{
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				partida_activa = false;
 				estadoActual = MENU;
 			}
@@ -566,6 +572,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				partida_activa = true;
 				estadoActual = JUEGO_VS_IA;
 			}
+			
 			break;
 		}
 
@@ -598,7 +605,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			if (key == 27) exit(0); // ESC
 			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
 			mundo.key_tecla = key;
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				estadoActual = SEL_SAVE;
 				break;
 			}
@@ -608,7 +615,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		{
 			if (key == 27) exit(0); // ESC
 
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				estadoActual = SEL_SAVE;
 				break;
 			}
@@ -626,7 +633,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				flag_regis = false;
 				reg2 = nullptr;
 			}
-			if (key == 'B')
+			if (key == 'B' || key == 'b')
 			{
 				reg.BorraRegistros(&reg);
 			}
