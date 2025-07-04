@@ -15,12 +15,8 @@ void Partida::inicializar(const int& skin_p1, const int& skin_p2) {
 	gana_player1 = false;
 	gana_player2 = false;
 	tablero.player1.Turno = true;
-	tablero.player2.Turno = false;
-
-	
+	tablero.player2.Turno = false;	
 }
-
-
 
 bool Partida::escoger_player(char key, Jugador& player)
 {
@@ -94,9 +90,6 @@ bool Partida::Progress_Partida_IA(DATOS_DIBUJO& dat, char key)
 	return tablero.gestion_turnos_con_IA(this->estado_JAQUE, gana_player1, gana_player2, dat, tablero, tecla);
 }
 
-bool Partida::cargarDesdeArchivo(const std::string& nombreArchivo) {
-	return tablero.cargarPartida(nombreArchivo);
-}
 
 void Partida::mostrarTablero() {
 	tablero.mostrar();

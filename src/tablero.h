@@ -10,8 +10,8 @@
 #include "Casilla.h"
 #include "DATOS_DIBUJO.h"
 #include <iostream>
-#include <cstdlib> // Para std::abs
-#include <cmath>   // Para std::abs
+#include <cstdlib>
+#include <cmath>  
 
 
 

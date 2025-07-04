@@ -1,10 +1,5 @@
 #include "pieza.h"
 
-void Pieza::dibuja()
-{
-
-}
-
 bool Pieza::getColorBool() const
 {
     if (color == Colorpieza::BLANCO)

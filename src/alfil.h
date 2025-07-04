@@ -1,6 +1,6 @@
 #pragma once
 #include "pieza.h"
-#include "tablero.h"  // Asegúrate de incluir Tablero.h si lo necesitas
+#include "tablero.h" 
 
 class Alfil : public Pieza 
 {

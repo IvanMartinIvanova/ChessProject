@@ -17,8 +17,7 @@ public:
 	bool escoger_player(char key, Jugador& player);
 	bool escoger_skin(char key, int& skin);
 	bool Progress_Partida(DATOS_DIBUJO& dat, char key);
-	bool cargarDesdeArchivo(const std::string& nombreArchivo);
-	void mostrarTablero();  // Nuevo método
+	void mostrarTablero(); 
 	Tablero& getTablero();
 	bool get_estado_Jaque();
 	bool get_gana_p1();
@@ -26,7 +25,6 @@ public:
 	void set_estado_Jaque(bool jaque);
 	~Partida() = default;
 	bool Progress_Partida_IA(DATOS_DIBUJO& dat, char key);
-	bool guardar_partida();
 	bool guardar_partida(const std::string& nombreArchivo);
 	bool cargar_partida(const std::string& nombreArchivo);
 
