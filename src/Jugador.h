@@ -18,7 +18,6 @@ protected:
 	ListaPiezas lista_piezas_actuales;
 	ListaPiezas lista_piezas_comidas;
 	Puntuacion points;
-	Tiempo temp;
 	string Nombre;
 	bool Turno; //True - si es el turno del jugador / False - si no es el turno del jugador
 	int Movimientos;

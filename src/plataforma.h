@@ -22,6 +22,7 @@ public:
 	Plataforma();
 	void dibuja();
 	void calcidle();
+	Vector3D getcentro();
 	void setpos();
 	//void setpos(Vector3D lim1in, Vector3D lim2in);
 	void set_color(Color& col);

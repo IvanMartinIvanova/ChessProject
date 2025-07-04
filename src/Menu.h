@@ -16,9 +16,6 @@ private:
     void dibujarPantalla() override;
     Menu();
 
-    /*void iniciar(int argc, char* argv[]);
-    int obtenerOpcion();*/
-
 };
 
 

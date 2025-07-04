@@ -17,9 +17,10 @@ public:
 
 	static std::map<int, std::map<std::string, std::map<bool, std::string>>> direcciones;
 
-	virtual ~PiezaGr();
+	~PiezaGr();
 	PiezaGr() = default;
 	PiezaGr(bool colorin, int skinin = 1) :sprite{ nullptr }, color{ colorin }, tipo{ NULL }, skin{ skinin } {}
+
 
 	std::string getdirecciones(int skin, std::string tipo, bool color);
 

@@ -15,7 +15,7 @@ int Jugador::fila_ini = -1;
 int Jugador::col_ini = -1;
 
 
-Jugador::Jugador(): points({0.0,0.0,0.0,0.0}), temp({0,0}), Turno{false}, Movimientos{0}
+Jugador::Jugador(): points({0.0,0.0,0.0}), Turno{false}, Movimientos{0}
 {
 
 }
@@ -26,7 +26,6 @@ Jugador& Jugador::operator=(const Jugador& player) {
         lista_piezas_actuales = player.lista_piezas_actuales;
         lista_piezas_comidas = player.lista_piezas_comidas;
         points = player.points;
-        temp = player.temp;
         Nombre = player.Nombre;
         Turno = player.Turno;
     }
@@ -80,13 +79,6 @@ void Jugador::actualizar_listas(Jugador& player)
 bool Jugador::seleccion_casilla(Tablero& tab, DATOS_DIBUJO& dat, char key, Jugador& player_turnoInactivo)
 {
     bool continuar = true;
-
-   // while (continuar)
-   // {
-        /*system("cls");
-        std::cout << "(WASD para mover, ENTER para seleccionar, T = texto, G = guardar, Q = guardar y salir)\n";
-        std::cout << "Turno de " << this->Nombre << endl;*/
-        //tab.mostrarConCursor(fila_cursor, col_cursor);
 
 
         switch (key)

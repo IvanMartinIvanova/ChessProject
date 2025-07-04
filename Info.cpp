@@ -41,8 +41,8 @@ vector<Pieza*> piezas_jaque_p1{};
 vector<Pieza*> piezas_jaque_p2{};
 Registro reg;
 Registro* reg2 = nullptr;
-int skin_player1 = 0;
-int skin_player2 = 0;
+int skin_player1 = 1;
+int skin_player2 = 1;
 
 int main(int argc, char* argv[])
 {
@@ -70,8 +70,6 @@ int main(int argc, char* argv[])
 	glutTimerFunc(25, OnTimer, 0);
 	glutKeyboardFunc(OnKeyboardDown);
 
-	//Menu m;
-	//m.Menu_Progress();
 	glutMainLoop();
 
 
@@ -202,7 +200,6 @@ void OnDraw(void)
 	case EstadoApp::JUEGO:
 	{
 		//Dibujamos el tablero y las piezas
-		//pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 		// Cambiar temporalmente a proyección 2D para dibujar el texto informativo
 		glMatrixMode(GL_PROJECTION);
@@ -213,7 +210,7 @@ void OnDraw(void)
 		glPushMatrix();
 		glLoadIdentity();
 
-		seleccion_jug.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
+		pantalla_juego.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
 
 		// Restaurar proyección 3D
 		glMatrixMode(GL_PROJECTION);
@@ -221,43 +218,67 @@ void OnDraw(void)
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 
+		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
+		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
+
 		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
-		if (mundo.partida.getTablero().getPlayer1().get_Turno())
+		if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
 		{
-			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
-			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
-			
+			if (mundo.partida.getTablero().getPlayer1().get_Turno())
+			{
+				pantalla_juego.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+				pantalla_juego.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
+
+			}
+			if (mundo.partida.getTablero().getPlayer2().get_Turno())
+			{
+				pantalla_juego.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+				pantalla_juego.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+			}
 		}
-		if (mundo.partida.getTablero().getPlayer2().get_Turno())
+		else
 		{
-			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
-			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+			pantalla_juego.dibujarTexto(-18.0f, 12.0f, "FIN PARTIDA - PRESS ENTER ");
 		}
 
 		//Mensajes evento de jaque
 		if (mundo.partida.get_estado_Jaque())
 		{
-			seleccion_jug.dibujarTexto(12.0f, 12.0f, "JAQUE AL REY");
-			piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
-			piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
-			if (piezas_jaque_p1.size() > 0)
+			if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
 			{
-				mundo.partida.getTablero().buscar_posRey(Colorpieza::NEGRO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
-				for (auto p1 : piezas_jaque_p1)
+				pantalla_juego.dibujarTexto(12.0f, 12.0f, "JAQUE AL REY");
+				piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
+				piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
+				if (piezas_jaque_p1.size() > 0)
 				{
-					mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
+					mundo.partida.getTablero().buscar_posRey(Colorpieza::NEGRO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
+					for (auto p1 : piezas_jaque_p1)
+					{
+						mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
+					}
+				}
+				if (piezas_jaque_p2.size() > 0)
+				{
+					mundo.partida.getTablero().buscar_posRey(Colorpieza::BLANCO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
+					for (auto p2 : piezas_jaque_p2)
+					{
+						mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
+					}
 				}
 			}
-			if (piezas_jaque_p2.size() > 0)
+			else
 			{
-				mundo.partida.getTablero().buscar_posRey(Colorpieza::BLANCO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
-				for (auto p2 : piezas_jaque_p2)
-				{
-					mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
-				}
+				pantalla_juego.dibujarTexto(8.0f, 12.0f, "JAQUE MATE");
 			}
 
 		}
+		else
+		{
+			if (mundo.partida.get_gana_p1() == true && mundo.partida.get_gana_p2() == true)
+				pantalla_juego.dibujarTexto(8.0f, 12.0f, "TABLAS");
+		}
+		
+
 		
 		if (mundo.getFlag() == -1)
 		{
@@ -270,7 +291,6 @@ void OnDraw(void)
 	case EstadoApp::JUEGO_VS_IA:
 	{
 		//Dibujamos el tablero y las piezas
-		//pantalla_juego.dibujarPantalla();
 		mundo.dibuja();
 		// Mostrar mensaje de guardado (igual que en modo normal)
 		glMatrixMode(GL_PROJECTION);
@@ -281,49 +301,72 @@ void OnDraw(void)
 		glPushMatrix();
 		glLoadIdentity();
 
-		seleccion_jug.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
+		pantalla_juego.dibujarTexto(-0.95f, -0.95f, "Pulsa M para abrir el menu de guardado/carga");
 
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 
-		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
-		if (mundo.partida.getTablero().getPlayer1().get_Turno())
-		{
-			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
-			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
+		nomb1 = mundo.partida.getTablero().getPlayer1().get_Name();
+		nomb2 = mundo.partida.getTablero().getPlayer2().get_Name();
 
-		}
-		if (mundo.partida.getTablero().getPlayer2().get_Turno())
+		//Dibujamos los mensajes que hay durantes la partida (Turnos, Jaques, etc.)
+		if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
 		{
-			seleccion_jug.dibujarTexto(-18.0f, 12.0f, "Turno de ");
-			seleccion_jug.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+			if (mundo.partida.getTablero().getPlayer1().get_Turno())
+			{
+				pantalla_juego.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+				pantalla_juego.dibujarCadena_Caract(-13.0f, 12.0f, nomb1);
+
+			}
+			if (mundo.partida.getTablero().getPlayer2().get_Turno())
+			{
+				pantalla_juego.dibujarTexto(-18.0f, 12.0f, "Turno de ");
+				pantalla_juego.dibujarCadena_Caract(-13.0f, 12.0f, nomb2);
+			}
+		}
+		else
+		{
+			pantalla_juego.dibujarTexto(-18.0f, 12.0f, "FIN PARTIDA - PRESS ENTER ");
 		}
 
 		//Mensajes evento de jaque
 		if (mundo.partida.get_estado_Jaque())
 		{
-			seleccion_jug.dibujarTexto(12.0f, 12.0f, "JAQUE AL REY");
-			piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
-			piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
-			if (piezas_jaque_p1.size() > 0)
+			if (mundo.partida.get_gana_p1() == false && mundo.partida.get_gana_p2() == false)
 			{
-				mundo.partida.getTablero().buscar_posRey(Colorpieza::NEGRO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
-				for (auto p1 : piezas_jaque_p1)
+				pantalla_juego.dibujarTexto(12.0f, 12.0f, "JAQUE AL REY");
+				piezas_jaque_p1 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer1(), mundo.partida.getTablero().getPlayer2()); //Piezas de player1 que hacen jaque al player2
+				piezas_jaque_p2 = mundo.partida.getTablero().get_Piezas_Jaque(mundo.partida.getTablero().getPlayer2(), mundo.partida.getTablero().getPlayer1()); //Piezas de player2 que hacen jaque al player1
+				if (piezas_jaque_p1.size() > 0)
 				{
-					mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle(),{255,255,0});
+					mundo.partida.getTablero().buscar_posRey(Colorpieza::NEGRO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
+					for (auto p1 : piezas_jaque_p1)
+					{
+						mundo.partida.getTablero().buscar_pieza(p1).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
+					}
 				}
+				if (piezas_jaque_p2.size() > 0)
+				{
+					mundo.partida.getTablero().buscar_posRey(Colorpieza::BLANCO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
+					for (auto p2 : piezas_jaque_p2)
+					{
+						mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,255,0 });
+					}
+				}
+
 			}
-			if (piezas_jaque_p2.size() > 0)
+			else
 			{
-				mundo.partida.getTablero().buscar_posRey(Colorpieza::BLANCO).dibuja_Jaque(20, mundo.getTablerogr().idle(), { 255,0,0 });
-				for (auto p2 : piezas_jaque_p2)
-				{
-					mundo.partida.getTablero().buscar_pieza(p2).dibuja_Jaque(20, mundo.getTablerogr().idle(),{255,255,0});
-				}
+				pantalla_juego.dibujarTexto(8.0f, 12.0f, "JAQUE MATE");
 			}
 
+		}
+		else
+		{
+			if (mundo.partida.get_gana_p1() == true && mundo.partida.get_gana_p2() == true)
+				pantalla_juego.dibujarTexto(8.0f, 12.0f, "TABLAS");
 		}
 
 		if (mundo.getFlag() == -1)
@@ -351,16 +394,16 @@ void OnDraw(void)
 			{
 				const char* nombre1 = reg2[i].nombre1;
 				const char* nombre2 = reg2[i].nombre2;
-				//std::cout << i + 1 << ". Nombre: " << list[i].nombre << " Puntuacion: " << list[i].p.Puntos_totales << " Tiempo: " << list[i].t.mins << "min : " << list[i].t.segs << "seg" << std::endl;
+				
 				pantalla_regis.dibujarNumero(-0.9f, 0.8f - salto_linea, (i + 1));
-				pantalla_regis.dibujarTexto(-0.75f, 0.8f - salto_linea, nombre1);
-				pantalla_regis.dibujarTexto(-0.6f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(-0.4f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
-				pantalla_regis.dibujarTexto(-0.25f, 0.8f - salto_linea, ")   VS");
-				pantalla_regis.dibujarTexto(-0.1f, 0.8f - salto_linea, nombre2);
-				pantalla_regis.dibujarTexto(0.1f, 0.8f - salto_linea, "(Puntos: ");
-				pantalla_regis.dibujarNumero(0.3f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
-				pantalla_regis.dibujarTexto(0.45f, 0.8f - salto_linea, ")");
+				pantalla_regis.dibujarTexto(-0.7f, 0.8f - salto_linea, nombre1);
+				pantalla_regis.dibujarTexto(-0.55f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(-0.35f, 0.8f - salto_linea, reg2[i].p1.Puntos_totales);
+				pantalla_regis.dibujarTexto(-0.2f, 0.8f - salto_linea, ")   VS");
+				pantalla_regis.dibujarTexto(-0.05f, 0.8f - salto_linea, nombre2);
+				pantalla_regis.dibujarTexto(0.15f, 0.8f - salto_linea, "(Puntos: ");
+				pantalla_regis.dibujarNumero(0.35f, 0.8f - salto_linea, reg2[i].p2.Puntos_totales);
+				pantalla_regis.dibujarTexto(0.50f, 0.8f - salto_linea, ")");
 
 				if(salto_linea <= 1.4)
 				salto_linea += 0.2;
@@ -374,9 +417,12 @@ void OnDraw(void)
 	case EstadoApp::FIN_JUG:
 	{
 		pantalla_fin_partida.dibujarPantalla();
-		if (mundo.partida.get_estado_Jaque())
+		
+		if (mundo.partida.get_gana_p1() != mundo.partida.get_gana_p2())
 		{
-			if (!mundo.partida.getTablero().getPlayer1().get_Turno())
+			pantalla_fin_partida.dibujarTexto(-0.6f, 0.2f, "JAQUE MATE FIN DE PARTIDA - HA GANADO ");
+
+			if (mundo.partida.get_gana_p1() == true && mundo.partida.get_gana_p2() == false)
 			{
 				pantalla_fin_partida.dibujarCadena_Caract(0.4f, 0.2f, nomb1);
 			}
@@ -384,7 +430,7 @@ void OnDraw(void)
 			{
 				pantalla_fin_partida.dibujarCadena_Caract(0.4f, 0.2f, nomb2);
 			}
-			pantalla_fin_partida.dibujarTexto(-0.6f, 0.2f, "JAQUE MATE FIN DE PARTIDA - HA GANADO ");
+			
 		}
 		else
 			pantalla_fin_partida.dibujarTexto(-0.6f, 0.2f, "TABLAS - PARTIDA FINALIZADA EN EMPATE");
@@ -483,8 +529,8 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 							nombre_Player1ok = false;
 							nombre_Player2ok = false;
 							num_skin_player1ok = false;
-							skin_player1 = 0;
-							skin_player2 = 0;
+							skin_player1 = 1; //Lo dejamos en 1 para la siguiente vez que entremos en seleccion de jugador (no afecta a la partida en curso porque ya hemos pasado los valores elegidos por el player antes)
+							skin_player2 = 1;
 							estadoActual = JUEGO;
 
 						}
@@ -496,7 +542,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		}
 		case EstadoApp::SEL_SAVE:
 		{
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				partida_activa = false;
 				estadoActual = MENU;
 			}
@@ -526,6 +572,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				partida_activa = true;
 				estadoActual = JUEGO_VS_IA;
 			}
+			
 			break;
 		}
 
@@ -546,7 +593,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 					mundo.inicializa(skin_player1, 1);
 					partida_activa = true;
 					nombre_Player1ok = false;
-					skin_player1 = 0;
+					skin_player1 = 1; //Lo dejamos en 1 para la siguiente vez que se entre en seleccion de juagador
 					estadoActual = JUEGO_VS_IA;
 				}
 			}
@@ -558,7 +605,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 			if (key == 27) exit(0); // ESC
 			mundo.tecla(key); //Pasamos la tecla seleccionada a mundo.cpp
 			mundo.key_tecla = key;
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				estadoActual = SEL_SAVE;
 				break;
 			}
@@ -568,7 +615,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 		{
 			if (key == 27) exit(0); // ESC
 
-			if (key == 'm') {
+			if (key == 'm' || key == 'M') {
 				estadoActual = SEL_SAVE;
 				break;
 			}
@@ -586,7 +633,7 @@ void OnKeyboardDown(unsigned char key, int x, int y) {
 				flag_regis = false;
 				reg2 = nullptr;
 			}
-			if (key == 'B')
+			if (key == 'B' || key == 'b')
 			{
 				reg.BorraRegistros(&reg);
 			}

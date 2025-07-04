@@ -2,14 +2,6 @@
 
 constexpr int MAX_PIEZAS = 24;
 
-void ListaPiezas::dibuja()
-{
-	for (Pieza* p : lista_piezas)
-	{
-		p->dibuja(); //Dibujamos cada una de las piezas del jugador
-	}
-}
-
 void ListaPiezas::agregar(Pieza* p)
 {
 	if (lista_piezas.size() <= MAX_PIEZAS)
@@ -46,6 +38,6 @@ void ListaPiezas::limpiar()
 
 ListaPiezas::~ListaPiezas()
 {
-	//std::cout << "Destruyendo lista de piezas en: " << this << std::endl;
+	
 	limpiar();
 }

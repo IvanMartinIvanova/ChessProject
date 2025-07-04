@@ -1,6 +1,6 @@
 #pragma once
 #include "pieza.h"
-#include "tablero.h"  // Necesario para usar el tablero
+#include "tablero.h" 
 
 class Reina : public Pieza 
 {

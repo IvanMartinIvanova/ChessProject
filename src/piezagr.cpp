@@ -5,8 +5,8 @@
 //
 //}
 
-PiezaGr::~PiezaGr()
-{
+PiezaGr::~PiezaGr() 
+{ 
     delete sprite;
 }
 
