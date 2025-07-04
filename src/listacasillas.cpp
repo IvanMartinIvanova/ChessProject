@@ -43,15 +43,11 @@ ListaCasillas::ListaCasillas()
         }
     }*/
 }
-
 void ListaCasillas::dibuja(Vector3D org, float side)
 {
     for (auto i = 0; listacasillas.size() > i; i++)
     {
-        glPushMatrix();
-        glTranslated(listacasillas[i].getfile() / 9 * side + org.x, listacasillas[i].getrow() / 9 * side + org.y, org.z);//org se supone q es la esquina inferior izquierda del tablero (donde se juega no el marco)
-        listacasillas[i].draw();
-        glPopMatrix();
+        listacasillas[i].draw(side, org);
     }
     selec.draw(side, org);
     selec.resalta(side, org);

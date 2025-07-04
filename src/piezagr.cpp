@@ -5,9 +5,9 @@
 //
 //}
 
-PiezaGr::~PiezaGr()
-{
-   
+PiezaGr::~PiezaGr() 
+{ 
+    delete sprite;
 }
 
 std::string PiezaGr::gettipo()

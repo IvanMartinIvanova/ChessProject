@@ -30,12 +30,13 @@ public:
 	float getfile();
 	PiezaGr* getpieza();
 	string gettipo();
+
+	virtual void draw(int side, Vector3D org);
 	void drawselec(int side, Vector3D org);
 	void drawposibl(int side, Vector3D org);
 	void print();
 	void dibuja_Jaque(int side, Vector3D org, Color color);
 
-	virtual void draw();
 	friend class Tablero;
 };
 
